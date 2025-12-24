@@ -1,0 +1,14 @@
+<h1>User: <%= @user.name %></h1>
+
+<p>
+  <%= link_to 'Edit', edit_user_path(@user), class: "btn btn-primary" %>
+</p>
+
+<table class="data-table">
+  <tbody>
+    <tr>
+      <th>Role</th>
+      <td><%= @user.role.capitalize %></td>
+    </tr>
+  </tbody>
+</table>

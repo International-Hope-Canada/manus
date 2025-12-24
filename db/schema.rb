@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_24_011918) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_24_025612) do
   create_table "item_categories", force: :cascade do |t|
     t.integer "classification", null: false
     t.datetime "created_at", null: false
@@ -30,6 +30,14 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_24_011918) do
     t.decimal "weight_kg", precision: 10, scale: 1
     t.index ["item_category_id"], name: "index_item_subcategories_on_item_category_id"
     t.index ["name", "item_category_id"], name: "index_item_subcategories_on_name_and_item_category_id", unique: true
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.integer "role", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_users_on_name", unique: true
   end
 
   add_foreign_key "item_subcategories", "item_categories"

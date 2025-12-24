@@ -14,4 +14,5 @@ Rails.application.routes.draw do
 
   resources :item_subcategories, except: :index
   resources :item_categories
+  resources :users
 end
