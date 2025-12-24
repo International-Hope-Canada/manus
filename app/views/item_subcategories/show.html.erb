@@ -1,0 +1,22 @@
+<h1><%= @item_subcategory.item_category.name %>: <%= @item_subcategory.name %></h1>
+
+<p>
+  <%= link_to 'Edit', edit_item_subcategory_path(@item_subcategory), class: "btn btn-primary" %>
+</p>
+
+<table class="data-table">
+  <tbody>
+    <tr>
+      <th>Category</th>
+      <td><%= link_to @item_subcategory.item_category.name, @item_subcategory.item_category %></td>
+    </tr>
+    <tr>
+      <th>Value</th>
+      <td class="numeric"><%= number_to_currency(@item_subcategory.value) if @item_subcategory.value %></td>
+    </tr>
+    <tr>
+      <th>Weight (kg)</th>
+      <td class="numeric"><%= @item_subcategory.weight_kg %></td>
+    </tr>
+  </tbody>
+</table>

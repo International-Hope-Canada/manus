@@ -1,0 +1,46 @@
+<h1><%= @item_category.name %></h1>
+
+<p>
+  <%= link_to 'Edit', edit_item_category_path(@item_category), class: "btn btn-primary" %>
+</p>
+
+<table class="data-table">
+  <tbody>
+    <tr>
+      <th>Classification</th>
+      <td><%= @item_category.classification.capitalize %></td>
+    </tr>
+    <tr>
+      <th>Value</th>
+      <td class="numeric"><%= number_to_currency(@item_category.value) if @item_category.value %></td>
+    </tr>
+    <tr>
+      <th>Weight (kg)</th>
+      <td class="numeric"><%= @item_category.weight_kg %></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Subcategories</h2>
+<% if @item_category.item_subcategories.any? %>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th class="numeric">Value</th>
+        <th class="numeric">Weight (kg)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @item_category.item_subcategories.order(:name).each do |subcategory| %>
+        <tr>
+          <td><%= link_to(subcategory.name, subcategory) %></td>
+          <td class="numeric"><%= number_to_currency(subcategory.value) if subcategory.value %></td>
+          <td class="numeric"><%= subcategory.weight_kg %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No subcategories available.</p>
+<% end %>
