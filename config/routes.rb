@@ -14,5 +14,10 @@ Rails.application.routes.draw do
 
   resources :item_subcategories, except: :index
   resources :item_categories
-  resources :users
+  resources :users, constraints: { id: /[0-9]+/ } do
+    collection do
+      post 'login'
+      delete 'logout'
+    end
+  end
 end

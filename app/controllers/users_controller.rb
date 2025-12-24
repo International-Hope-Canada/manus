@@ -1,8 +1,10 @@
 class UsersController < ApplicationController
+  skip_before_action :authorize_user!, only: :login
+  before_action :authorize_admin!, except: [:login, :logout]
   before_action :set_user, only: %i[show edit update destroy]
 
   def index
-    @users = User.order(:name)
+    @users = User.order(:last_name, :first_name)
   end
 
   def show; end
@@ -45,6 +47,16 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def login
+    session[:user_id] = params[:user_id]
+    redirect_to root_path
+  end
+
+  def logout
+    session[:user_id] = nil
+    redirect_to root_path
   end
 
   private
