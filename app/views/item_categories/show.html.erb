@@ -35,8 +35,18 @@
       <% @item_category.item_subcategories.order(:name).each do |subcategory| %>
         <tr>
           <td><%= link_to(subcategory.name, subcategory) %></td>
-          <td class="numeric"><%= number_to_currency(subcategory.value) if subcategory.value %></td>
-          <td class="numeric"><%= subcategory.weight_kg %></td>
+          <td class="numeric">
+            <%= number_to_currency(subcategory.value) if subcategory.value %>
+            <% if subcategory.missing_value? %>
+              <span class="saved-data-error">Missing value</span>
+            <% end %>
+          </td>
+          <td class="numeric">
+            <%= subcategory.weight_kg %>
+            <% if subcategory.missing_weight? %>
+              <span class="saved-data-error">Missing weight</span>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>

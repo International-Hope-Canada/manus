@@ -7,6 +7,7 @@
       <th>Classification</th>
       <th class="numeric">Value</th>
       <th class="numeric">Weight (kg)</th>
+      <th>Subcategories</th>
     </tr>
   </thead>
   <tbody>
@@ -14,8 +15,27 @@
       <tr>
         <td><%= link_to(category.name, category) %></td>
         <td><%= category.classification.capitalize %></td>
-        <td class="numeric"><%= number_to_currency(category.value) if category.value %></td>
-        <td class="numeric"><%= category.weight_kg %></td>
+        <td class="numeric">
+          <%= number_to_currency(category.value) if category.value %>
+        </td>
+        <td class="numeric">
+          <%= category.weight_kg %>
+        </td>
+        <td>
+          <% if category.missing_subcategories? %>
+            <span class="saved-data-error">Missing subcategories!</span>
+          <% else %>
+            <% and_more =  %>
+            <%= category.item_subcategories.order(:name).first(3).map {|subcategory| link_to(subcategory.name, subcategory)}.join(', ').html_safe
+            %><% if category.item_subcategories.count > 3 %>, and <%= category.item_subcategories.count - 3 %> more…<% end %>
+            <% if category.subcategories_missing_values? %>
+              <span class="saved-data-error">Subcategories missing values</span>
+            <% end %>
+            <% if category.subcategories_missing_weights? %>
+              <span class="saved-data-error">Subcategories missing weights</span>
+            <% end %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
