@@ -1,0 +1,20 @@
+.data-table th, .data-table td {
+  padding: 0 8px;
+  text-align: left;
+}
+
+.data-table th:first-child, .data-table td:first-child {
+  padding-left: 0;
+}
+.data-table th:last-child, .data-table td:last-child {
+  padding-right: 0;
+}
+
+.data-table .numeric {
+   text-align: right;
+}
+
+.data-table tbody th {
+  text-align: left;
+  font-weight: bold;
+}

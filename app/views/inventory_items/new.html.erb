@@ -16,10 +16,9 @@
     <%= form.label :barcode %>
     <%= form.text_field :barcode, class: "form-control", required: true %>
   </div>
-  <div class="form-group">
-    <%= form.label :item_subcategory_id, "Category" %>
-    <%= form.collection_select :item_subcategory_id, ItemSubcategory.order(:name), :id, :name, {}, class: "form-control", required: true %>
-  </div>
+
+  <%= turbo_frame_tag 'item_subcategory_picker', src: '/item_subcategories/picker' %>
+
   <div class="form-group">
     <%= form.label :oldest_expiry_date %>
     <%= form.date_field :oldest_expiry_date, required: true, class: "form-control" %>

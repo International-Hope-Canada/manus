@@ -1,0 +1,26 @@
+<%= turbo_frame_tag 'item_subcategory_picker' do %>
+  <div class="item-subcategory-picker">
+    <div>
+      <%= link_to 'Equipment', { classification: 'equipment' }, class: ("active" if params[:classification] == 'equipment') %>
+      <%= link_to 'Supply', { classification: 'supply' }, class: ("active" if params[:classification] == 'supply') %>
+    </div>
+
+    <% if @item_categories %>
+      <select name="item_category_id">
+        <option value="">Select Item Category</option>
+        <% @item_categories.each do |item_category| %>
+          <option value="<%= item_category.id %>" <%= 'selected' if params[:item_category_id].to_i == item_category.id %>><%= item_category.name %></option>
+        <% end %>
+      </select>
+    <% end %>
+
+    <% if @item_subcategories %>
+      <select name="item_subcategory_id">
+        <option value="">Select Item Subcategory</option>
+        <% @item_subcategories.each do |item_subcategory| %>
+          <option value="<%= item_subcategory.id %>" <%= 'selected' if params[:item_subcategory_id].to_i == item_subcategory.id %>><%= item_subcategory.name %></option>
+        <% end %>
+      </select>
+    <% end %>
+  </div>
+<% end %>

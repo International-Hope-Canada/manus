@@ -11,6 +11,7 @@ class InventoryItemsController < ApplicationController
   def create
     @inventory_item = InventoryItem.new(inventory_item_params)
     @inventory_item.inventoried_by = current_user
+    @inventory_item.item_subcategory_id = params[:item_subcategory_id]
     if @inventory_item.save
       redirect_to new_inventory_item_path
     else
@@ -41,6 +42,6 @@ class InventoryItemsController < ApplicationController
   end
 
   def inventory_item_params
-    params.require(:inventory_item).permit(:barcode, :item_subcategory_id, :oldest_expiry_date, :description, :manual_type)
+    params.require(:inventory_item).permit(:barcode, :oldest_expiry_date, :description, :manual_type)
   end
 end

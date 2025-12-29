@@ -13,7 +13,11 @@ Rails.application.routes.draw do
   root "home#index"
 
   resources :inventory_items, except: :index
-  resources :item_subcategories, except: :index
+  resources :item_subcategories, except: :index do
+    collection do
+      get 'picker'
+    end
+  end
   resources :item_categories
   resources :users, constraints: { id: /[0-9]+/ } do
     collection do
