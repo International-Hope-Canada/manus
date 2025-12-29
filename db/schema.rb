@@ -10,7 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_24_025612) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_29_211225) do
+  create_table "inventory_items", force: :cascade do |t|
+    t.string "barcode", limit: 50, null: false
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.integer "inventoried_by_id", null: false
+    t.integer "item_subcategory_id", null: false
+    t.integer "manual_type"
+    t.date "oldest_expiry_date", null: false
+    t.datetime "updated_at", null: false
+    t.index ["barcode"], name: "index_inventory_items_on_barcode", unique: true
+    t.index ["inventoried_by_id"], name: "index_inventory_items_on_inventoried_by_id"
+    t.index ["item_subcategory_id"], name: "index_inventory_items_on_item_subcategory_id"
+  end
+
   create_table "item_categories", force: :cascade do |t|
     t.integer "classification", null: false
     t.datetime "created_at", null: false
@@ -41,5 +55,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_24_025612) do
     t.index ["first_name", "last_name"], name: "index_users_on_first_name_and_last_name", unique: true
   end
 
+  add_foreign_key "inventory_items", "item_subcategories"
+  add_foreign_key "inventory_items", "users", column: "inventoried_by_id"
   add_foreign_key "item_subcategories", "item_categories"
 end
