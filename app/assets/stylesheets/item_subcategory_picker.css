@@ -1,4 +1,20 @@
+.classification-picker {
+  display: inline;
+}
+.classification-picker a {
+  padding: 5px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  color: black;
+  text-decoration: none;
+  display: inline-block;
+}
+.classification-picker .active {
+  background-color: rgb(24, 138, 204);
+  border-color: rgb(24, 138, 204);
+  color: white;
+}
 
-.item-subcategory-picker .active {
-  background-color: #e0e0e0;
+.item-subcategory-picker select {
+  font-size: 16px;
 }
