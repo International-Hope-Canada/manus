@@ -1,8 +1,9 @@
 <%= turbo_frame_tag 'item_subcategory_picker' do %>
   <div class="item-subcategory-picker">
     <div class="classification-picker">
-      <%= link_to 'Equipment', { classification: 'equipment' }, class: ("active" if params[:classification] == 'equipment') %>
-      <%= link_to 'Supply', { classification: 'supply' }, class: ("active" if params[:classification] == 'supply') %>
+      <% %w(equipment supply).each do |classification| %>
+        <%= link_to classification.capitalize, { classification: }, class: ("active" if params[:classification] == classification), data: { classification:  } %>
+      <% end %>
     </div>
 
     <% if @item_categories %>

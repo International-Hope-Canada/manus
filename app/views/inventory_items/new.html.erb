@@ -26,9 +26,9 @@
     <%= form.label :oldest_expiry_date %>
     <%= form.date_field :oldest_expiry_date, required: true, class: "form-control" %>
   </div>
-  <div class="form-group">
+  <div class="form-group manual-type not-needed">
     <%= form.label :manual_type, "Manual type" %>
-    <%= form.select :manual_type, InventoryItem.manual_types.keys.map { |c| [c.capitalize, c] }, {}, class: "form-control", required: true %>
+    <%= form.select :manual_type, [['None', 'no_manual'], ['PDF', 'pdf'], ['Paper', 'paper']], {}, class: "form-control", disabled: true %>
   </div>
   <div class="form-group">
     <%= form.label :description, "Description" %>

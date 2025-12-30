@@ -23,3 +23,7 @@ h2 {
   padding: 0 2px;
   font-size: 0.9em;
 }
+
+.manual-type.not-needed {
+  opacity: 0.5;
+}
