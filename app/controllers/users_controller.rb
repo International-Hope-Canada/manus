@@ -5,15 +5,20 @@ class UsersController < ApplicationController
 
   def index
     @users = User.order(:last_name, :first_name)
+    @breadcrumbs = ['Users']
   end
 
-  def show; end
+  def show
+    @breadcrumbs = [['Users', users_path], @user.name]
+  end
 
   def new
     @user = User.new
   end
 
-  def edit; end
+  def edit
+    @breadcrumbs = [['Users', users_path], [@user.name, user_path(@user)], 'Edit']
+  end
 
   def create
     @user = ItemCategory.new(user_params)

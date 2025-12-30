@@ -1,13 +1,17 @@
 class ItemSubcategoriesController < ApplicationController
   before_action :set_item_subcategory, only: %i[show edit update destroy]
 
-  def show; end
+  def show
+    @breadcrumbs = [['Categories', item_categories_path], [@item_subcategory.item_category.name, item_category_path(@item_subcategory.item_category)], @item_subcategory.name]
+  end
 
   def new
     @item_subcategory = ItemSubcategory.new
   end
 
-  def edit; end
+  def edit
+    @breadcrumbs = [['Categories', item_categories_path], [@item_subcategory.item_category.name, item_category_path(@item_subcategory.item_category)], [@item_subcategory.name, item_subcategory_path(@item_subcategory)], 'Edit']
+  end
 
   def create
     @item_subcategory = ItemSubcategory.new(item_subcategory_params)

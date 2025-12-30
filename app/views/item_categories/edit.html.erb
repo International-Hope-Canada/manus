@@ -1,5 +1,3 @@
-<h1>Edit Category: <%= @item_category.name %></h1>
-
 <%= form_with(model: @item_category, local: true) do |form| %>
   <% if @item_category.errors.any? %>
     <div class="error-messages">

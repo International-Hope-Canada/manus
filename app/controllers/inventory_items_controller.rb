@@ -5,6 +5,7 @@ class InventoryItemsController < ApplicationController
   end
 
   def new
+    @breadcrumbs = ['New Inventory Item']
     @inventory_item = InventoryItem.new
   end
 

@@ -9,6 +9,13 @@
  * Consider organizing styles into separate files for maintainability.
  */
 
+h1 {
+  font-size: 1.5em;
+}
+h2 {
+  font-size: 1.3em;
+}
+
 .saved-data-error {
   background-color: #ffdddd;
   border: 2px solid red;

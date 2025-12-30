@@ -24,7 +24,7 @@
   </head>
 
   <body>
-    <div>
+    <div class="user-bar">
       <% if current_user %>
         Logged in as <strong><%= current_user.name %></strong> |
         <%= link_to "Log out", logout_users_path, data: { turbo_method: :delete } %>
@@ -36,7 +36,22 @@
         <% end %>
       <% end %>
     </div>
-    <hr>
+
+    <h1 class="breadcrumbs">
+      <%= link_to_unless_current "🏠", root_path %>
+      <% if @breadcrumbs %>
+        <% @breadcrumbs.each_with_index do |breadcrumb| %>
+          &raquo;
+          <% name, path = breadcrumb.is_a?(Array) ? breadcrumb : [breadcrumb, nil] %>
+          <% if path %>
+            <%= link_to name, path %>
+          <% else %>
+            <%= name %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </h1>
+    
 
     <% if flash[:notice] %>
       <div class="flash notice"><%= flash[:notice] %></div>

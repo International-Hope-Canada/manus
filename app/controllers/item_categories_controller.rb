@@ -4,18 +4,24 @@ class ItemCategoriesController < ApplicationController
   # GET /item_categories or /item_categories.json
   def index
     @item_categories = ItemCategory.order(:classification, :name)
+    @breadcrumbs = ['Categories']
   end
 
   # GET /item_categories/1 or /item_categories/1.json
-  def show; end
+  def show
+    @breadcrumbs = [['Categories', item_categories_path], @item_category.name]
+  end
 
   # GET /item_categories/new
   def new
     @item_category = ItemCategory.new
+    @breadcrumbs = ['Categories', 'New']
   end
 
   # GET /item_categories/1/edit
-  def edit; end
+  def edit
+    @breadcrumbs = [['Categories', item_categories_path], [@item_category.name, item_category_path(@item_category)], 'Edit']
+  end
 
   # POST /item_categories or /item_categories.json
   def create
