@@ -1,5 +1,6 @@
 class InventoryItemsController < ApplicationController
   before_action :set_inventory_item, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_packer!, only: [:new, :create]
 
   def show
   end

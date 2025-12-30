@@ -1,15 +1,17 @@
 <% if current_user.nil? %>
   <p>Please log in to continue.</p>
 <% else %>
-  <p>
-    <%= link_to 'New inventory item', new_inventory_item_path, class: "btn btn-primary" %>
-  </p>
-
-  <p>
-    <%= link_to 'Item Categories', item_categories_path, class: "btn btn-primary" %>
-  </p>
+  <% if current_user&.packer_access? %>
+    <p>
+      <%= link_to 'New inventory item', new_inventory_item_path, class: "btn btn-primary" %>
+    </p>
+  <% end %>
 
   <% if current_user&.admin? %>
+    <p>
+      <%= link_to 'Item Categories', item_categories_path, class: "btn btn-primary" %>
+    </p>
+
     <p>
       <%= link_to 'Users', users_path, class: "btn btn-primary" %>
     </p>
