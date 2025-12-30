@@ -15,12 +15,17 @@
     <% end %>
 
     <% if @item_subcategories %>
-      <select name="item_subcategory_id">
-        <option value="">Select Item Subcategory</option>
-        <% @item_subcategories.each do |item_subcategory| %>
-          <option value="<%= item_subcategory.id %>" <%= 'selected' if params[:item_subcategory_id].to_i == item_subcategory.id %>><%= item_subcategory.name %></option>
-        <% end %>
-      </select>
+      <% if @item_subcategories.count == 1 %>
+        <%= hidden_field_tag 'item_subcategory_id', @item_subcategories.first.id %>
+        Selected subcategory: <strong><%= @item_subcategories.first.name %></strong>
+      <% else %>
+        <select name="item_subcategory_id">
+          <option value="">Select Item Subcategory</option>
+          <% @item_subcategories.each do |item_subcategory| %>
+            <option value="<%= item_subcategory.id %>" <%= 'selected' if params[:item_subcategory_id].to_i == item_subcategory.id %>><%= item_subcategory.name %></option>
+          <% end %>
+        </select>
+      <% end %>
     <% end %>
   </div>
 <% end %>

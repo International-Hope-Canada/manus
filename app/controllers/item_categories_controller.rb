@@ -23,6 +23,8 @@ class ItemCategoriesController < ApplicationController
 
     respond_to do |format|
       if @item_category.save
+        @item_category.ensure_subcategory! if params[:ensure_subcategory]
+
         format.html { redirect_to @item_category, notice: 'Item category was successfully created.' }
         format.json { render :show, status: :created, location: @item_category }
       else
@@ -35,6 +37,8 @@ class ItemCategoriesController < ApplicationController
   def update
     respond_to do |format|
       if @item_category.update(item_category_params)
+        @item_category.ensure_subcategory! if params[:ensure_subcategory]
+
         format.html { redirect_to @item_category, notice: 'Item category was successfully updated.' }
         format.json { render :show, status: :ok, location: @item_category }
       else

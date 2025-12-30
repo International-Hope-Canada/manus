@@ -26,4 +26,10 @@ class ItemCategory < ApplicationRecord
 
     item_subcategories.where(value: nil).any?
   end
+
+  def ensure_subcategory!
+    if item_subcategories.empty?
+      item_subcategories.create!(name: 'General')
+    end
+  end
 end

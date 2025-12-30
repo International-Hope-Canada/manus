@@ -25,9 +25,12 @@
           <% if category.missing_subcategories? %>
             <span class="saved-data-error">Missing subcategories!</span>
           <% else %>
-            <% and_more =  %>
-            <%= category.item_subcategories.order(:name).first(3).map {|subcategory| link_to(subcategory.name, subcategory)}.join(', ').html_safe
-            %><% if category.item_subcategories.count > 3 %>, and <%= category.item_subcategories.count - 3 %> more…<% end %>
+            <% if category.item_subcategories.count > 3 %>
+              <%= category.item_subcategories.order(:name).first(2).map {|subcategory| link_to(subcategory.name, subcategory)}.join(', ').html_safe
+              %>, and <%= category.item_subcategories.count - 2 %> more…
+            <% else %>
+              <%= category.item_subcategories.order(:name).first(3).map {|subcategory| link_to(subcategory.name, subcategory)}.join(', ').html_safe %>
+            <% end %>
             <% if category.subcategories_missing_values? %>
               <span class="saved-data-error">Subcategories missing values</span>
             <% end %>
