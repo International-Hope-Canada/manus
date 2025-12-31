@@ -1,0 +1,28 @@
+<p>
+  <%= link_to 'New container', new_container_path, class: "btn btn-primary" %>
+</p>
+
+<% if @containers.any? %>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Application number</th>
+        <th>Name</th>
+        <th>Country</th>
+        <th>Shipped at</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @containers.each do |container| %>
+        <tr>
+          <td><%= link_to(container.application_number, container) %></td>
+          <td><%= container.name %></td>
+          <td><%= container.country %></td>
+          <td><%= container.shipped_at %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No containers</p>
+<% end %>

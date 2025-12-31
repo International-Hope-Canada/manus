@@ -10,9 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_30_232803) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_31_004628) do
+  create_table "containers", force: :cascade do |t|
+    t.string "address"
+    t.integer "application_number", null: false
+    t.string "contact"
+    t.string "country"
+    t.datetime "created_at", null: false
+    t.string "email"
+    t.string "name"
+    t.string "phone"
+    t.date "shipped_at"
+    t.datetime "updated_at", null: false
+  end
+
   create_table "inventory_items", force: :cascade do |t|
     t.string "barcode", limit: 50, null: false
+    t.integer "container_id"
     t.datetime "created_at", null: false
     t.text "description"
     t.integer "inventoried_by_id", null: false
@@ -58,6 +72,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_30_232803) do
     t.index ["first_name", "last_name"], name: "index_users_on_first_name_and_last_name", unique: true
   end
 
+  add_foreign_key "inventory_items", "containers"
   add_foreign_key "inventory_items", "item_subcategories"
   add_foreign_key "inventory_items", "users", column: "inventoried_by_id"
   add_foreign_key "item_subcategories", "item_categories"

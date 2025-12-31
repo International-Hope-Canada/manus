@@ -17,4 +17,8 @@ class ItemSubcategory < ApplicationRecord
   def selectable?
     !missing_weight? && !missing_value?
   end
+
+  def display_name
+    "#{item_category.name}: #{name}"
+  end
 end

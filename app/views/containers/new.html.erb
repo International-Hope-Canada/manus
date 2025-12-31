@@ -1,0 +1,59 @@
+<%= form_with(model: @container, local: true) do |form| %>
+  <% if @container.errors.any? %>
+    <div class="error-messages">
+      <h2><%= pluralize(@container.errors.count, "error") %> prohibited this container from being saved:</h2>
+      <ul>
+        <% @container.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :application_number %>
+    <%= form.text_field :application_number, class: "form-control", required: true, inputmode: :numeric %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :address %>
+    <%= form.text_area :address, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :country %>
+    <%= form.text_field :country, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :contact %>
+    <%= form.text_field :contact, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :phone %>
+    <%= form.text_field :phone, class: "form-control", inputmode: :tel %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :email %>
+    <%= form.email_field :email, class: "form-control", inputmode: :tel %>
+  </div>
+
+  <% if @container.new_record? %>
+    <div class="form-actions">
+      <%= form.submit "Create Container", class: "btn btn-primary" %>
+      <%= link_to 'Cancel', containers_path, class: "btn btn-secondary" %>
+    </div>
+  <% else %>
+    <div class="form-actions">
+      <%= form.submit "Update Container", class: "btn btn-primary" %>
+      <%= link_to 'Cancel', container_path(@container), class: "btn btn-secondary" %>
+    </div>
+  <% end %>
+<% end %>

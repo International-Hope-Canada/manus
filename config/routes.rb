@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "home#index"
 
+  resources :containers
   resources :inventory_items, except: :index
   resources :item_subcategories, except: :index do
     collection do

@@ -7,6 +7,12 @@
     </p>
   <% end %>
 
+  <% if current_user&.picker_access? %>
+    <p>
+      <%= link_to 'Containers', containers_path, class: "btn btn-primary" %>
+    </p>
+  <% end %>
+
   <% if current_user&.admin? %>
     <p>
       <%= link_to 'Item Categories', item_categories_path, class: "btn btn-primary" %>
