@@ -12,7 +12,11 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "home#index"
 
-  resources :containers
+  resources :containers do
+    member do
+      patch :mark_as_shipped
+    end
+  end
   resources :inventory_items
   resources :item_subcategories, except: :index do
     collection do

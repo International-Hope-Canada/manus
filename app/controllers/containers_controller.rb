@@ -1,6 +1,6 @@
 class ContainersController < ApplicationController
   before_action :authorize_picker!
-  before_action :set_container, only: %i[show edit update destroy]
+  before_action :set_container, only: %i[show edit update destroy mark_as_shipped]
 
   def new
     @breadcrumbs = [['Containers', containers_path], 'New Container']
@@ -19,6 +19,7 @@ class ContainersController < ApplicationController
 
   def index
     @containers = Container.order(application_number: :desc)
+    @breadcrumbs = ['Containers']
   end
 
   def show
@@ -26,11 +27,15 @@ class ContainersController < ApplicationController
   end
 
   def edit
+    raise 'Not editable' unless @container.editable?
+
     @breadcrumbs = [['Containers', containers_path], [@container.application_number, container_path(@container)], 'Edit']
     render :new
   end
 
   def update
+    raise 'Not editable' unless @container.editable?
+
     respond_to do |format|
       if @container.update(container_params)
         format.html { redirect_to @container, notice: 'Container was successfully updated.' }
@@ -43,10 +48,21 @@ class ContainersController < ApplicationController
   end
 
   def destroy
+    raise 'Not destroyable' unless @container.destroyable?
+
     @container.destroy
     respond_to do |format|
       format.html { redirect_to containers_path, notice: 'Container was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def mark_as_shipped
+    @container.mark_as_shipped!
+
+    respond_to do |format|
+      format.html { redirect_to @container, notice: 'Container marked as shipped.' }
+      format.json { render :show, status: :ok, location: @container }
     end
   end
 

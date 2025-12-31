@@ -10,6 +10,7 @@
         <th>Name</th>
         <th>Country</th>
         <th>Shipped at</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -19,6 +20,11 @@
           <td><%= container.name %></td>
           <td><%= container.country %></td>
           <td><%= container.shipped_at %></td>
+          <td>
+            <%= link_to('View', container) %>
+            <%= link_to('Edit', edit_container_path(container)) if container.editable? %>
+            <%= link_to("Delete", container, data: { turbo_method: :delete, turbo_confirm: "Deleting a container cannot be undone. Are you sure you want to delete?" }) if container.destroyable? %>
+          </td>
         </tr>
       <% end %>
     </tbody>
