@@ -21,7 +21,18 @@ class InventoryItemsController < ApplicationController
     end
   end
 
+  def index
+    @inventory_items = InventoryItem.order(id: :desc)
+    @breadcrumbs = ['Inventory Items']
+  end
+
+  def show
+    @breadcrumbs = [['Inventory Items', inventory_items_path], @inventory_item.id]
+  end
+
   def edit
+    @breadcrumbs = [['Inventory Items', inventory_items_path], [@inventory_item.id, inventory_item_path(@inventory_item)]]
+    render :new
   end
 
   def update
@@ -44,6 +55,6 @@ class InventoryItemsController < ApplicationController
   end
 
   def inventory_item_params
-    params.require(:inventory_item).permit(:barcode, :oldest_expiry_date, :description, :manual_type)
+    params.require(:inventory_item).permit(:barcode, :oldest_expiry_date, :description, :manual_type, :status)
   end
 end

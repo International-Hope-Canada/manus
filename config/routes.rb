@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   root "home#index"
 
   resources :containers
-  resources :inventory_items, except: :index
+  resources :inventory_items
   resources :item_subcategories, except: :index do
     collection do
       get 'picker'

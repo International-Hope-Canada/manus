@@ -1,0 +1,20 @@
+<table class="data-table">
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @inventory_items.each do |inventory_item| %>
+      <tr>
+        <td><%= inventory_item.item_subcategory.display_name %></td>
+        <td>
+          <%= inventory_item.status_display %><% if inventory_item.container %>: <%= link_to(inventory_item.container.application_number, inventory_item.container) %><% end %>
+        </td>
+        <td><%= link_to 'View', inventory_item_path(inventory_item) %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

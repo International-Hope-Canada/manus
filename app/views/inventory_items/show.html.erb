@@ -1,0 +1,32 @@
+<p>
+  <%= link_to 'Edit', edit_inventory_item_path(@inventory_item), class: "btn btn-primary" %>
+</p>
+
+<table class="data-table">
+  <tbody>
+    <tr>
+      <th>Category</th>
+      <td><%= @inventory_item.item_subcategory.display_name %></td>
+    </tr>
+    <tr>
+      <th>Container</th>
+      <td><%= link_to(@inventory_item.container.application_number, @inventory_item.container) if @inventory_item.container %>
+    </tr>
+    <tr>
+      <th>Packed by</th>
+      <td><%= @inventory_item.inventoried_by.name %></td>
+    </tr>
+    <tr>
+      <th>Manual</th>
+      <td><%= @inventory_item.manual_type_display %></td>
+    </tr>
+    <tr>
+      <th>Barcode</th>
+      <td><%= @inventory_item.barcode %></td>
+    </tr>
+    <tr>
+      <th>Oldest expiry date</th>
+      <td><%= @inventory_item.oldest_expiry_date %></td>
+    </tr>
+  </tbody>
+</table>

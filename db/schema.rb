@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_31_004628) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_31_010245) do
   create_table "containers", force: :cascade do |t|
     t.string "address"
     t.integer "application_number", null: false
@@ -33,6 +33,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_31_004628) do
     t.integer "item_subcategory_id", null: false
     t.integer "manual_type"
     t.date "oldest_expiry_date", null: false
+    t.integer "status", default: 0, null: false
     t.datetime "updated_at", null: false
     t.index ["barcode"], name: "index_inventory_items_on_barcode", unique: true
     t.index ["inventoried_by_id"], name: "index_inventory_items_on_inventoried_by_id"
