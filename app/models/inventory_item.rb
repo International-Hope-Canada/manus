@@ -39,4 +39,12 @@ class InventoryItem < ApplicationRecord
   def manual_type_display
     MANUAL_TYPE_DISPLAYS[manual_type.to_sym]
   end
+
+  def editable?
+    container.nil?
+  end
+
+  def destroyable?
+    container.nil?
+  end
 end

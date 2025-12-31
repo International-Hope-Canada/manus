@@ -13,7 +13,11 @@
         <td>
           <%= inventory_item.status_display %><% if inventory_item.container %>: <%= link_to(inventory_item.container.application_number, inventory_item.container) %><% end %>
         </td>
-        <td><%= link_to 'View', inventory_item_path(inventory_item) %>
+        <td>
+          <%= link_to 'View', inventory_item_path(inventory_item) %>
+          <%= link_to 'Edit', edit_inventory_item_path(inventory_item) if inventory_item.editable? %>
+          <%= link_to("Delete", inventory_item, data: { turbo_method: :delete, turbo_confirm: "Deleting should only be done if this item never existed. Consider instead changing this item's status. Are you sure you want to delete?" }) if inventory_item.destroyable? %>
+        </td>
       </tr>
     <% end %>
   </tbody>
