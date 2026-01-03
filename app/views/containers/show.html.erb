@@ -43,29 +43,4 @@
 </table>
 
 <h2>Items</h2>
-<% if @container.inventory_items.any? %>
-  <table class="data-table">
-    <thead>
-      <tr>
-        <th>Barcode</th>
-        <th>Category</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @container.inventory_items.includes(item_subcategory: :item_category).each do |inventory_item| %>
-        <tr>
-          <td><%= inventory_item.barcode %> </td>
-          <td><%= link_to(inventory_item.item_subcategory.display_name, inventory_item) %></td>
-          <td>
-            <% if @container.can_receive_items? %>
-              <%= link_to 'Remove', remove_item_container_path(@container, inventory_item_id: inventory_item.id), data: { turbo_method: :delete, turbo_confirm: "Return #{inventory_item.item_subcategory.display_name} to inventory?" } %>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <p>No inventory items packed.</p>
-<% end %>
+<%= render partial: 'inventory_items', locals: { container: @container} %>

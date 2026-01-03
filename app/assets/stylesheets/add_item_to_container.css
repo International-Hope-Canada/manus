@@ -4,11 +4,16 @@
 
 #add-item-to-container-scanner .form-group {
   text-align: center;
-  margin-top: 300px;
+}
+
+#add-item-to-container-scanner {
+  position: fixed;
+  top: 20vh;
+  width: 100%;
 }
 
 #add-item-to-container-scanner #results-area {
-  margin-top: 40px;
+  margin-top: 5vh;
   text-align: center;
   padding: 20px;
 }
@@ -17,4 +22,12 @@
 }
 #add-item-to-container-scanner .results-area-success {
   background-color: green;
+}
+
+#add-item-to-container-contents {
+  position: fixed;
+  bottom: 0;
+  height: 40vh;
+  width: 100%;
+  overflow: auto;
 }
