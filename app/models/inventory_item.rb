@@ -47,4 +47,26 @@ class InventoryItem < ApplicationRecord
   def destroyable?
     container.nil?
   end
+
+  def can_be_added_to_container_failure_reason
+    return "Item is already in container #{container.application_number}" if container
+    return "Item has status #{status}" unless in_inventory?
+    nil
+  end
+
+  def can_be_added_to_container?
+    can_be_added_to_container_failure_reason.nil?
+  end
+
+  def add_to_container!(container_to_add_to)
+    raise "Container cannot receive items" unless container_to_add_to.can_receive_items?
+    raise "Item already in a container" unless can_be_added_to_container?
+    update!(container: container_to_add_to, status: :in_container)
+  end
+
+  def remove_from_container!
+    raise "Item not in a container" unless container
+    raise "Items cannot be removed from container" unless container.can_receive_items?
+    update!(container: nil, status: :in_inventory)
+  end
 end

@@ -1,6 +1,7 @@
 <table class="data-table">
   <thead>
     <tr>
+      <th>Barcode</th>
       <th>Category</th>
       <th>Status</th>
       <th></th>
@@ -9,6 +10,7 @@
   <tbody>
     <% @inventory_items.each do |inventory_item| %>
       <tr>
+        <td><%= inventory_item.barcode %></td>
         <td><%= inventory_item.item_subcategory.display_name %></td>
         <td>
           <%= inventory_item.status_display %><% if inventory_item.container %>: <%= link_to(inventory_item.container.application_number, inventory_item.container) %><% end %>

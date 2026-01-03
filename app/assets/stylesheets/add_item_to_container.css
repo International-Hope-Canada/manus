@@ -1,0 +1,20 @@
+#add-item-to-container-scanner, #add-item-to-container-scanner input {
+  font-size: 48px;
+}
+
+#add-item-to-container-scanner .form-group {
+  text-align: center;
+  margin-top: 300px;
+}
+
+#add-item-to-container-scanner #results-area {
+  margin-top: 40px;
+  text-align: center;
+  padding: 20px;
+}
+#add-item-to-container-scanner .results-area-failure {
+  background-color: red;
+}
+#add-item-to-container-scanner .results-area-success {
+  background-color: green;
+}

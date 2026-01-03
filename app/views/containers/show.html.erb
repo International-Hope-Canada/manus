@@ -1,4 +1,5 @@
 <p>
+  <%= link_to 'Picking', pick_container_path(@container), class: "btn btn-primary" if @container.can_receive_items? %>
   <%= link_to 'Edit', edit_container_path(@container), class: "btn btn-primary" if @container.editable? %>
   <%= link_to("Mark as shipped", mark_as_shipped_container_path(@container), data: { turbo_method: :patch, turbo_confirm: "Marking a container as shipped prevents any further additions or removals. Are you sure?" }) if @container.can_be_marked_as_shipped? %>
   <%= link_to("Delete", @container, data: { turbo_method: :delete, turbo_confirm: "Deleting a container cannot be undone. Are you sure you want to delete?" }) if @container.destroyable? %>
@@ -46,13 +47,21 @@
   <table class="data-table">
     <thead>
       <tr>
+        <th>Barcode</th>
         <th>Category</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
-      <% @container.inventory_items.includes(inventory_subcategory: :inventory_category).each do |inventory_item| %>
+      <% @container.inventory_items.includes(item_subcategory: :item_category).each do |inventory_item| %>
         <tr>
-          <td><%= link_to(inventory_item.item_subcategory.name, inventory_item) %></td>
+          <td><%= inventory_item.barcode %> </td>
+          <td><%= link_to(inventory_item.item_subcategory.display_name, inventory_item) %></td>
+          <td>
+            <% if @container.can_receive_items? %>
+              <%= link_to 'Remove', remove_item_container_path(@container, inventory_item_id: inventory_item.id), data: { turbo_method: :delete, turbo_confirm: "Return #{inventory_item.item_subcategory.display_name} to inventory?" } %>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>

@@ -66,6 +66,63 @@ class ContainersController < ApplicationController
     end
   end
 
+  def choose_for_picking
+    @containers = Container.can_receive_items
+    @breadcrumbs = ['Picking']
+  end
+
+  def pick
+    @container = Container.can_receive_items.find(params[:id])
+    @breadcrumbs = [['Picking', choose_for_picking_containers_path], @container.display_text]
+    @success = flash[:success]
+    @success_message = flash[:success_message]
+  end
+
+  def add_item
+    @container = Container.can_receive_items.find(params[:id])
+    inventory_item = InventoryItem.find_by(barcode: params[:barcode])
+
+    @breadcrumbs = [['Picking', choose_for_picking_containers_path], @container.display_text]
+
+    if inventory_item.nil?
+      @success = false
+      @error = "Item #{params[:barcode]} not found."
+    elsif inventory_item.container == @container
+      @success = false
+      @error = "Item #{params[:barcode]} already in container."
+    elsif !inventory_item.can_be_added_to_container?
+      @success = false
+      @error = "Item cannot be added to container - #{inventory_item.can_be_added_to_container_failure_reason}"
+    else
+      @success = flash[:success] = true
+      flash[:success_message] = "Item #{params[:barcode]} added to container."
+      inventory_item.add_to_container!(@container)
+    end
+
+    respond_to do |format|
+      if @success
+        format.html { redirect_to pick_container_path(@container) }
+        format.json { render :show, status: :ok, location: @container }
+      else
+        format.html { render :pick, status: :unprocessable_entity }
+        format.json { render json: @container.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def remove_item
+    container = Container.can_receive_items.find(params[:id])
+    inventory_item = container.inventory_items.find(params[:inventory_item_id])
+
+    raise "Container cannot be modified." unless container.can_receive_items?
+
+    inventory_item.remove_from_container!
+    respond_to do |format|
+      format.html { redirect_to container, notice: 'Item removed.' }
+      format.json { render :show, status: :ok, location: container }
+    end
+  end
+
   private
 
   def container_params

@@ -15,6 +15,12 @@ Rails.application.routes.draw do
   resources :containers do
     member do
       patch :mark_as_shipped
+      get :pick
+      post :add_item
+      delete :remove_item
+    end
+    collection do
+      get :choose_for_picking
     end
   end
   resources :inventory_items

@@ -11,12 +11,7 @@
   <% end %>
 
   <h2>Barcode</h2>
-  <div class="form-group">
-    <%= form.text_field :barcode, class: "form-control", required: true, autofocus: true %>
-    <div class="barcode-ready">Ready to scan</div>
-    <div class="barcode-not-ready"><%= form.label :barcode, 'Click here before scanning' %></div>
-    <div class="barcode-entered-not-ready"><%= form.label :barcode, 'Click here to rescan' %></div>
-  </div>
+  <%= render partial: 'barcode_field', locals: { form: } %>
 
   <h2>Category</h2>
   <%= turbo_frame_tag 'item_subcategory_picker', src: '/item_subcategories/picker' %>

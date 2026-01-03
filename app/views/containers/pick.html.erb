@@ -1,0 +1,15 @@
+<div id="add-item-to-container-scanner" class="last-result-<%= @success.nil? ? 'none' : (@success ? 'success' : 'failure')%>">
+  <%= form_with(url: add_item_container_path(@container), local: true) do |form| %>
+    <%= render partial: 'inventory_items/barcode_field', locals: { form: } %>
+  <% end %>
+
+  <div id="results-area" class="results-area-<%= @success ? 'success' : (@error ? 'failure' : 'blank') %>">
+    <% if @success %>
+      <%= audio_tag("ding.wav", autoplay: true) %>
+      <%= @success_message %>
+    <% elsif @error %>
+      <%= audio_tag("buzzer.wav", autoplay: true) %>
+      <%= @error %>
+    <% end %> 
+  </div>
+</div>
