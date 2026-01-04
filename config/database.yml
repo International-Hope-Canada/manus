@@ -20,6 +20,22 @@ test:
   <<: *default
   database: storage/test.sqlite3
 
+pg_default: &pg_default
+  adapter: postgresql
+  port: 5435
+  user: manus_demo
+  password: demo_password
+
+demo:
+  primary:
+    <<: *pg_default
+    database: manus_demo
+  cache:
+    <<: *pg_default
+  queue:
+    <<: *pg_default
+  cable:
+    <<: *pg_default
 
 # Store production database in the storage/ directory, which by default
 # is mounted as a persistent Docker volume in config/deploy.yml.
