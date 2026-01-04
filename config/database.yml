@@ -29,6 +29,7 @@ pg_default: &pg_default
 demo:
   primary:
     <<: *pg_default
+    url: <%= ENV["DATABASE_URL"] %> # Needed by heroku? https://stackoverflow.com/questions/79424099/heroku-not-running-database-migrations-for-rails-app
     database: manus_demo
   cache:
     <<: *pg_default
