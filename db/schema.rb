@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_31_010245) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_04_225909) do
   create_table "containers", force: :cascade do |t|
     t.string "address"
     t.integer "application_number", null: false
@@ -68,7 +68,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_31_010245) do
     t.string "last_name", null: false
     t.boolean "packer", default: false, null: false
     t.boolean "picker", default: false, null: false
-    t.integer "role", null: false
     t.datetime "updated_at", null: false
     t.index ["first_name", "last_name"], name: "index_users_on_first_name_and_last_name", unique: true
   end
