@@ -65,6 +65,6 @@ group :test do
   gem "selenium-webdriver"
 end
 
-group :demo do
+group :production do
   gem "postgresql"
 end
