@@ -22,9 +22,9 @@ test:
 
 pg_default: &pg_default
   adapter: postgresql
-  port: 5435
-  user: manus_demo
-  password: demo_password
+  #port: 5435
+  #user: manus_demo
+  #password: demo_password
 
 demo:
   primary:
@@ -32,10 +32,13 @@ demo:
     database: manus_demo
   cache:
     <<: *pg_default
+    database: manus_demo_cache
   queue:
     <<: *pg_default
+    database: manus_demo_queue
   cable:
     <<: *pg_default
+    database: manus_demo_cable
 
 # Store production database in the storage/ directory, which by default
 # is mounted as a persistent Docker volume in config/deploy.yml.
