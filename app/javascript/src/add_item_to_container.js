@@ -12,5 +12,27 @@ const submitOnValid = (event) => {
   }
 }
 
+document.addEventListener('turbo:frame-load', setupAutosubmitBarcodeOnValid)
 document.addEventListener('turbo:render', setupAutosubmitBarcodeOnValid)
 document.addEventListener('DOMContentLoaded', setupAutosubmitBarcodeOnValid)
+
+const reloadInventoryOnAddSuccess = (event) => {
+  console.log(event.target.id)
+  if (event.target.id != "add-item-to-container-scanner") {
+    return
+  }
+  let successDiv = document.querySelector(".results-area-success")
+  if (!successDiv) {
+    return
+  }
+  let inventoryFrame = document.querySelector("turbo-frame#inventory_items_list")
+  if (!inventoryFrame) {
+    return
+  }
+  inventoryFrame.reload()
+}
+
+document.addEventListener('turbo:frame-load', reloadInventoryOnAddSuccess)
+document.addEventListener('turbo:render', reloadInventoryOnAddSuccess)
+document.addEventListener('DOMContentLoaded', reloadInventoryOnAddSuccess)
+

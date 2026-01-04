@@ -1,0 +1,19 @@
+.sort-control {
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  font-size: 16px;
+  background-color: gray;
+  text-align: center;
+  border-radius: 9px;
+}
+.sort-control-active {
+  color: white;
+  background-color: black;
+}
+.sort-control-inactive {
+  color: black;
+  background-color: #DDD;
+}

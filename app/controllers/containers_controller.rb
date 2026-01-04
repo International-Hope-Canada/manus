@@ -101,7 +101,7 @@ class ContainersController < ApplicationController
 
     respond_to do |format|
       if @success
-        format.html { redirect_to pick_container_path(@container) }
+        format.html { redirect_to pick_container_path(@container, inventory_item_sort: params[:inventory_item_sort]) }
         format.json { render :show, status: :ok, location: @container }
       else
         format.html { render :pick, status: :unprocessable_entity }
@@ -118,7 +118,7 @@ class ContainersController < ApplicationController
 
     inventory_item.remove_from_container!
     respond_to do |format|
-      format.html { redirect_to container, notice: 'Item removed.' }
+      format.html { redirect_to container_path(container, inventory_item_sort: params[:inventory_item_sort]), notice: 'Item removed.' }
       format.json { render :show, status: :ok, location: container }
     end
   end

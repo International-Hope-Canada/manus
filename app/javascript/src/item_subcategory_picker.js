@@ -1,5 +1,9 @@
 document.addEventListener('turbo:frame-load', () => {
   let frame = document.getElementById('item_subcategory_picker')
+  if (!frame) {
+    return
+  }
+  
   let url = URL.parse(frame.src)
 
   let itemCategorySelect = document.querySelector('#item_subcategory_picker select[name="item_category_id"]')
