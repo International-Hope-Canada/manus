@@ -39,7 +39,7 @@ class InventoryItemsController < ApplicationController
     if @inventory_item.update(inventory_item_params)
       redirect_to @inventory_item, notice: 'Inventory item was successfully updated.'
     else
-      render :edit
+      render :new
     end
   end
 
@@ -55,6 +55,6 @@ class InventoryItemsController < ApplicationController
   end
 
   def inventory_item_params
-    params.require(:inventory_item).permit(:barcode, :oldest_expiry_date, :description, :manual_type, :status)
+    params.require(:inventory_item).permit(:barcode, :oldest_expiry_year, :description, :manual_type, :status)
   end
 end

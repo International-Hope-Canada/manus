@@ -9,7 +9,7 @@ class InventoryItem < ApplicationRecord
   delegate :equipment?, :supply?, to: :item_subcategory, allow_nil: true
 
   validates :barcode, presence: true, uniqueness: true
-  validates :oldest_expiry_date, presence: true
+  validates :oldest_expiry_year, numericality: { in: 1900..2100 }, allow_blank: true
   validates :manual_type, presence: true, if: :equipment?
   validates :status, inclusion: { in: ['in_container'] }, if: :container
   validates :status, exclusion: { in: ['in_container'] }, unless: :container
