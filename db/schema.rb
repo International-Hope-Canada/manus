@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_06_231731) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_06_232943) do
   create_table "containers", force: :cascade do |t|
     t.string "address"
     t.integer "application_number", null: false
@@ -25,7 +25,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_06_231731) do
   end
 
   create_table "inventory_items", force: :cascade do |t|
-    t.string "barcode", limit: 50, null: false
+    t.string "barcode", limit: 10, null: false
     t.integer "container_id"
     t.datetime "created_at", null: false
     t.text "description"
