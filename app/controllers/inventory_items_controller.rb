@@ -8,6 +8,12 @@ class InventoryItemsController < ApplicationController
   def new
     @breadcrumbs = ['New Inventory Item']
     @inventory_item = InventoryItem.new
+
+    preselected_category = current_user.recently_packed_item&.item_subcategory&.item_category
+    if preselected_category
+      @classification = preselected_category.classification
+      @item_category_id = preselected_category.id
+    end
   end
 
   def create

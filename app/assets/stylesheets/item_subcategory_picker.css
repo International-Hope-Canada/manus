@@ -18,3 +18,33 @@
 .item-subcategory-picker select {
   font-size: 16px;
 }
+
+.item-subcategory-picker {
+  display: grid;
+  grid-template: "a c"
+                 "b c";
+  grid-template-columns: 0fr 1fr;
+  height: 100px;
+}
+.classification-picker {
+  grid-area: a;
+  text-wrap: nowrap;
+}
+#item_category_select {
+  grid-area: b;
+}
+#item_category_select select {
+  width: 100%;
+}
+#item_subcategory_radios {
+  grid-area: c;
+  overflow: auto;
+  display: grid;
+  grid-template-rows: repeat(4, 25px);
+  grid-auto-flow: column;
+  grid-auto-columns: min-content;
+}
+#item_subcategory_radios > div {
+  text-wrap: nowrap;
+  padding-left: 1em;
+}

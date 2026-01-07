@@ -1,6 +1,6 @@
 class InventoryItem < ApplicationRecord
   belongs_to :item_subcategory
-  belongs_to :inventoried_by, class_name: 'User'
+  belongs_to :inventoried_by, class_name: 'User', inverse_of: :packed_items
   belongs_to :container, optional: true
 
   enum :manual_type, [:no_manual, :pdf, :paper]

@@ -17,7 +17,6 @@ document.addEventListener('turbo:render', setupAutosubmitBarcodeOnValid)
 document.addEventListener('DOMContentLoaded', setupAutosubmitBarcodeOnValid)
 
 const reloadInventoryOnAddSuccess = (event) => {
-  console.log(event.target.id)
   if (event.target.id != "add-item-to-container-scanner") {
     return
   }

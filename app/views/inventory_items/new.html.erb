@@ -14,7 +14,7 @@
   <%= render partial: 'barcode_field', locals: { form: } %>
 
   <h2>Category</h2>
-  <%= turbo_frame_tag 'item_subcategory_picker', src: '/item_subcategories/picker' %>
+  <%= turbo_frame_tag 'item_subcategory_picker', src: picker_item_subcategories_path(classification: @classification, item_category_id: @item_category_id) %>
 
   <h2>More Information</h2>
   <div class="form-group">

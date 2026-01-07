@@ -7,29 +7,26 @@
     </div>
 
     <% if @item_categories %>
-      <select name="item_category_id">
-        <option value="">Select Category</option>
-        <% @item_categories.each do |item_category| %>
-          <option value="<%= item_category.id %>" <%= 'selected' if params[:item_category_id].to_i == item_category.id %>><%= item_category.name %></option>
-        <% end %>
-      </select>
+      <div id="item_category_select">
+        <select name="item_category_id">
+          <option value="">Select Category</option>
+          <% @item_categories.each do |item_category| %>
+            <option value="<%= item_category.id %>" <%= 'selected' if params[:item_category_id].to_i == item_category.id %>><%= item_category.name %></option>
+          <% end %>
+        </select>
+      </div>
     <% end %>
 
     <% if @item_subcategories %>
-      <% if @item_subcategories.count == 1 %>
-        <select name="item_subcategory_id">
-          <% @item_subcategories.each do |item_subcategory| %>
-            <option value="<%= item_subcategory.id %>" selected><%= item_subcategory.name %></option>
-          <% end %>
-        </select>
-      <% else %>
-        <select name="item_subcategory_id">
-          <option value="">Select Subcategory</option>
-          <% @item_subcategories.each do |item_subcategory| %>
-            <option value="<%= item_subcategory.id %>" <%= 'selected' if params[:item_subcategory_id].to_i == item_subcategory.id %>><%= item_subcategory.name %></option>
-          <% end %>
-        </select>
-      <% end %>
+      <div id="item_subcategory_radios">
+        <% single_subcategory = @item_subcategories.count == 1 %>
+        <% @item_subcategories.each do |item_subcategory| %>
+          <div>
+            <input type="radio" id="item_subcategory_id_<%= item_subcategory.id %>" name="item_subcategory_id" value="<%=item_subcategory.id%>" <%= 'checked' if single_subcategory || params[:item_subcategory_id].to_i == item_subcategory.id %> required>
+            <label for="item_subcategory_id_<%= item_subcategory.id %>"><%= item_subcategory.name %></label>
+          </div>
+        <% end %>
+      </div>
     <% end %>
   </div>
 <% end %>
