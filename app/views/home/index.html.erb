@@ -15,6 +15,10 @@
 
   <% if current_user&.admin? %>
     <p>
+      <%= link_to 'Inventory', inventory_items_path, class: "btn btn-primary" %>
+    </p>
+
+    <p>
       <%= link_to 'Item Categories', item_categories_path, class: "btn btn-primary" %>
     </p>
 

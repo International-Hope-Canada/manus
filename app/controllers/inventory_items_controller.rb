@@ -1,12 +1,13 @@
 class InventoryItemsController < ApplicationController
   before_action :set_inventory_item, only: [:show, :edit, :update, :destroy]
-  before_action :authorize_packer!, only: [:new, :create]
+  before_action :authorize_packer!, only: [:new, :create, :edit, :update]
+  before_action :authorize_admin!, only: [:index]
 
   def show
   end
 
   def new
-    @breadcrumbs = ['New Inventory Item']
+    @breadcrumbs = [index_breadcrumb, 'New']
     @inventory_item = InventoryItem.new
 
     preselected_category = current_user.recently_packed_item&.item_subcategory&.item_category
@@ -23,21 +24,22 @@ class InventoryItemsController < ApplicationController
     if @inventory_item.save
       redirect_to new_inventory_item_path
     else
-      render :new
+      @breadcrumbs = [index_breadcrumb, 'New']
+      render :new, status: :unprocessable_entity
     end
   end
 
   def index
-    @inventory_items = InventoryItem.order(id: :desc)
-    @breadcrumbs = ['Inventory Items']
+    @inventory_items = InventoryItem
+    @breadcrumbs = ['Inventory']
   end
 
   def show
-    @breadcrumbs = [['Inventory Items', inventory_items_path], @inventory_item.id]
+    @breadcrumbs = [index_breadcrumb, @inventory_item.id]
   end
 
   def edit
-    @breadcrumbs = [['Inventory Items', inventory_items_path], [@inventory_item.id, inventory_item_path(@inventory_item)]]
+    @breadcrumbs = [index_breadcrumb, [@inventory_item.id, inventory_item_path(@inventory_item)], 'Edit']
     render :new
   end
 
@@ -45,7 +47,8 @@ class InventoryItemsController < ApplicationController
     if @inventory_item.update(inventory_item_params)
       redirect_to @inventory_item, notice: 'Inventory item was successfully updated.'
     else
-      render :new
+      @breadcrumbs = [index_breadcrumb, [@inventory_item.id, inventory_item_path(@inventory_item)], 'Edit']
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -62,5 +65,9 @@ class InventoryItemsController < ApplicationController
 
   def inventory_item_params
     params.require(:inventory_item).permit(:barcode, :oldest_expiry_year, :description, :manual_type, :status)
+  end
+
+  def index_breadcrumb
+    current_user&.admin? ? ['Inventory', inventory_items_path] : 'Inventory'
   end
 end

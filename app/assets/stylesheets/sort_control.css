@@ -9,11 +9,11 @@
   text-align: center;
   border-radius: 9px;
 }
-.sort-control-active {
+a.sort-control-active {
   color: white;
   background-color: black;
 }
-.sort-control-inactive {
+a.sort-control-inactive {
   color: black;
   background-color: #DDD;
 }

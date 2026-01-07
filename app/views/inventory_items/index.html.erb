@@ -1,26 +1,33 @@
-<table class="data-table">
-  <thead>
-    <tr>
-      <th>Barcode</th>
-      <th>Category</th>
-      <th>Status</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @inventory_items.each do |inventory_item| %>
+<p>
+  <%= link_to('New', new_inventory_item_path, class: "btn btn-primary") %>
+<p>
+
+<%= turbo_frame_tag 'inventory_items_list', target: '_top' do %>
+  <% @inventory_items = apply_inventory_item_sorts_and_filters(@inventory_items) %>
+  <table class="data-table">
+    <thead>
       <tr>
-        <td><%= inventory_item.barcode %></td>
-        <td><%= inventory_item.item_subcategory.display_name %></td>
-        <td>
-          <%= inventory_item.status_display %><% if inventory_item.container %>: <%= link_to(inventory_item.container.application_number, inventory_item.container) %><% end %>
-        </td>
-        <td>
-          <%= link_to 'View', inventory_item_path(inventory_item) %>
-          <%= link_to 'Edit', edit_inventory_item_path(inventory_item) if inventory_item.editable? %>
-          <%= link_to("Delete", inventory_item, data: { turbo_method: :delete, turbo_confirm: "Deleting should only be done if this item never existed. Consider instead changing this item's status. Are you sure you want to delete?" }) if inventory_item.destroyable? %>
-        </td>
+        <th>Barcode <%= list_sort_link(param_name: :inventory_item_sort, param_value: :barcode) %></th>
+        <th>Category <%= list_sort_link(param_name: :inventory_item_sort, param_value: :category) %></th>
+        <th>Status <%= list_sort_link(param_name: :inventory_item_sort, param_value: :status) %></th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @inventory_items.each do |inventory_item| %>
+        <tr>
+          <td><%= inventory_item.barcode %></td>
+          <td><%= link_to(inventory_item.item_subcategory.display_name, inventory_item.item_subcategory) %></td>
+          <td>
+            <%= inventory_item.status_display %><% if inventory_item.container %>: <%= link_to(inventory_item.container.application_number, inventory_item.container) %><% end %>
+          </td>
+          <td>
+            <%= link_to 'View', inventory_item_path(inventory_item) %>
+            <%= link_to 'Edit', edit_inventory_item_path(inventory_item) if inventory_item.editable? %>
+            <%= link_to("Delete", inventory_item, data: { turbo_method: :delete, turbo_confirm: "Deleting should only be done if this item never existed. Consider instead changing this item's status. Are you sure you want to delete?" }) if inventory_item.destroyable? %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

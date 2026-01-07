@@ -6,7 +6,7 @@ class InventoryItem < ApplicationRecord
   enum :manual_type, [:no_manual, :pdf, :paper]
   enum :status, [:in_inventory, :in_container, :discarded_stale_dated, :discarded_damaged, :lost, :given_away]
 
-  delegate :equipment?, :supply?, to: :item_subcategory, allow_nil: true
+  delegate :equipment?, :supply?, :item_category, :item_category_id, :classification, to: :item_subcategory, allow_nil: true
 
   validates :barcode, presence: true, uniqueness: true, format: { with: /([0-9]{8}|[0-9]{10})/ }
   validates :oldest_expiry_year, numericality: { in: 1900..2100 }, allow_blank: true

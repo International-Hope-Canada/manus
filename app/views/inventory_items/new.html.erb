@@ -1,29 +1,18 @@
 <%= form_with(model: @inventory_item, local: true) do |form| %>
-  <% if @inventory_item.errors.any? %>
-    <div class="error-messages">
-      <h2><%= pluralize(@inventory_item.errors.count, "error") %> prohibited this inventory item from being saved:</h2>
-      <ul>
-        <% @inventory_item.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
   <h2>Barcode</h2>
   <%= render partial: 'barcode_field', locals: { form: } %>
 
   <h2>Category</h2>
-  <%= turbo_frame_tag 'item_subcategory_picker', src: picker_item_subcategories_path(classification: @classification, item_category_id: @item_category_id) %>
+  <%= turbo_frame_tag 'item_subcategory_picker', src: picker_item_subcategories_path(classification: @inventory_item.classification || @classification, item_category_id: @inventory_item.item_category_id || @item_category_id, item_subcategory_id: @inventory_item.item_subcategory_id) %>
 
   <h2>More Information</h2>
   <div class="form-group">
     <%= form.label :oldest_expiry_year %>
-    <%= form.text_field :oldest_expiry_year, inputmode: :numeric, pattern: '(19|20)[0-9][0-9]', placeholder: 'YYYY', class: "form-control" %>
+    <%= form.text_field :oldest_expiry_year, inputmode: :numeric, pattern: '(19|20)[0-9][0-9]', placeholder: 'YYYY', class: "form-control", autocomplete: :off %>
   </div>
-  <div class="form-group manual-type not-needed">
+  <div class="form-group manual-type">
     <%= form.label :manual_type, "Manual" %>
-    <%= form.select :manual_type, InventoryItem.manual_types.keys.map{|m| [InventoryItem::MANUAL_TYPE_DISPLAYS[m.to_sym], m]}, {}, class: "form-control", disabled: true %>
+    <%= form.select :manual_type, InventoryItem.manual_types.keys.map{|m| [InventoryItem::MANUAL_TYPE_DISPLAYS[m.to_sym], m]}, {}, class: "form-control" %>
   </div>
   <div class="form-group">
     <%= form.label :description, "Description" %>
@@ -36,6 +25,8 @@
       <%= form.select :status, InventoryItem.statuses.keys.without('in_container').map { |c| [InventoryItem::STATUS_DISPLAYS[c.to_sym], c] }, {}, class: "form-control" %>
     </div>
   <% end %>
+
+  <%= render partial: 'shared/validation_error', locals: { record: @inventory_item } %>
 
   <% if @inventory_item.new_record? %>
     <div class="form-actions">

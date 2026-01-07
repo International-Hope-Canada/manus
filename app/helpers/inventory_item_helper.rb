@@ -6,6 +6,8 @@ module InventoryItemHelper
       inventory_items = inventory_items.order(:barcode)
     when 'category'
       inventory_items = inventory_items.order('item_category.name', 'item_subcategory.name')
+    when 'status'
+      inventory_items = inventory_items.order(:status)
     end
 
     inventory_items

@@ -1,0 +1,12 @@
+<%# locals: (record:) -%>
+
+<% if record.errors.any? %>
+  <div class="validation-error">
+    Cound not save. Please correct the errors below and try again.
+    <ul>
+      <% record.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
