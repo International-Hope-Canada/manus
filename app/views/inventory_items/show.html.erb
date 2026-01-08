@@ -6,9 +6,15 @@
 <table class="data-table">
   <tbody>
     <tr>
+      <th>Created</th>
+      <td><%= render_datetime(@inventory_item.created_at) %>
+    <tr>
       <th>Category</th>
-      <td><%= @inventory_item.item_subcategory.display_name %></td>
+      <td><%= link_to(@inventory_item.item_subcategory.display_name, @inventory_item.item_subcategory) %></td>
     </tr>
+    <tr>
+      <th>Status</th>
+      <td><%= @inventory_item.status_display %></td>
     <tr>
       <th>Container</th>
       <td><%= link_to(@inventory_item.container.application_number, @inventory_item.container) if @inventory_item.container %>

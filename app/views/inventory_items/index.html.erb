@@ -7,6 +7,7 @@
   <table class="data-table">
     <thead>
       <tr>
+        <th>Created <%= list_sort_link(param_name: :inventory_item_sort, param_value: nil) %></th>
         <th>Barcode <%= list_sort_link(param_name: :inventory_item_sort, param_value: :barcode) %></th>
         <th>Category <%= list_sort_link(param_name: :inventory_item_sort, param_value: :category) %></th>
         <th>Status <%= list_sort_link(param_name: :inventory_item_sort, param_value: :status) %></th>
@@ -16,6 +17,7 @@
     <tbody>
       <% @inventory_items.each do |inventory_item| %>
         <tr>
+          <td><%= render_datetime(inventory_item.created_at) %></td>
           <td><%= inventory_item.barcode %></td>
           <td><%= link_to(inventory_item.item_subcategory.display_name, inventory_item.item_subcategory) %></td>
           <td>

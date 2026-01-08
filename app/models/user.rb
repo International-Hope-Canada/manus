@@ -24,6 +24,10 @@ class User < ApplicationRecord
     packer? || admin?
   end
 
+  def most_recently_packed_items
+    packed_items.order(created_at: :desc).limit(10)
+  end
+
   def recently_packed_item
     packed_items.where(created_at: Date.today..).order(created_at: :desc).first
   end

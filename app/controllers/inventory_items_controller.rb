@@ -8,6 +8,7 @@ class InventoryItemsController < ApplicationController
 
   def new
     @breadcrumbs = [index_breadcrumb, 'New']
+    @body_class = "inventory-entry"
     @inventory_item = InventoryItem.new
 
     preselected_category = current_user.recently_packed_item&.item_subcategory&.item_category
@@ -22,9 +23,11 @@ class InventoryItemsController < ApplicationController
     @inventory_item.inventoried_by = current_user
     @inventory_item.item_subcategory_id = params[:item_subcategory_id]
     if @inventory_item.save
+      flash[:highlight_inventory_item_id] = @inventory_item.id
       redirect_to new_inventory_item_path
     else
       @breadcrumbs = [index_breadcrumb, 'New']
+      @body_class = "inventory-entry"
       render :new, status: :unprocessable_entity
     end
   end
@@ -40,6 +43,7 @@ class InventoryItemsController < ApplicationController
 
   def edit
     @breadcrumbs = [index_breadcrumb, [@inventory_item.id, inventory_item_path(@inventory_item)], 'Edit']
+    @body_class = "inventory-entry"
     render :new
   end
 
@@ -48,13 +52,19 @@ class InventoryItemsController < ApplicationController
       redirect_to @inventory_item, notice: 'Inventory item was successfully updated.'
     else
       @breadcrumbs = [index_breadcrumb, [@inventory_item.id, inventory_item_path(@inventory_item)], 'Edit']
+      @body_class = "inventory-entry"
       render :new, status: :unprocessable_entity
     end
   end
 
   def destroy
     @inventory_item.destroy
-    redirect_to inventory_items_url, notice: 'Inventory item was successfully destroyed.'
+    if params[:context] == "inventory_entry"
+      redirect_to new_inventory_item_path
+    else
+      redirect_to inventory_items_url, notice: 'Inventory item was successfully destroyed.'
+    end
+    
   end
 
   private

@@ -23,44 +23,47 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <div class="user-bar">
-      <% if current_user %>
-        Logged in as <strong><%= current_user.name %></strong> |
-        <%= link_to "Log out", logout_users_path, data: { turbo_method: :delete } %>
-      <% else %>
-        <%= form_with url: login_users_path, method: :post, local: true do |form| %>
-          <%= form.label :user_id, "Log in as:" %>
-          <%= form.select :user_id, User.all.collect { |u| [u.name, u.id] }, prompt: '(Choose user)', required: true %>
-          <%= form.submit "Log in" %>
-        <% end %>
-      <% end %>
-    </div>
-
-    <h1 class="breadcrumbs">
-      <%= link_to_unless_current "🏠", root_path %>
-      <% if @breadcrumbs %>
-        <% @breadcrumbs.each_with_index do |breadcrumb| %>
-          &raquo;
-          <% name, path = breadcrumb.is_a?(Array) ? breadcrumb : [breadcrumb, nil] %>
-          <% if path %>
-            <%= link_to name, path %>
-          <% else %>
-            <%= name %>
+  <body class="<%= @body_class%>">
+    <div class="header">
+      <div class="user-bar">
+        <% if current_user %>
+          Logged in as <strong><%= current_user.name %></strong> |
+          <%= link_to "Log out", logout_users_path, data: { turbo_method: :delete } %>
+        <% else %>
+          <%= form_with url: login_users_path, method: :post, local: true do |form| %>
+            <%= form.label :user_id, "Log in as:" %>
+            <%= form.select :user_id, User.all.collect { |u| [u.name, u.id] }, prompt: '(Choose user)', required: true %>
+            <%= form.submit "Log in" %>
           <% end %>
         <% end %>
-      <% end %>
-    </h1>
+      </div>
+
+      <h1 class="breadcrumbs">
+        <%= link_to_unless_current "🏠", root_path %>
+        <% if @breadcrumbs %>
+          <% @breadcrumbs.each_with_index do |breadcrumb| %>
+            &raquo;
+            <% name, path = breadcrumb.is_a?(Array) ? breadcrumb : [breadcrumb, nil] %>
+            <% if path %>
+              <%= link_to name, path %>
+            <% else %>
+              <%= name %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </h1>
+    </div>
     
+    <div class="content">
+      <% if flash[:notice] %>
+        <div class="flash notice"><%= flash[:notice] %></div>
+      <% end %>
 
-    <% if flash[:notice] %>
-      <div class="flash notice"><%= flash[:notice] %></div>
-    <% end %>
+      <% if flash[:alert] %>
+        <div class="flash alert"><%= flash[:alert] %></div>
+      <% end %>
 
-    <% if flash[:alert] %>
-      <div class="flash alert"><%= flash[:alert] %></div>
-    <% end %>
-
-    <%= yield %>
+      <%= yield %>
+    </div>
   </body>
 </html>

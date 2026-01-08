@@ -22,8 +22,10 @@
         <% single_subcategory = @item_subcategories.count == 1 %>
         <% @item_subcategories.each do |item_subcategory| %>
           <div>
-            <input type="radio" id="item_subcategory_id_<%= item_subcategory.id %>" name="item_subcategory_id" value="<%=item_subcategory.id%>" <%= 'checked' if single_subcategory || params[:item_subcategory_id].to_i == item_subcategory.id %> required>
-            <label for="item_subcategory_id_<%= item_subcategory.id %>"><%= item_subcategory.name %></label>
+            <label for="item_subcategory_id_<%= item_subcategory.id %>">
+              <input type="radio" id="item_subcategory_id_<%= item_subcategory.id %>" name="item_subcategory_id" value="<%=item_subcategory.id%>" <%= 'checked' if single_subcategory || params[:item_subcategory_id].to_i == item_subcategory.id %> required>
+              <%= item_subcategory.name %>
+            </label>
           </div>
         <% end %>
       </div>

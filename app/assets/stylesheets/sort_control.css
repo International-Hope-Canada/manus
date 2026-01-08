@@ -9,11 +9,14 @@
   text-align: center;
   border-radius: 9px;
 }
-a.sort-control-active {
+a.sort-control-active, .sort-control-unremovable {
   color: white;
   background-color: black;
 }
 a.sort-control-inactive {
   color: black;
   background-color: #DDD;
+}
+.sort-control-unremovable {
+ cursor: default; 
 }

@@ -8,6 +8,8 @@ module InventoryItemHelper
       inventory_items = inventory_items.order('item_category.name', 'item_subcategory.name')
     when 'status'
       inventory_items = inventory_items.order(:status)
+    when nil
+      inventory_items = inventory_items.order(created_at: :desc)
     end
 
     inventory_items

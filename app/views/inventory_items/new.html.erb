@@ -1,42 +1,83 @@
-<%= form_with(model: @inventory_item, local: true) do |form| %>
-  <h2>Barcode</h2>
-  <%= render partial: 'barcode_field', locals: { form: } %>
+<div id="inventory-entry-area">
+  <%= form_with(model: @inventory_item, local: true) do |form| %>
+    <h2>Barcode</h2>
+    <%= render partial: 'barcode_field', locals: { form: } %>
 
-  <h2>Category</h2>
-  <%= turbo_frame_tag 'item_subcategory_picker', src: picker_item_subcategories_path(classification: @inventory_item.classification || @classification, item_category_id: @inventory_item.item_category_id || @item_category_id, item_subcategory_id: @inventory_item.item_subcategory_id) %>
+    <h2>Category</h2>
+    <%= turbo_frame_tag 'item_subcategory_picker', src: picker_item_subcategories_path(classification: @inventory_item.classification || @classification, item_category_id: @inventory_item.item_category_id || @item_category_id, item_subcategory_id: @inventory_item.item_subcategory_id) %>
 
-  <h2>More Information</h2>
-  <div class="form-group">
-    <%= form.label :oldest_expiry_year %>
-    <%= form.text_field :oldest_expiry_year, inputmode: :numeric, pattern: '(19|20)[0-9][0-9]', placeholder: 'YYYY', class: "form-control", autocomplete: :off %>
-  </div>
-  <div class="form-group manual-type">
-    <%= form.label :manual_type, "Manual" %>
-    <%= form.select :manual_type, InventoryItem.manual_types.keys.map{|m| [InventoryItem::MANUAL_TYPE_DISPLAYS[m.to_sym], m]}, {}, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= form.label :description, "Description" %>
-    <%= form.text_area :description, class: "form-control" %>
-  </div>
-
-  <% if !@inventory_item.in_container? && !@inventory_item.new_record? %>
+    <h2>More Information</h2>
     <div class="form-group">
-      <%= form.label :status, "Status" %>
-      <%= form.select :status, InventoryItem.statuses.keys.without('in_container').map { |c| [InventoryItem::STATUS_DISPLAYS[c.to_sym], c] }, {}, class: "form-control" %>
+      <%= form.label :oldest_expiry_year %>
+      <%= form.text_field :oldest_expiry_year, inputmode: :numeric, pattern: '(19|20)[0-9][0-9]', placeholder: 'YYYY', class: "form-control", autocomplete: :off %>
     </div>
-  <% end %>
+    <div class="form-group manual-type">
+      <%= form.label :manual_type, "Manual" %>
+      <%= form.select :manual_type, InventoryItem.manual_types.keys.map{|m| [InventoryItem::MANUAL_TYPE_DISPLAYS[m.to_sym], m]}, {}, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= form.label :description, "Description" %>
+      <%= form.text_area :description, class: "form-control" %>
+    </div>
 
-  <%= render partial: 'shared/validation_error', locals: { record: @inventory_item } %>
+    <% if !@inventory_item.in_container? && !@inventory_item.new_record? %>
+      <div class="form-group">
+        <%= form.label :status, "Status" %>
+        <%= form.select :status, InventoryItem.statuses.keys.without('in_container').map { |c| [InventoryItem::STATUS_DISPLAYS[c.to_sym], c] }, {}, class: "form-control" %>
+      </div>
+    <% end %>
 
-  <% if @inventory_item.new_record? %>
-    <div class="form-actions">
-      <%= form.submit "Add item to inventory", class: "btn btn-primary" %>
-      <%= link_to 'Cancel', '/', class: "btn btn-secondary" %>
-    </div>
-  <% else %>
-    <div class="form-actions">
-      <%= form.submit "Update inventory item", class: "btn btn-primary" %>
-      <%= link_to 'Cancel', inventory_item_path(@inventory_item), class: "btn btn-secondary" %>
-    </div>
+    <%= render partial: 'shared/validation_error', locals: { record: @inventory_item } %>
+
+    <% if @inventory_item.new_record? %>
+      <div class="form-actions">
+        <%= form.submit "Add item to inventory", class: "btn btn-primary" %>
+        <%= link_to 'Cancel', '/', class: "btn btn-secondary" %>
+      </div>
+    <% else %>
+      <div class="form-actions">
+        <%= form.submit "Update inventory item", class: "btn btn-primary" %>
+        <%= link_to 'Cancel', inventory_item_path(@inventory_item), class: "btn btn-secondary" %>
+      </div>
+    <% end %>
   <% end %>
-<% end %>
+</div>
+
+<div id="inventory-review-area">
+  <%= turbo_frame_tag 'user_inventory_items_list', target: '_top' do %>
+    <% inventory_items = apply_inventory_item_sorts_and_filters(current_user.most_recently_packed_items) %>
+
+    <h2>Your recently created items</h2>
+    <% if inventory_items.any? %>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Created</th>
+            <th>Barcode</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% inventory_items.each do |inventory_item| %>
+            <tr class="<%= 'highlight' if inventory_item.id == flash[:highlight_inventory_item_id].to_i %>">
+              <td><%= render_datetime(inventory_item.created_at) %>
+              <td><%= link_to(inventory_item.barcode, inventory_item) %> </td>
+              <td><%= link_to(inventory_item.item_subcategory.display_name, inventory_item.item_subcategory) %></td>
+              <td>
+                <%= inventory_item.status_display %><% if inventory_item.container %>: <%= link_to(inventory_item.container.application_number, inventory_item.container) %><% end %>
+              <td>
+                <%= link_to 'View', inventory_item_path(inventory_item) %>
+                <%= link_to 'Edit', edit_inventory_item_path(inventory_item) if inventory_item.editable? %>
+                <%= link_to("Delete", inventory_item_path(inventory_item, context: 'inventory_entry'), data: { turbo_method: :delete, turbo_frame: '_self', turbo_confirm: "Deleting should only be done if this item never existed. Consider instead changing this item's status. Are you sure you want to delete?" }) if inventory_item.destroyable? %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p>No inventory items packed.</p>
+    <% end %>
+  <% end %>
+</div>
