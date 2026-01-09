@@ -22,9 +22,18 @@
 
   <div class="form-group">
     <%= form.label :roles %>
-    <%= form.check_box :admin %> <%= form.label :admin %>
-    <%= form.check_box :picker %> <%= form.label :picker %>
-    <%= form.check_box :packer %> <%= form.label :packer %>
+    <%= form.label :admin, class: 'checkbox-label' do %>
+      <%= form.check_box :admin %>
+      Admin
+    <% end %>
+    <%= form.label :picker, class: 'checkbox-label' do %>
+      <%= form.check_box :picker%> 
+      Picker
+    <% end %>
+    <%= form.label :picker, class: 'checkbox-label' do %>
+      <%= form.check_box :packer %>
+      Packer
+    <% end %>
   </div>
 
   <div class="form-actions">

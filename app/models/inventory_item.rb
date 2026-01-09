@@ -69,4 +69,11 @@ class InventoryItem < ApplicationRecord
     raise "Items cannot be removed from container" unless container.can_receive_items?
     update!(container: nil, status: :in_inventory)
   end
+
+  def expiry_date_options
+    default_options = (Date.current.year - 2)..(Date.current.year + 2)
+    return default_options if oldest_expiry_year.nil? || default_options.include?(oldest_expiry_year)
+
+    oldest_expiry_year..(Date.current.year + 2)
+  end
 end

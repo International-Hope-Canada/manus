@@ -1,19 +1,34 @@
 <div id="inventory-entry-area">
   <%= form_with(model: @inventory_item, local: true) do |form| %>
-    <h2>Barcode</h2>
-    <%= render partial: 'barcode_field', locals: { form: } %>
+    <div class="form-group">
+      <label>Barcode</label>
+      <%= render partial: 'barcode_field', locals: { form: } %>
+    </div>
 
-    <h2>Category</h2>
-    <%= turbo_frame_tag 'item_subcategory_picker', src: picker_item_subcategories_path(classification: @inventory_item.classification || @classification, item_category_id: @inventory_item.item_category_id || @item_category_id, item_subcategory_id: @inventory_item.item_subcategory_id) %>
+    <div class="form-group">
+      <label>Category</label>
+      <%= turbo_frame_tag 'item_subcategory_picker', src: picker_item_subcategories_path(classification: @inventory_item.classification || @classification, item_category_id: @inventory_item.item_category_id || @item_category_id, item_subcategory_id: @inventory_item.item_subcategory_id) %>
+    </div>
 
-    <h2>More Information</h2>
     <div class="form-group">
       <%= form.label :oldest_expiry_year %>
-      <%= form.text_field :oldest_expiry_year, inputmode: :numeric, pattern: '(19|20)[0-9][0-9]', placeholder: 'YYYY', class: "form-control", autocomplete: :off %>
+      <%= form.radio_button :oldest_expiry_year, '', required: true %>
+      <%= form.label :oldest_expiry_year_, 'None', class: 'radio-label' %>
+      <% @inventory_item.expiry_date_options.each do |year| %>
+        <%= form.label("oldest_expiry_year_#{year}", class: 'radio-label') do %>
+          <%= form.radio_button :oldest_expiry_year, year, required: true %>
+          <%= year %>
+        <% end %>
+      <% end %>
     </div>
     <div class="form-group manual-type">
       <%= form.label :manual_type, "Manual" %>
-      <%= form.select :manual_type, InventoryItem.manual_types.keys.map{|m| [InventoryItem::MANUAL_TYPE_DISPLAYS[m.to_sym], m]}, {}, class: "form-control" %>
+      <% InventoryItem.manual_types.keys.map{|m| [InventoryItem::MANUAL_TYPE_DISPLAYS[m.to_sym], m]}.each do |label, value| %>
+        <%= form.label("manual_type_#{value}", class: 'radio-label') do %>
+          <%= form.radio_button :manual_type, value, required: true %>
+          <%= label %>
+        <% end %>
+      <% end %>
     </div>
     <div class="form-group">
       <%= form.label :description, "Description" %>

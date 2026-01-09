@@ -21,10 +21,10 @@ const onClassificationClick = (event) => {
   } else {
     manualType.classList.add('not-needed')
   }
-  manualType.querySelectorAll('select').forEach((input) => {
+  manualType.querySelectorAll('input').forEach((input) => {
     input.disabled = !showManualType
-    if (!showManualType) {
-      input.value = 'no_manual'
+    if (input.value == 'no_manual') {
+      input.checked = true
     }
   })
 }
