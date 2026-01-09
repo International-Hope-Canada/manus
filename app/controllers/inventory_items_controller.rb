@@ -33,7 +33,7 @@ class InventoryItemsController < ApplicationController
   end
 
   def index
-    @inventory_items = InventoryItem
+    @pagy, @inventory_items = pagy(:offset, view_context.apply_inventory_item_sorts_and_filters(InventoryItem))
     @breadcrumbs = ['Inventory']
   end
 

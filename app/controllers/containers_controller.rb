@@ -18,7 +18,7 @@ class ContainersController < ApplicationController
   end
 
   def index
-    @containers = Container.order(application_number: :desc)
+    @pagy, @containers = pagy(:offset, Container.order(application_number: :desc))
     @breadcrumbs = ['Containers']
   end
 

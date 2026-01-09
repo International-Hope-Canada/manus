@@ -17,4 +17,8 @@ module ApplicationHelper
     return datetime.strftime("%b %-d") if datetime.year == Date.today.year
     datetime.strftime("%b %-d, %Y")
   end
+
+  def render_pagy
+    @pagy.series_nav.html_safe if @pagy.pages > 1
+  end
 end

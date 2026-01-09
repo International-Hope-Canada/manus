@@ -39,3 +39,7 @@ h2 {
 .manual-type.not-needed {
   opacity: 0.5;
 }
+
+.pagy {
+  margin-top: 1em;
+}

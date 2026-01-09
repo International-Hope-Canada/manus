@@ -3,7 +3,6 @@
 <p>
 
 <%= turbo_frame_tag 'inventory_items_list', target: '_top' do %>
-  <% @inventory_items = apply_inventory_item_sorts_and_filters(@inventory_items) %>
   <table class="data-table">
     <thead>
       <tr>
@@ -32,4 +31,5 @@
       <% end %>
     </tbody>
   </table>
+  <%== render_pagy %>
 <% end %>

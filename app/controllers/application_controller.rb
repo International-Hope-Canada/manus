@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include RoleAuthorization
+  include Pagy::Method
 
   before_action :authorize_user!
 
