@@ -1,6 +1,6 @@
 <%# locals: (container:) -%>
 
-<%= turbo_frame_tag 'inventory_items_list' do %>
+<%= turbo_frame_tag 'inventory_items_list', target: '_top' do %>
   <% inventory_items = apply_inventory_item_sorts_and_filters(container.inventory_items) %>
 
   <% if inventory_items.any? %>
@@ -18,8 +18,9 @@
             <td><%= inventory_item.barcode %> </td>
             <td><%= link_to(inventory_item.item_subcategory.display_name, inventory_item.item_subcategory) %></td>
             <td>
+              <%= link_to 'View', inventory_item %>
               <% if container.can_receive_items? %>
-                <%= link_to 'Remove', remove_item_container_path(container, inventory_item_id: inventory_item.id, inventory_item_sort: params[:inventory_item_sort]), data: { turbo_method: :delete, turbo_confirm: "Return #{inventory_item.item_subcategory.display_name} to inventory?" } %>
+                <%= link_to 'Remove', remove_item_container_path(container, inventory_item_id: inventory_item.id, inventory_item_sort: params[:inventory_item_sort]), data: { turbo_method: :delete, turbo_confirm: "Return #{inventory_item.item_subcategory.display_name} to inventory?", turbo_frame: '_self' } %>
               <% end %>
             </td>
           </tr>

@@ -17,7 +17,7 @@
       <td><%= @inventory_item.status_display %></td>
     <tr>
       <th>Container</th>
-      <td><%= link_to(@inventory_item.container.application_number, @inventory_item.container) if @inventory_item.container %>
+      <td><%= link_to(@inventory_item.container.display_text, @inventory_item.container) if @inventory_item.container %>
     </tr>
     <tr>
       <th>Packed by</th>

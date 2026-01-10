@@ -3,9 +3,6 @@ class InventoryItemsController < ApplicationController
   before_action :authorize_packer!, only: [:new, :create, :edit, :update]
   before_action :authorize_admin!, only: [:index]
 
-  def show
-  end
-
   def new
     @breadcrumbs = [index_breadcrumb, 'New']
     @body_class = "inventory-entry"
@@ -38,11 +35,11 @@ class InventoryItemsController < ApplicationController
   end
 
   def show
-    @breadcrumbs = [index_breadcrumb, @inventory_item.id]
+    @breadcrumbs = [index_breadcrumb, @inventory_item.barcode]
   end
 
   def edit
-    @breadcrumbs = [index_breadcrumb, [@inventory_item.id, inventory_item_path(@inventory_item)], 'Edit']
+    @breadcrumbs = [index_breadcrumb, [@inventory_item.barcode, inventory_item_path(@inventory_item)], 'Edit']
     @body_class = "inventory-entry"
     render :new
   end
@@ -51,7 +48,7 @@ class InventoryItemsController < ApplicationController
     if @inventory_item.update(inventory_item_params)
       redirect_to @inventory_item, notice: 'Inventory item was successfully updated.'
     else
-      @breadcrumbs = [index_breadcrumb, [@inventory_item.id, inventory_item_path(@inventory_item)], 'Edit']
+      @breadcrumbs = [index_breadcrumb, [@inventory_item.barcode, inventory_item_path(@inventory_item)], 'Edit']
       @body_class = "inventory-entry"
       render :new, status: :unprocessable_entity
     end
@@ -64,7 +61,6 @@ class InventoryItemsController < ApplicationController
     else
       redirect_to inventory_items_url, notice: 'Inventory item was successfully destroyed.'
     end
-    
   end
 
   private
