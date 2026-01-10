@@ -4,4 +4,6 @@ import "controllers"
 import 'src/item_subcategory_picker'
 import 'src/add_item_to_container'
 import 'src/autoplay'
+import 'src/barcode'
 import 'src/highlight'
+import 'src/inventory_entry'

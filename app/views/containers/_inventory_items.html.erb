@@ -15,7 +15,7 @@
       <tbody>
         <% inventory_items.each do |inventory_item| %>
           <tr>
-            <td><%= link_to(inventory_item.barcode, inventory_item) %> </td>
+            <td><%= inventory_item.barcode %> </td>
             <td><%= link_to(inventory_item.item_subcategory.display_name, inventory_item.item_subcategory) %></td>
             <td>
               <% if container.can_receive_items? %>

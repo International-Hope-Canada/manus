@@ -1,6 +1,6 @@
 <%# locals: (form:) -%>
 <div class="form-group">
-  <%= form.text_field :barcode, class: "form-control", required: true, autofocus: true, autocomplete: :off, inputmode: :numeric, pattern: '([0-9]{8}|[0-9]{10})' %>
+  <%= form.text_field :barcode, class: "barcode form-control", required: true, autofocus: true, autocomplete: :off, inputmode: :numeric, pattern: '([0-9]{8}|[0-9]{10})' %>
   <div class="barcode-ready">Ready to scan</div>
   <div class="barcode-not-ready"><%= form.label :barcode, 'Click here before scanning' %></div>
   <div class="barcode-entered-not-ready"><%= form.label :barcode, 'Click here to rescan' %></div>

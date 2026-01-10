@@ -1,6 +1,6 @@
 class ContainersController < ApplicationController
   before_action :authorize_picker!
-  before_action :set_container, only: %i[show edit update destroy mark_as_shipped]
+  before_action :set_container, only: %i[show edit update destroy mark_as_shipped items]
 
   def new
     @breadcrumbs = [['Containers', containers_path], 'New Container']
@@ -121,6 +121,10 @@ class ContainersController < ApplicationController
       format.html { redirect_to container_path(container, inventory_item_sort: params[:inventory_item_sort]), notice: 'Item removed.' }
       format.json { render :show, status: :ok, location: container }
     end
+  end
+
+  def items
+    render partial: 'inventory_items', locals: { container: @container }
   end
 
   private
