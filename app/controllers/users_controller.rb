@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update]
 
   def index
-    @pagy, @users = pagy(:offset, User.order(:last_name, :first_name))
+    @pagy, @users = pagy(:offset, User.order(active: :desc, last_name: :asc, first_name: :asc))
     @breadcrumbs = [ "Users" ]
   end
 
