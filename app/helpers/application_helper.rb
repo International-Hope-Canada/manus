@@ -21,4 +21,8 @@ module ApplicationHelper
   def render_pagy
     @pagy.series_nav.html_safe if @pagy.pages > 1
   end
+
+  def render_boolean(b)
+    b ? 'Yes' : 'No'
+  end
 end

@@ -5,8 +5,15 @@
 <table class="data-table">
   <tbody>
     <tr>
-      <th>Role</th>
+      <th>Name</th>
+      <td><%= @user.name %></td>
+    <tr>
+      <th>Roles</th>
       <td><%= @user.roles.join(', ') %></td>
+    </tr>
+    <tr>
+      <th>Active</th> 
+      <td><%= render_boolean(@user.active) %></td>
     </tr>
   </tbody>
 </table>

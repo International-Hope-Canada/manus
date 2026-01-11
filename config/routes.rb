@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     end
   end
   resources :item_categories
-  resources :users, constraints: { id: /[0-9]+/ } do
+  resources :users, except: :destroy, constraints: { id: /[0-9]+/ } do
     collection do
       post "login"
       delete "logout"

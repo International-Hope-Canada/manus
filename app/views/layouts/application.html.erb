@@ -31,7 +31,7 @@
         <% else %>
           <%= form_with url: login_users_path, method: :post, local: true do |form| %>
             <%= form.label :user_id, "Log in as:" %>
-            <%= form.select :user_id, User.all.collect { |u| [u.name, u.id] }, prompt: '(Choose user)', required: true %>
+            <%= form.select :user_id, User.active.collect { |u| [u.name, u.id] }, prompt: '(Choose user)', required: true %>
             <%= form.submit "Log in" %>
           <% end %>
         <% end %>

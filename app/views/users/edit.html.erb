@@ -1,14 +1,5 @@
 <%= form_with(model: @user, local: true) do |form| %>
-  <% if @user.errors.any? %>
-    <div class="error-messages">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-      <ul>
-        <% @user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render partial: 'shared/validation_error', locals: { record: @user } %>
 
   <div class="form-group">
     <%= form.label :first_name %>
@@ -30,14 +21,29 @@
       <%= form.check_box :picker%> 
       Picker
     <% end %>
-    <%= form.label :picker, class: 'checkbox-label' do %>
+    <%= form.label :packer, class: 'checkbox-label' do %>
       <%= form.check_box :packer %>
       Packer
     <% end %>
   </div>
 
-  <div class="form-actions">
-    <%= form.submit "Update User", class: "btn btn-primary" %>
-    <%= link_to 'Cancel', @user, class: "btn btn-secondary" %>
+  <div class="form-group">
+    <%= form.label :status %>
+    <%= form.label :active, class: 'checkbox-label' do %>
+      <%= form.check_box :active %>
+      Active
+    <% end %>
   </div>
+
+  <% if @user.new_record? %>
+    <div class="form-actions">
+      <%= form.submit "Create User", class: "btn btn-primary" %>
+      <%= link_to 'Cancel', users_path, class: "btn btn-secondary" %>
+    </div>
+  <% else %>
+    <div class="form-actions">
+      <%= form.submit "Update User", class: "btn btn-primary" %>
+      <%= link_to 'Cancel', @user, class: "btn btn-secondary" %>
+    </div>
+  <% end %>
 <% end %>

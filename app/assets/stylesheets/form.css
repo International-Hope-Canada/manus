@@ -13,3 +13,23 @@
   width: 400px;
   height: 56px;
 }
+
+.field_with_errors {
+  display: contents;
+}
+
+.field_with_errors input {
+  outline: 2px solid red;
+}
+
+.validation-error {
+  background-color: #ffdddd;
+  border: 2px solid red;
+  border-radius: 5px;
+  margin: 1em 0;
+  padding: 1em;
+}
+
+.validation-error ul {
+  margin-bottom: 0
+}

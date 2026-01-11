@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   skip_before_action :authorize_user!, only: :login
   before_action :authorize_admin!, except: [ :login, :logout ]
-  before_action :set_user, only: %i[show edit update destroy]
+  before_action :set_user, only: %i[show edit update]
 
   def index
     @pagy, @users = pagy(:offset, User.order(:last_name, :first_name))
@@ -14,6 +14,8 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @breadcrumbs = [ [ "Users", users_path ], 'New' ]
+    render :edit
   end
 
   def edit
@@ -21,14 +23,15 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = ItemCategory.new(user_params)
+    @user = User.new(user_params)
 
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: "User was successfully created." }
         format.json { render :show, status: :created, location: @user }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        @breadcrumbs = [ "Users", 'New' ]
+        format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -46,14 +49,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def destroy
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: "User was successfully destroyed." }
-      format.json { head :no_content }
-    end
-  end
-
   def login
     session[:user_id] = params[:user_id]
     redirect_to root_path
@@ -67,7 +62,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :admin, :picker, :packer)
+    params.require(:user).permit(:first_name, :last_name, :admin, :picker, :packer, :active)
   end
 
   def set_user

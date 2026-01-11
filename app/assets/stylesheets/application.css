@@ -28,14 +28,6 @@ h2 {
   font-size: 0.9em;
 }
 
-.validation-error {
-  background-color: #ffdddd;
-  border: 2px solid red;
-  border-radius: 5px;
-  margin: 1em 0;
-  padding: 1em;
-}
-
 .manual-type.not-needed {
   opacity: 0.5;
 }

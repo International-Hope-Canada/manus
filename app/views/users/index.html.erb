@@ -1,15 +1,24 @@
+<p>
+  <%= link_to 'New user', new_user_path, class: "btn btn-primary" %>
+</p>
+
 <table class="data-table">
   <thead>
     <tr>
       <th>Name</th>
       <th>Roles</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= link_to(user.name, user) %></td>
+        <td><%= user.name %></td>
         <td><%= user.roles.join(', ') %></td>
+        <td>
+          <%= link_to 'View', user_path(user) %>
+          <%= link_to 'Edit', edit_user_path(user) %>
+        </td>
       </tr>
     <% end %>
   </tbody>
