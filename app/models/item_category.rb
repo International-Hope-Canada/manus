@@ -1,7 +1,7 @@
 class ItemCategory < ApplicationRecord
   has_many :item_subcategories
 
-  enum :classification, [:equipment, :supply]
+  enum :classification, [ :equipment, :supply ]
 
   validates :name, presence: true, uniqueness: { scope: :classification }
   validates :classification, presence: true
@@ -29,7 +29,7 @@ class ItemCategory < ApplicationRecord
 
   def ensure_subcategory!
     if item_subcategories.empty?
-      item_subcategories.create!(name: 'General')
+      item_subcategories.create!(name: "General")
     end
   end
 end

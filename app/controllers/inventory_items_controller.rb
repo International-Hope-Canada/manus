@@ -1,10 +1,10 @@
 class InventoryItemsController < ApplicationController
-  before_action :set_inventory_item, only: [:show, :edit, :update, :destroy]
-  before_action :authorize_packer!, only: [:new, :create, :edit, :update]
-  before_action :authorize_admin!, only: [:index]
+  before_action :set_inventory_item, only: [ :show, :edit, :update, :destroy ]
+  before_action :authorize_packer!, only: [ :new, :create, :edit, :update ]
+  before_action :authorize_admin!, only: [ :index ]
 
   def new
-    @breadcrumbs = [index_breadcrumb, 'New']
+    @breadcrumbs = [ index_breadcrumb, "New" ]
     @body_class = "inventory-entry"
     @inventory_item = InventoryItem.new
 
@@ -23,7 +23,7 @@ class InventoryItemsController < ApplicationController
       flash[:highlight_inventory_item_id] = @inventory_item.id
       redirect_to new_inventory_item_path
     else
-      @breadcrumbs = [index_breadcrumb, 'New']
+      @breadcrumbs = [ index_breadcrumb, "New" ]
       @body_class = "inventory-entry"
       render :new, status: :unprocessable_entity
     end
@@ -31,24 +31,24 @@ class InventoryItemsController < ApplicationController
 
   def index
     @pagy, @inventory_items = pagy(:offset, view_context.apply_inventory_item_sorts_and_filters(InventoryItem))
-    @breadcrumbs = ['Inventory']
+    @breadcrumbs = [ "Inventory" ]
   end
 
   def show
-    @breadcrumbs = [index_breadcrumb, @inventory_item.barcode]
+    @breadcrumbs = [ index_breadcrumb, @inventory_item.barcode ]
   end
 
   def edit
-    @breadcrumbs = [index_breadcrumb, [@inventory_item.barcode, inventory_item_path(@inventory_item)], 'Edit']
+    @breadcrumbs = [ index_breadcrumb, [ @inventory_item.barcode, inventory_item_path(@inventory_item) ], "Edit" ]
     @body_class = "inventory-entry"
     render :new
   end
 
   def update
     if @inventory_item.update(inventory_item_params)
-      redirect_to @inventory_item, notice: 'Inventory item was successfully updated.'
+      redirect_to @inventory_item, notice: "Inventory item was successfully updated."
     else
-      @breadcrumbs = [index_breadcrumb, [@inventory_item.barcode, inventory_item_path(@inventory_item)], 'Edit']
+      @breadcrumbs = [ index_breadcrumb, [ @inventory_item.barcode, inventory_item_path(@inventory_item) ], "Edit" ]
       @body_class = "inventory-entry"
       render :new, status: :unprocessable_entity
     end
@@ -59,7 +59,7 @@ class InventoryItemsController < ApplicationController
     if params[:context] == "inventory_entry"
       redirect_to new_inventory_item_path
     else
-      redirect_to inventory_items_url, notice: 'Inventory item was successfully destroyed.'
+      redirect_to inventory_items_url, notice: "Inventory item was successfully destroyed."
     end
   end
 
@@ -74,6 +74,6 @@ class InventoryItemsController < ApplicationController
   end
 
   def index_breadcrumb
-    current_user&.admin? ? ['Inventory', inventory_items_path] : 'Inventory'
+    current_user&.admin? ? [ "Inventory", inventory_items_path ] : "Inventory"
   end
 end

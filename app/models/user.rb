@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :packed_items, class_name: 'InventoryItem', inverse_of: :inventoried_by
+  has_many :packed_items, class_name: "InventoryItem", inverse_of: :inventoried_by
 
   validates :first_name, :last_name, presence: true
   validates :first_name, uniqueness: { scope: :last_name }
@@ -10,9 +10,9 @@ class User < ApplicationRecord
 
   def roles
     roles = []
-    roles << 'Admin' if admin?
-    roles << 'Packer' if packer?
-    roles << 'Picker' if picker?
+    roles << "Admin" if admin?
+    roles << "Packer" if packer?
+    roles << "Picker" if picker?
     roles
   end
 

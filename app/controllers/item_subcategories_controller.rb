@@ -2,7 +2,7 @@ class ItemSubcategoriesController < ApplicationController
   before_action :set_item_subcategory, only: %i[show edit update destroy]
 
   def show
-    @breadcrumbs = [['Categories', item_categories_path], [@item_subcategory.item_category.name, item_category_path(@item_subcategory.item_category)], @item_subcategory.name]
+    @breadcrumbs = [ [ "Categories", item_categories_path ], [ @item_subcategory.item_category.name, item_category_path(@item_subcategory.item_category) ], @item_subcategory.name ]
   end
 
   def new
@@ -10,14 +10,14 @@ class ItemSubcategoriesController < ApplicationController
   end
 
   def edit
-    @breadcrumbs = [['Categories', item_categories_path], [@item_subcategory.item_category.name, item_category_path(@item_subcategory.item_category)], [@item_subcategory.name, item_subcategory_path(@item_subcategory)], 'Edit']
+    @breadcrumbs = [ [ "Categories", item_categories_path ], [ @item_subcategory.item_category.name, item_category_path(@item_subcategory.item_category) ], [ @item_subcategory.name, item_subcategory_path(@item_subcategory) ], "Edit" ]
   end
 
   def create
     @item_subcategory = ItemSubcategory.new(item_subcategory_params)
 
     if @item_subcategory.save
-      redirect_to @item_subcategory, notice: 'Item subcategory was successfully created.'
+      redirect_to @item_subcategory, notice: "Item subcategory was successfully created."
     else
       render :new
     end
@@ -25,7 +25,7 @@ class ItemSubcategoriesController < ApplicationController
 
   def update
     if @item_subcategory.update(item_subcategory_params)
-      redirect_to @item_subcategory, notice: 'Item subcategory was successfully updated.'
+      redirect_to @item_subcategory, notice: "Item subcategory was successfully updated."
     else
       render :edit
     end
@@ -33,7 +33,7 @@ class ItemSubcategoriesController < ApplicationController
 
   def destroy
     @item_subcategory.destroy
-    redirect_to item_subcategories_url, notice: 'Item subcategory was successfully destroyed.'
+    redirect_to item_subcategories_url, notice: "Item subcategory was successfully destroyed."
   end
 
   def picker

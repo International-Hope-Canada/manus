@@ -3,7 +3,7 @@ class ContainersController < ApplicationController
   before_action :set_container, only: %i[show edit update destroy mark_as_shipped items]
 
   def new
-    @breadcrumbs = [['Containers', containers_path], 'New Container']
+    @breadcrumbs = [ [ "Containers", containers_path ], "New Container" ]
     next_application_number = Container.order(application_number: :desc).pick(:application_number).to_i + 1
     @container = Container.new(application_number: next_application_number)
   end
@@ -19,26 +19,26 @@ class ContainersController < ApplicationController
 
   def index
     @pagy, @containers = pagy(:offset, Container.order(application_number: :desc))
-    @breadcrumbs = ['Containers']
+    @breadcrumbs = [ "Containers" ]
   end
 
   def show
-    @breadcrumbs = [['Containers', containers_path], @container.application_number]
+    @breadcrumbs = [ [ "Containers", containers_path ], @container.application_number ]
   end
 
   def edit
-    raise 'Not editable' unless @container.editable?
+    raise "Not editable" unless @container.editable?
 
-    @breadcrumbs = [['Containers', containers_path], [@container.application_number, container_path(@container)], 'Edit']
+    @breadcrumbs = [ [ "Containers", containers_path ], [ @container.application_number, container_path(@container) ], "Edit" ]
     render :new
   end
 
   def update
-    raise 'Not editable' unless @container.editable?
+    raise "Not editable" unless @container.editable?
 
     respond_to do |format|
       if @container.update(container_params)
-        format.html { redirect_to @container, notice: 'Container was successfully updated.' }
+        format.html { redirect_to @container, notice: "Container was successfully updated." }
         format.json { render :show, status: :ok, location: @container }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -48,11 +48,11 @@ class ContainersController < ApplicationController
   end
 
   def destroy
-    raise 'Not destroyable' unless @container.destroyable?
+    raise "Not destroyable" unless @container.destroyable?
 
     @container.destroy
     respond_to do |format|
-      format.html { redirect_to containers_path, notice: 'Container was successfully destroyed.' }
+      format.html { redirect_to containers_path, notice: "Container was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -61,19 +61,19 @@ class ContainersController < ApplicationController
     @container.mark_as_shipped!
 
     respond_to do |format|
-      format.html { redirect_to @container, notice: 'Container marked as shipped.' }
+      format.html { redirect_to @container, notice: "Container marked as shipped." }
       format.json { render :show, status: :ok, location: @container }
     end
   end
 
   def choose_for_picking
     @containers = Container.can_receive_items
-    @breadcrumbs = ['Picking']
+    @breadcrumbs = [ "Picking" ]
   end
 
   def pick
     @container = Container.can_receive_items.find(params[:id])
-    @breadcrumbs = [['Picking', choose_for_picking_containers_path], @container.display_text]
+    @breadcrumbs = [ [ "Picking", choose_for_picking_containers_path ], @container.display_text ]
     @success = flash[:success]
     @success_message = flash[:success_message]
   end
@@ -82,7 +82,7 @@ class ContainersController < ApplicationController
     @container = Container.can_receive_items.find(params[:id])
     inventory_item = InventoryItem.find_by(barcode: params[:barcode])
 
-    @breadcrumbs = [['Picking', choose_for_picking_containers_path], @container.display_text]
+    @breadcrumbs = [ [ "Picking", choose_for_picking_containers_path ], @container.display_text ]
 
     if inventory_item.nil?
       @success = false
@@ -118,13 +118,13 @@ class ContainersController < ApplicationController
 
     inventory_item.remove_from_container!
     respond_to do |format|
-      format.html { redirect_to container_path(container, inventory_item_sort: params[:inventory_item_sort]), notice: 'Item removed.' }
+      format.html { redirect_to container_path(container, inventory_item_sort: params[:inventory_item_sort]), notice: "Item removed." }
       format.json { render :show, status: :ok, location: container }
     end
   end
 
   def items
-    render partial: 'inventory_items', locals: { container: @container }
+    render partial: "inventory_items", locals: { container: @container }
   end
 
   private

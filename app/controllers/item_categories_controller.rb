@@ -4,23 +4,23 @@ class ItemCategoriesController < ApplicationController
   # GET /item_categories or /item_categories.json
   def index
     @pagy, @item_categories = pagy(:offset, ItemCategory.order(:classification, :name))
-    @breadcrumbs = ['Categories']
+    @breadcrumbs = [ "Categories" ]
   end
 
   # GET /item_categories/1 or /item_categories/1.json
   def show
-    @breadcrumbs = [['Categories', item_categories_path], @item_category.name]
+    @breadcrumbs = [ [ "Categories", item_categories_path ], @item_category.name ]
   end
 
   # GET /item_categories/new
   def new
     @item_category = ItemCategory.new
-    @breadcrumbs = ['Categories', 'New']
+    @breadcrumbs = [ "Categories", "New" ]
   end
 
   # GET /item_categories/1/edit
   def edit
-    @breadcrumbs = [['Categories', item_categories_path], [@item_category.name, item_category_path(@item_category)], 'Edit']
+    @breadcrumbs = [ [ "Categories", item_categories_path ], [ @item_category.name, item_category_path(@item_category) ], "Edit" ]
   end
 
   # POST /item_categories or /item_categories.json
@@ -31,7 +31,7 @@ class ItemCategoriesController < ApplicationController
       if @item_category.save
         @item_category.ensure_subcategory! if params[:ensure_subcategory]
 
-        format.html { redirect_to @item_category, notice: 'Item category was successfully created.' }
+        format.html { redirect_to @item_category, notice: "Item category was successfully created." }
         format.json { render :show, status: :created, location: @item_category }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -45,7 +45,7 @@ class ItemCategoriesController < ApplicationController
       if @item_category.update(item_category_params)
         @item_category.ensure_subcategory! if params[:ensure_subcategory]
 
-        format.html { redirect_to @item_category, notice: 'Item category was successfully updated.' }
+        format.html { redirect_to @item_category, notice: "Item category was successfully updated." }
         format.json { render :show, status: :ok, location: @item_category }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -57,7 +57,7 @@ class ItemCategoriesController < ApplicationController
   def destroy
     @item_category.destroy
     respond_to do |format|
-      format.html { redirect_to item_categories_url, notice: 'Item category was successfully destroyed.' }
+      format.html { redirect_to item_categories_url, notice: "Item category was successfully destroyed." }
       format.json { head :no_content }
     end
   end

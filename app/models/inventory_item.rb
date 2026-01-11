@@ -1,35 +1,35 @@
 class InventoryItem < ApplicationRecord
   belongs_to :item_subcategory
-  belongs_to :inventoried_by, class_name: 'User', inverse_of: :packed_items
+  belongs_to :inventoried_by, class_name: "User", inverse_of: :packed_items
   belongs_to :container, optional: true
 
-  enum :manual_type, [:no_manual, :pdf, :paper]
-  enum :status, [:in_inventory, :in_container, :discarded_stale_dated, :discarded_damaged, :lost, :given_away]
+  enum :manual_type, [ :no_manual, :pdf, :paper ]
+  enum :status, [ :in_inventory, :in_container, :discarded_stale_dated, :discarded_damaged, :lost, :given_away ]
 
   delegate :equipment?, :supply?, :item_category, :item_category_id, :classification, to: :item_subcategory, allow_nil: true
 
   validates :barcode, presence: true, uniqueness: true, format: { with: /([0-9]{8}|[0-9]{10})/ }
   validates :oldest_expiry_year, numericality: { in: 1900..2100 }, allow_blank: true
   validates :manual_type, presence: true, if: :equipment?
-  validates :status, inclusion: { in: ['in_container'] }, if: :container
-  validates :status, exclusion: { in: ['in_container'] }, unless: :container
+  validates :status, inclusion: { in: [ "in_container" ] }, if: :container
+  validates :status, exclusion: { in: [ "in_container" ] }, unless: :container
   validates :status, presence: true
   validates :container_id, absence: true, unless: :in_container?
   validates :container_id, presence: true, if: :in_container?
 
   STATUS_DISPLAYS = {
-    in_inventory: 'In inventory',
-    in_container: 'In container',
-    discarded_stale_dated: 'Discarded - stale dated',
-    discarded_damaged: 'Discarded - damaged',
-    lost: 'Lost',
-    given_away: 'Given away'
+    in_inventory: "In inventory",
+    in_container: "In container",
+    discarded_stale_dated: "Discarded - stale dated",
+    discarded_damaged: "Discarded - damaged",
+    lost: "Lost",
+    given_away: "Given away"
   }
 
   MANUAL_TYPE_DISPLAYS = {
-    no_manual: 'None',
-    pdf: 'PDF',
-    paper: 'Paper'
+    no_manual: "None",
+    pdf: "PDF",
+    paper: "Paper"
   }
 
   def status_display

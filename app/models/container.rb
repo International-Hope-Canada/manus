@@ -6,7 +6,7 @@ class Container < ApplicationRecord
   scope :can_receive_items, -> { where(shipped_at: nil) }
 
   def mark_as_shipped!
-    raise 'Already shipped' unless can_be_marked_as_shipped?
+    raise "Already shipped" unless can_be_marked_as_shipped?
 
     update!(shipped_at: Time.now)
   end
