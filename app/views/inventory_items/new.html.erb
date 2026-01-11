@@ -76,7 +76,7 @@
         </thead>
         <tbody>
           <% inventory_items.each do |inventory_item| %>
-            <tr class="<%= 'highlight' if inventory_item.id == flash[:highlight_inventory_item_id].to_i %>">
+            <tr class="<%= 'highlight highlight-active' if inventory_item.id == flash[:highlight_inventory_item_id].to_i %>">
               <td><%= render_datetime(inventory_item.created_at) %>
               <td><%= link_to(inventory_item.barcode, inventory_item) %> </td>
               <td><%= link_to(inventory_item.item_subcategory.display_name, inventory_item.item_subcategory) %></td>

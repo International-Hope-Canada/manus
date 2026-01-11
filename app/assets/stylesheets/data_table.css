@@ -1,5 +1,9 @@
+.data-table {
+  /* Spacing messes up hover on trs */
+  border-spacing: 0;
+}
 .data-table th, .data-table td {
-  padding: 0 8px;
+  padding: 1px 8px;
   text-align: left;
 }
 
@@ -19,9 +23,12 @@
   font-weight: bold;
 }
 
-.data-table tr {
+.data-table tr.highlight {
   transition: background-color 1s linear;
 }
-.data-table tr.highlight {
+.data-table tr.highlight-active {
   background-color: rgb(255, 255, 189);
+}
+.data-table tbody tr:hover {
+background-color: rgb(255, 255, 99);
 }
