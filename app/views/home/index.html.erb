@@ -2,28 +2,37 @@
   <p>Please log in to continue.</p>
 <% else %>
   <% if current_user&.packer_access? %>
-    <p>
-      <%= link_to 'New inventory item', new_inventory_item_path, class: "btn btn-primary" %>
-    </p>
+    <div class="home-panel">
+      <h2>Item Packer</h2>
+      <p>
+        <%= link_to 'Add new inventory item', new_inventory_item_path, class: "btn btn-primary" %>
+      </p>
+    </div>
   <% end %>
 
   <% if current_user&.picker_access? %>
-    <p>
-      <%= link_to 'Containers', containers_path, class: "btn btn-primary" %>
-    </p>
+    <div class="home-panel">
+      <h2>Inventory Picker</h2>
+      <p>
+        <%= link_to 'Pick inventory for container', choose_for_picking_containers_path, class: "btn btn-primary" %>
+      </p>
+    </div>
   <% end %>
 
   <% if current_user&.admin? %>
-    <p>
-      <%= link_to 'Inventory', inventory_items_path, class: "btn btn-primary" %>
-    </p>
+    <div class="home-panel">
+      <h2>Admin</h2>
+      <p>
+        <%= link_to 'Inventory', inventory_items_path, class: "btn btn-primary" %>
+      </p>
 
-    <p>
-      <%= link_to 'Item Categories', item_categories_path, class: "btn btn-primary" %>
-    </p>
+      <p>
+        <%= link_to 'Item categories', item_categories_path, class: "btn btn-primary" %>
+      </p>
 
-    <p>
-      <%= link_to 'Users', users_path, class: "btn btn-primary" %>
-    </p>
+      <p>
+        <%= link_to 'Users', users_path, class: "btn btn-primary" %>
+      </p>
+    </div>
   <% end %>
 <% end %>

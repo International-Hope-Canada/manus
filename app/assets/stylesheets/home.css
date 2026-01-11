@@ -1,0 +1,14 @@
+.home-panel {
+  display: inline-block;
+  border: 2px solid green;
+  border-radius: 5px;
+  margin: 10px;
+  vertical-align: top;
+  padding: 0 5px 5px 5px;
+}
+.home-panel h2 {
+  background-color: green;
+  color: white;
+  margin: 0 -5px auto -5px;
+  padding: 0 5px 0 5px;
+}

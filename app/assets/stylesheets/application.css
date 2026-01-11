@@ -43,3 +43,8 @@ h2 {
 .pagy {
   margin-top: 1em;
 }
+
+.breadcrumbs img {
+  height: 29px;
+  vertical-align: bottom;
+}
