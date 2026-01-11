@@ -40,7 +40,7 @@ class ItemSubcategoriesController < ApplicationController
 
   def destroy
     @item_subcategory.destroy
-    redirect_to item_subcategories_url, notice: "Item subcategory was successfully destroyed."
+    redirect_to @item_subcategory.item_category, notice: "Item subcategory was successfully destroyed."
   end
 
   def picker

@@ -44,6 +44,7 @@
         <td>
           <%= link_to('View', category) %>
           <%= link_to('Edit', edit_item_category_path(category)) %>
+          <%= link_to("Delete", category, data: { turbo_method: :delete, turbo_confirm: "Delete this category and all its subcategories?" }) if category.destroyable? %>
         </td>
       </tr>
     <% end %>

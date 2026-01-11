@@ -1,5 +1,5 @@
 class ItemCategory < ApplicationRecord
-  has_many :item_subcategories
+  has_many :item_subcategories, dependent: :destroy
 
   enum :classification, [ :equipment, :supply ]
 
@@ -31,5 +31,9 @@ class ItemCategory < ApplicationRecord
     if item_subcategories.empty?
       item_subcategories.create!(name: "General")
     end
+  end
+
+  def destroyable?
+    InventoryItem.where(item_subcategory: item_subcategories).none?
   end
 end
