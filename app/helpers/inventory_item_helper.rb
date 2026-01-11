@@ -14,4 +14,10 @@ module InventoryItemHelper
 
     inventory_items
   end
+
+  def grouped_item_category_options
+    [ :equipment, :supply ].map do |classification|
+      [ classification.to_s.humanize, ItemCategory.where(classification:).order(:name).map { |category| [ category.name, category.id ] } ]
+    end
+  end
 end

@@ -14,7 +14,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    @breadcrumbs = [ [ "Users", users_path ], 'New' ]
+    @breadcrumbs = [ [ "Users", users_path ], "New" ]
     render :edit
   end
 
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
         format.html { redirect_to @user, notice: "User was successfully created." }
         format.json { render :show, status: :created, location: @user }
       else
-        @breadcrumbs = [ "Users", 'New' ]
+        @breadcrumbs = [ "Users", "New" ]
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end

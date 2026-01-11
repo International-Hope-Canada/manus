@@ -4,10 +4,10 @@ class User < ApplicationRecord
   scope :active, -> { where(active: true) }
 
   validates :first_name, :last_name, presence: true
-  validates :first_name, uniqueness: { scope: :last_name, message: 'and last name already exists for another user'}
+  validates :first_name, uniqueness: { scope: :last_name, message: "and last name already exists for another user" }
 
   validate do
-    errors.add(:base, 'User must have at least one role') if !admin? && !packer? && !picker?
+    errors.add(:base, "User must have at least one role") if !admin? && !packer? && !picker?
   end
 
   def name

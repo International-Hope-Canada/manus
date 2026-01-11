@@ -15,7 +15,8 @@ class ItemCategoriesController < ApplicationController
   # GET /item_categories/new
   def new
     @item_category = ItemCategory.new
-    @breadcrumbs = [ "Categories", "New" ]
+    @breadcrumbs = [ [ "Categories", item_categories_path ], "New" ]
+    render :edit
   end
 
   # GET /item_categories/1/edit
@@ -34,7 +35,7 @@ class ItemCategoriesController < ApplicationController
         format.html { redirect_to @item_category, notice: "Item category was successfully created." }
         format.json { render :show, status: :created, location: @item_category }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @item_category.errors, status: :unprocessable_entity }
       end
     end

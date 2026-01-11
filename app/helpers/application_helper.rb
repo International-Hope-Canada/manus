@@ -23,6 +23,6 @@ module ApplicationHelper
   end
 
   def render_boolean(b)
-    b ? 'Yes' : 'No'
+    b ? "Yes" : "No"
   end
 end

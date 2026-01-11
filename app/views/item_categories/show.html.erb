@@ -20,6 +20,11 @@
 </table>
 
 <h2>Subcategories</h2>
+
+<p>
+  <%= link_to 'New subcategory', new_item_subcategory_path(item_category_id: @item_category.id), class: "btn btn-primary" %>
+</p>
+
 <% if @item_category.item_subcategories.any? %>
   <table class="data-table">
     <thead>
@@ -32,7 +37,7 @@
     <tbody>
       <% @item_category.item_subcategories.order(:name).each do |subcategory| %>
         <tr>
-          <td><%= link_to(subcategory.name, subcategory) %></td>
+          <td><%= subcategory.name %></td>
           <td class="numeric">
             <%= number_to_currency(subcategory.value) if subcategory.value %>
             <% if subcategory.missing_value? %>
@@ -44,6 +49,10 @@
             <% if subcategory.missing_weight? %>
               <span class="saved-data-error">Missing weight</span>
             <% end %>
+          </td>
+          <td>
+            <%= link_to('View', subcategory) %>
+            <%= link_to('Edit', edit_item_subcategory_path(subcategory)) %>
           </td>
         </tr>
       <% end %>

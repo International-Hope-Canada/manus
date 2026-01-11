@@ -27,18 +27,28 @@
 
   <div class="form-group">
     <%= form.label :weight_kg, "Weight (kg)" %>
-    <%= form.number_field :weight_kg, min: 0, step: 0.01, class: "form-control" %>
+    <%= form.number_field :weight_kg, min: 0, step: 0.1, class: "form-control" %>
   </div>
 
   <% if @item_category.item_subcategories.empty? %>
     <div class="form-group">
-      <%= check_box_tag :ensure_subcategory, '1', false %>
-      <%= label_tag :ensure_subcategory, "Create 'General' subcategory" %>
+      <label></label>
+      <%= label_tag :ensure_subcategory, class: 'checkbox-label' do %>
+        <%= check_box_tag :ensure_subcategory, '1', false %>
+        Create 'General' subcategory
+      <% end %>
     </div>
   <% end %>
 
-  <div class="form-actions">
-    <%= form.submit "Update Item Category", class: "btn btn-primary" %>
-    <%= link_to 'Cancel', @item_category, class: "btn btn-secondary" %>
-  </div>
+  <% if @item_category.new_record? %>
+    <div class="form-actions">
+      <%= form.submit "Create Item Category", class: "btn btn-primary" %>
+      <%= link_to 'Cancel', item_categories_path, class: "btn btn-secondary" %>
+    </div>
+  <% else %>
+    <div class="form-actions">
+      <%= form.submit "Update Item Category", class: "btn btn-primary" %>
+      <%= link_to 'Cancel', @item_category, class: "btn btn-secondary" %>
+    </div>
+  <% end %>
 <% end %>

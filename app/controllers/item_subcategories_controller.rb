@@ -6,7 +6,9 @@ class ItemSubcategoriesController < ApplicationController
   end
 
   def new
-    @item_subcategory = ItemSubcategory.new
+    @item_subcategory = ItemSubcategory.new(item_category_id: params[:item_category_id])
+    @breadcrumbs = [ [ "Categories", item_categories_path ], [ @item_subcategory.item_category.name, item_category_path(@item_subcategory.item_category) ], "New subcategory" ]
+    render :edit
   end
 
   def edit
@@ -16,10 +18,15 @@ class ItemSubcategoriesController < ApplicationController
   def create
     @item_subcategory = ItemSubcategory.new(item_subcategory_params)
 
-    if @item_subcategory.save
-      redirect_to @item_subcategory, notice: "Item subcategory was successfully created."
-    else
-      render :new
+    respond_to do |format|
+      if @item_subcategory.save
+        format.html { redirect_to @item_subcategory, notice: "Subcategory was successfully created." }
+        format.json { render :show, status: :created, location: @item_subcategory }
+      else
+        @breadcrumbs = [ [ "Categories", item_categories_path ], [ @item_subcategory.item_category.name, item_category_path(@item_subcategory.item_category) ], "New subcategory" ]
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @item_subcategory.errors, status: :unprocessable_entity }
+      end
     end
   end
 
