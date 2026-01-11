@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_11_201815) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_11_213734) do
   create_table "containers", force: :cascade do |t|
     t.string "address"
     t.integer "application_number", null: false
@@ -51,6 +51,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_11_201815) do
   end
 
   create_table "item_subcategories", force: :cascade do |t|
+    t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
     t.integer "item_category_id", null: false
     t.string "name", null: false

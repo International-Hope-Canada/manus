@@ -2,6 +2,8 @@ class ItemSubcategory < ApplicationRecord
   belongs_to :item_category
   has_many :inventory_items, dependent: :restrict_with_exception
 
+  scope :active, -> { where(active: true) }
+
   validates :name, presence: true, uniqueness: { scope: :item_category_id }
   validates :value, :weight_kg, numericality: { greater_than_or_equal_to: 0, allow_nil: true }
 
@@ -16,7 +18,7 @@ class ItemSubcategory < ApplicationRecord
   end
 
   def selectable?
-    !missing_weight? && !missing_value?
+    !missing_weight? && !missing_value? && active
   end
 
   def display_name

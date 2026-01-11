@@ -8,23 +8,23 @@ class ItemCategory < ApplicationRecord
   validates :value, :weight_kg, numericality: { greater_than_or_equal_to: 0, allow_nil: true }
 
   def selectable?
-    item_subcategories.any?(&:selectable?)
+    item_subcategories.active.any?(&:selectable?)
   end
 
   def missing_subcategories?
-    item_subcategories.empty?
+    item_subcategories.active.empty?
   end
 
   def subcategories_missing_weights?
     return false if weight_kg
 
-    item_subcategories.where(weight_kg: nil).any?
+    item_subcategories.active.where(weight_kg: nil).any?
   end
 
   def subcategories_missing_values?
     return false if value
 
-    item_subcategories.where(value: nil).any?
+    item_subcategories.active.where(value: nil).any?
   end
 
   def ensure_subcategory!

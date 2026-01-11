@@ -15,6 +15,13 @@
     <%= form.text_field :name, class: "form-control", required: true %>
   </div>
   <div class="form-group">
+    <%= form.label :status %>
+    <%= form.label :active, class: 'checkbox-label' do %>
+      <%= form.checkbox :active, class: "form-control" %>
+      Active
+    <% end %>
+  </div>
+  <div class="form-group">
     <%= form.label :item_category_id, "Category" %>
     <%= form.select :item_category_id, grouped_item_category_options, class: "form-control" %>
   </div>

@@ -31,14 +31,16 @@
     <thead>
       <tr>
         <th>Name</th>
+        <th>Active</th>
         <th class="numeric">Value</th>
         <th class="numeric">Weight (kg)</th>
       </tr>
     </thead>
     <tbody>
-      <% @item_category.item_subcategories.order(:name).each do |subcategory| %>
+      <% @item_category.item_subcategories.order(active: :desc, name: :asc).each do |subcategory| %>
         <tr>
           <td><%= subcategory.name %></td>
+          <td><%= render_boolean(subcategory.active) %></td>
           <td class="numeric">
             <%= number_to_currency(subcategory.value) if subcategory.value %>
             <% if subcategory.missing_value? %>

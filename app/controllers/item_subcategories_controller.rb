@@ -55,6 +55,6 @@ class ItemSubcategoriesController < ApplicationController
   end
 
   def item_subcategory_params
-    params.require(:item_subcategory).permit(:name, :item_category_id, :value, :weight_kg)
+    params.require(:item_subcategory).permit(:name, :item_category_id, :value, :weight_kg, :active)
   end
 end
