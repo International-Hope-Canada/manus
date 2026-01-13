@@ -1,0 +1,30 @@
+.report-table {
+  border-spacing: 0;  
+  margin-bottom: 2em;
+}
+.report-table th {
+  text-align: left;
+}
+.report-table caption {
+  font-weight: bold;
+  font-size: larger;
+}
+
+.report-table th, .data-table td {
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+.report-table th:not(:first-child), .report-table td:not(:first-child) {
+  padding-left: 8px;
+}
+.report-table th:not(:last-child), .report-table td:not(:last-child) {
+  padding-right: 8px;
+}
+
+.report-table .numeric {
+  text-align: right;
+}
+
+.report-table tfoot th, .report-table tfoot td {
+  border-top: 2px solid black;
+}

@@ -18,4 +18,5 @@
 
 <div id="add-item-to-container-contents">
   <%= turbo_frame_tag 'inventory_items_list', src: items_container_path(@container), target: '_top' %>
+  <p><%= link_to 'Count summary', summary_container_path(@container) %></p>
 </div>

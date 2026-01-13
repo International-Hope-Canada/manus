@@ -76,4 +76,12 @@ class InventoryItem < ApplicationRecord
 
     oldest_expiry_year..(Date.current.year + 2)
   end
+
+  def weight
+    item_subcategory.weight_kg || item_category.weight_kg || 0
+  end
+
+  def value
+    item_subcategory.value || item_category.value || 0
+  end
 end

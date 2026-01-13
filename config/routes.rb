@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       post :add_item
       delete :remove_item
       get :items
+      get :summary
     end
     collection do
       get :choose_for_picking

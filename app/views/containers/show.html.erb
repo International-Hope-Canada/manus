@@ -43,4 +43,5 @@
 </table>
 
 <h2>Items</h2>
+<p><%= link_to 'Count summary', summary_container_path(@container) %></p>
 <%= render partial: 'inventory_items', locals: { container: @container} %>

@@ -1,6 +1,6 @@
 class ContainersController < ApplicationController
   before_action :authorize_picker!
-  before_action :set_container, only: %i[show edit update destroy mark_as_shipped items]
+  before_action :set_container, only: %i[show edit update destroy mark_as_shipped items summary]
 
   def new
     @breadcrumbs = [ [ "Containers", containers_path ], "New Container" ]
@@ -23,13 +23,13 @@ class ContainersController < ApplicationController
   end
 
   def show
-    @breadcrumbs = [ [ "Containers", containers_path ], @container.application_number ]
+    @breadcrumbs = [ [ "Containers", containers_path ], @container.display_text ]
   end
 
   def edit
     raise "Not editable" unless @container.editable?
 
-    @breadcrumbs = [ [ "Containers", containers_path ], [ @container.application_number, container_path(@container) ], "Edit" ]
+    @breadcrumbs = [ [ "Containers", containers_path ], [ @container.display_text, container_path(@container) ], "Edit" ]
     render :new
   end
 
@@ -125,6 +125,18 @@ class ContainersController < ApplicationController
 
   def items
     render partial: "inventory_items", locals: { container: @container }
+  end
+
+  def summary
+    @breadcrumbs = [ [ "Containers", containers_path ], [ @container.display_text, container_path(@container) ], "Count summary" ]
+
+    # We list all categories even if there is nothing in this container for them.
+    @supply_categories, @equipment_categories = ItemCategory.order(:name).partition(&:supply?)
+    per_category_scope = @container.inventory_items.joins(:item_subcategory)
+    @item_counts = per_category_scope.group(:item_category_id).count
+    grouped_categories = per_category_scope.group_by(&:item_category_id)
+    @item_values = grouped_categories.map { |item_category_id, items| [ item_category_id, items.sum(&:value) ] }.to_h
+    @item_weights = grouped_categories.map { |item_category_id, items| [ item_category_id, items.sum(&:weight) ] }.to_h
   end
 
   private

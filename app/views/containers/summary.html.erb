@@ -1,0 +1,33 @@
+<% [['Supplies', @supply_categories], ['Equipment', @equipment_categories]].each do |heading, categories| %>
+  <table class="report-table">
+    <caption>
+      <%= heading %>
+    </caption>
+    <thead>
+      <tr>
+        <th></th>
+        <th class="numeric">Count</th>
+        <th class="numeric">Weight</th>
+        <th class="numeric">Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% categories.each do |category| %>
+        <tr>
+          <th><%= category.name %></th>
+          <td class="numeric"><%= @item_counts[category.id] || 0 %></td>
+          <td class="numeric"><%= number_with_precision(@item_weights[category.id] || 0, precision: 1) %> kg</td>
+          <td class="numeric"><%= number_to_currency(@item_values[category.id] || 0) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th>Total</th>
+        <td class="numeric"><%= @item_counts.values_at(*categories.map(&:id)).compact.sum(0) %></td>
+        <td class="numeric"><%= number_with_precision(@item_weights.values_at(*categories.map(&:id)).compact.sum(0), precision: 1) %> kg</td>
+        <td class="numeric"><%= number_to_currency(@item_values.values_at(*categories.map(&:id)).compact.sum(0)) %></td>
+      </tr>
+    </tbody>
+  </table>
+<% end %>
