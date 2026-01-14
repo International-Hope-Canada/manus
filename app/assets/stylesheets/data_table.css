@@ -5,6 +5,7 @@
 .data-table th, .data-table td {
   padding: 1px 8px;
   text-align: left;
+  vertical-align: top;
 }
 
 .data-table th:first-child, .data-table td:first-child {
@@ -16,6 +17,9 @@
 
 .data-table .numeric {
    text-align: right;
+}
+.data-table .wrappable {
+  white-space: pre-wrap;
 }
 
 .data-table tbody th {

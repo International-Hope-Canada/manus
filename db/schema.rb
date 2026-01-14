@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_11_213734) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_14_014523) do
   create_table "containers", force: :cascade do |t|
     t.string "address"
     t.integer "application_number", null: false
@@ -60,6 +60,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_11_213734) do
     t.decimal "weight_kg", precision: 10, scale: 1
     t.index ["item_category_id"], name: "index_item_subcategories_on_item_category_id"
     t.index ["name", "item_category_id"], name: "index_item_subcategories_on_name_and_item_category_id", unique: true
+  end
+
+  create_table "settings", force: :cascade do |t|
+    t.string "setting_key", limit: 20, null: false
+    t.string "setting_value", limit: 1000
+    t.index ["setting_key"], name: "index_settings_on_setting_key", unique: true
   end
 
   create_table "users", force: :cascade do |t|

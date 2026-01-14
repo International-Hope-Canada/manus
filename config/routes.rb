@@ -32,6 +32,7 @@ Rails.application.routes.draw do
     end
   end
   resources :item_categories
+  resources :settings, only: [ :index, :edit, :update ]
   resources :users, except: :destroy, constraints: { id: /[0-9]+/ } do
     collection do
       post "login"
