@@ -96,7 +96,7 @@ class ContainersController < ApplicationController
     else
       @success = flash[:success] = true
       flash[:success_message] = "Item #{params[:barcode]} added to container."
-      inventory_item.add_to_container!(@container)
+      inventory_item.add_to_container!(@container, picked_by: current_user)
     end
 
     respond_to do |format|

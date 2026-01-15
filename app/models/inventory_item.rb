@@ -2,13 +2,14 @@ class InventoryItem < ApplicationRecord
   belongs_to :item_subcategory
   belongs_to :inventoried_by, class_name: "User", inverse_of: :packed_items
   belongs_to :container, optional: true
+  belongs_to :picked_by, class_name: "User", inverse_of: :packed_items, optional: true
 
   enum :manual_type, [ :no_manual, :pdf, :paper ]
   enum :status, [ :in_inventory, :in_container, :discarded_stale_dated, :discarded_damaged, :lost, :given_away ]
 
   delegate :equipment?, :supply?, :item_category, :item_category_id, :classification, to: :item_subcategory, allow_nil: true
 
-  validates :barcode, presence: true, uniqueness: true, format: { with: /([0-9]{8}|[0-9]{10})/ }
+  validates :barcode, presence: true, uniqueness: true, format: { with: /[0-9]{1,8}/ }
   validates :oldest_expiry_year, numericality: { in: 1900..2100 }, allow_blank: true
   validates :manual_type, presence: true, if: :equipment?
   validates :status, inclusion: { in: [ "in_container" ] }, if: :container
@@ -58,16 +59,16 @@ class InventoryItem < ApplicationRecord
     can_be_added_to_container_failure_reason.nil?
   end
 
-  def add_to_container!(container_to_add_to)
+  def add_to_container!(container_to_add_to, picked_by:)
     raise "Container cannot receive items" unless container_to_add_to.can_receive_items?
     raise "Item already in a container" unless can_be_added_to_container?
-    update!(container: container_to_add_to, status: :in_container, picked_at: DateTime.now)
+    update!(container: container_to_add_to, status: :in_container, picked_at: DateTime.now, picked_by:)
   end
 
   def remove_from_container!
     raise "Item not in a container" unless container
     raise "Items cannot be removed from container" unless container.can_receive_items?
-    update!(container: nil, status: :in_inventory, picked_at: nil)
+    update!(container: nil, status: :in_inventory, picked_at: nil, picked_by_id: nil)
   end
 
   def expiry_date_options

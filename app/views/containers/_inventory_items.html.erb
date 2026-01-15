@@ -9,6 +9,7 @@
         <tr>
           <th>Barcode <%= list_sort_link(param_name: :inventory_item_sort, param_value: :barcode) %></th>
           <th>Category <%= list_sort_link(param_name: :inventory_item_sort, param_value: :category) %></th>
+          <th>Picked by <%= list_sort_link(param_name: :inventory_item_sort, param_value: :picked_by) %></th>
           <th>Picked at <%= list_sort_link(param_name: :inventory_item_sort, param_value: nil) %></th>
           <th></th>
         </tr>
@@ -18,6 +19,7 @@
           <tr>
             <td><%= inventory_item.barcode %> </td>
             <td><%= link_to(inventory_item.item_subcategory.display_name, inventory_item.item_subcategory) %></td>
+            <td><%= render_user(inventory_item.picked_by) %></td>
             <td><%= render_datetime(inventory_item.picked_at) %></td>
             <td>
               <%= link_to 'View', inventory_item %>

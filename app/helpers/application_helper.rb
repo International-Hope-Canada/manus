@@ -25,4 +25,8 @@ module ApplicationHelper
   def render_boolean(b)
     b ? "Yes" : "No"
   end
+
+  def render_user(user)
+    user&.name
+  end
 end

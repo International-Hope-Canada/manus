@@ -10,6 +10,8 @@ module InventoryItemHelper
       inventory_items.order(:status)
     when "picked_at"
       inventory_items.order(picked_at: :desc, created_at: :desc)
+    when "picked_by"
+      inventory_items.left_joins(:picked_by).order(picked_by: { last_name: :asc, first_name: :asc})
     when nil
       if context == :picking
         inventory_items.order(picked_at: :desc)
