@@ -1,6 +1,8 @@
-<p>
-  <%= link_to 'New category', new_item_category_path, class: "btn btn-primary" %>
-</p>
+<% if current_user.admin? %>
+  <p>
+    <%= link_to 'New category', new_item_category_path, class: "btn btn-primary" %>
+  </p>
+<% end %>
 
 <table class="data-table">
   <thead>
@@ -44,8 +46,10 @@
         </td>
         <td>
           <%= link_to('View', category) %>
-          <%= link_to('Edit', edit_item_category_path(category)) %>
-          <%= link_to("Delete", category, data: { turbo_method: :delete, turbo_confirm: "Delete this category and all its subcategories?" }) if category.destroyable? %>
+          <% if current_user.admin? %>
+            <%= link_to('Edit', edit_item_category_path(category)) %>
+            <%= link_to("Delete", category, data: { turbo_method: :delete, turbo_confirm: "Delete this category and all its subcategories?" }) if category.destroyable? %>
+          <% end %>
         </td>
       </tr>
     <% end %>

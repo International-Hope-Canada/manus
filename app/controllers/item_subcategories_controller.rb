@@ -1,4 +1,5 @@
 class ItemSubcategoriesController < ApplicationController
+  before_action :authorize_admin!, except: [ :show, :picker ]
   before_action :set_item_subcategory, only: %i[show edit update destroy]
 
   def show

@@ -1,7 +1,9 @@
-<p>
-  <%= link_to('Edit', edit_inventory_item_path(@inventory_item), class: "btn btn-primary") if @inventory_item.editable? %>
-  <%= link_to("Delete", @inventory_item, data: { turbo_method: :delete, turbo_confirm: "Deleting should only be done if this item never existed. Consider instead changing this item's status. Are you sure you want to delete?" }) if @inventory_item.destroyable? %>
-</p>
+<% if current_user.packer? %>
+  <p>
+    <%= link_to('Edit', edit_inventory_item_path(@inventory_item), class: "btn btn-primary") if @inventory_item.editable? %>
+    <%= link_to("Delete", @inventory_item, data: { turbo_method: :delete, turbo_confirm: "Deleting should only be done if this item never existed. Consider instead changing this item's status. Are you sure you want to delete?" }) if @inventory_item.destroyable? %>
+  </p>
+<% end %>
 
 <table class="data-table">
   <tbody>
