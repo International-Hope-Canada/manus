@@ -8,10 +8,11 @@ class InventoryItemsController < ApplicationController
     @body_class = "inventory-entry"
     @inventory_item = InventoryItem.new
 
-    preselected_category = current_user.recently_packed_item&.item_subcategory&.item_category
-    if preselected_category
-      @classification = preselected_category.classification
-      @item_category_id = preselected_category.id
+    preselected_subcategory = current_user.recently_packed_item&.item_subcategory
+    if preselected_subcategory
+      @classification = preselected_subcategory.classification
+      @item_category_id = preselected_subcategory.item_category_id
+      @item_subcategory_id = preselected_subcategory.id
     end
   end
 

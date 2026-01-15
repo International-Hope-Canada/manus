@@ -7,7 +7,7 @@
 
     <div class="form-group">
       <label>Category</label>
-      <%= turbo_frame_tag 'item_subcategory_picker', src: picker_item_subcategories_path(classification: @inventory_item.classification || @classification, item_category_id: @inventory_item.item_category_id || @item_category_id, item_subcategory_id: @inventory_item.item_subcategory_id) %>
+      <%= turbo_frame_tag 'item_subcategory_picker', src: picker_item_subcategories_path(classification: @inventory_item.classification || @classification, item_category_id: @inventory_item.item_category_id || @item_category_id, item_subcategory_id: @inventory_item.item_subcategory_id || @item_subcategory_id) %>
     </div>
 
     <div class="form-group">
