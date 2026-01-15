@@ -1,17 +1,20 @@
-<% [['Supplies', @supply_categories], ['Equipment', @equipment_categories]].each do |heading, categories| %>
-  <table class="report-table">
-    <caption>
-      <%= heading %>
-    </caption>
-    <thead>
-      <tr>
-        <th></th>
-        <th class="numeric">Count</th>
-        <th class="numeric">Weight</th>
-        <th class="numeric">Value</th>
+<table class="report-table">
+  <thead>
+    <tr>
+      <th></th>
+      <th class="numeric">Count</th>
+      <th class="numeric">Weight</th>
+      <th class="numeric">Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% data = [['Supplies', @supply_categories], ['Equipment', @equipment_categories]] %>
+    <% data.each do |heading, categories| %>
+      <tr class="heading-row">
+        <td colspan=4>
+          <%= heading %>
+        </td>
       </tr>
-    </thead>
-    <tbody>
       <% categories.each do |category| %>
         <tr>
           <th><%= category.name %></th>
@@ -20,14 +23,24 @@
           <td class="numeric"><%= number_to_currency(@item_values[category.id] || 0) %></td>
         </tr>
       <% end %>
-    </tbody>
-    <tfoot>
-      <tr>
+      <tr class="total-row">
         <th>Total</th>
         <td class="numeric"><%= @item_counts.values_at(*categories.map(&:id)).compact.sum(0) %></td>
         <td class="numeric"><%= number_with_precision(@item_weights.values_at(*categories.map(&:id)).compact.sum(0), precision: 1) %> kg</td>
         <td class="numeric"><%= number_to_currency(@item_values.values_at(*categories.map(&:id)).compact.sum(0)) %></td>
       </tr>
-    </tbody>
-  </table>
-<% end %>
+    <% end %>
+    <tr class="heading-row">
+      <td colspan=4>
+        Total
+      </td>
+    </tr>
+    <tr class="total-row">
+      <th></th>
+      <% all_categories = data.map(&:last).flatten %>
+      <td class="numeric"><%= @item_counts.values_at(*all_categories.map(&:id)).compact.sum(0) %></td>
+      <td class="numeric"><%= number_with_precision(@item_weights.values_at(*all_categories.map(&:id)).compact.sum(0), precision: 1) %> kg</td>
+      <td class="numeric"><%= number_to_currency(@item_values.values_at(*all_categories.map(&:id)).compact.sum(0)) %></td>
+    </tr>
+  </tbody>
+</table>

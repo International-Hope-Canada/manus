@@ -25,6 +25,16 @@
   text-align: right;
 }
 
-.report-table tfoot th, .report-table tfoot td {
+.report-table tfoot th, .report-table tfoot td, .report-table .total-row th, .report-table .total-row td {
   border-top: 2px solid black;
+}
+
+.report-table .heading-row {
+  font-size: larger;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.report-table .heading-row:not(:first-child) th, .report-table .heading-row:not(:first-child) td {
+  padding-top: 1em;
 }
