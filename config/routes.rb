@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       delete :remove_item
       get :items
       get :summary
+      get :manifest
     end
     collection do
       get :choose_for_picking

@@ -1,0 +1,50 @@
+<html>
+<head>
+  <%= stylesheet_link_tag :container_printable, "data-turbo-track": "reload" %>
+</head>
+<body id="container-printable">
+
+<div id="container-printable-header">
+  <%= image_tag('ihc-logo.jpg') %>
+  <%= simple_format(Setting.fetch(:ihc_address)) %>
+</div>
+
+<div id="container-printable-charity-number-header">
+  Canada Charity Registration Number <%= Setting.fetch(:ihc_charity_number) %>
+</div>
+
+<div id="container-printable-title"><%= @printable_title %></div>
+
+<div id="container-printable-application-number">IHC container shipment #<%= @container.application_number %></div>
+
+<div id="container-printable-date">Date: XXXX</div>
+
+<div id="container-printable-preamble">
+  <p>To Whom It May Concern:</p>
+
+  <p>The items described below are unsolicited free donations from the people of Canada to the people of XXXX</p>
+
+  <p>The items are for humanitarian purposes only and not for sale, barter or rent.</p>
+</div>
+
+<%= yield %>
+
+<div id="container-printable-consignee">
+  Consignee:<br>
+  Name:	XXXX<br>
+  Address: XXXX<br>
+  Country: XXXX<br>
+  Contact: XXXX<br>
+  phone: XXXX<br>
+  email: XXXX
+</div>
+
+<div id="container-printable-donor">
+	<%= simple_format(Setting.fetch(:ihc_address)) %>
+</div>
+	
+<div id="container-printable-charity-number-footer">
+  Canada Charity Registration Number <%= Setting.fetch(:ihc_charity_number) %>
+</div>
+
+<%= image_tag('seal.png') %>

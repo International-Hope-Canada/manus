@@ -1,0 +1,18 @@
+#container-printable {
+  width: 8.5in;
+
+  .numeric {
+    text-align: right;
+  }
+}
+
+#container-printable-header {
+  display: flex;
+  align-items: center;
+  p {
+    margin-left: 20px;
+  }
+}
+#container-printable-charity-number {
+  text-align: center;
+}

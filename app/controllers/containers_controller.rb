@@ -1,6 +1,9 @@
 class ContainersController < ApplicationController
-  before_action :authorize_picker!
-  before_action :set_container, only: %i[show edit update destroy mark_as_shipped items summary]
+  before_action :authorize_picker!, only: %i[choose_for_picking pick items summary add_item remove_item manifest]
+  before_action :authorize_admin!, only: %i[new create edit update index show destroy]
+  before_action :set_container, only: %i[show edit update destroy mark_as_shipped items summary manifest]
+
+  layout 'container_printable', only: %i[manifest]
 
   def new
     @breadcrumbs = [ [ "Containers", containers_path ], "New Container" ]
@@ -137,6 +140,10 @@ class ContainersController < ApplicationController
     grouped_categories = per_category_scope.group_by(&:item_category_id)
     @item_values = grouped_categories.map { |item_category_id, items| [ item_category_id, items.sum(&:value) ] }.to_h
     @item_weights = grouped_categories.map { |item_category_id, items| [ item_category_id, items.sum(&:weight) ] }.to_h
+  end
+
+  def manifest
+    @printable_title = 'Manifest'
   end
 
   private
