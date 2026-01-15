@@ -1,7 +1,7 @@
 <%# locals: (container:) -%>
 
 <%= turbo_frame_tag 'inventory_items_list', target: '_top' do %>
-  <% inventory_items = apply_inventory_item_sorts_and_filters(container.inventory_items) %>
+  <% inventory_items = apply_inventory_item_sorts_and_filters(container.inventory_items, context: :picking) %>
 
   <% if inventory_items.any? %>
     <table class="data-table">

@@ -1,18 +1,20 @@
 module InventoryItemHelper
-  def apply_inventory_item_sorts_and_filters(inventory_items)
+  def apply_inventory_item_sorts_and_filters(inventory_items, context: nil)
     inventory_items = inventory_items.includes(item_subcategory: :item_category)
     case params[:inventory_item_sort]
     when "barcode"
-      inventory_items = inventory_items.order(:barcode)
+      inventory_items.order(:barcode)
     when "category"
-      inventory_items = inventory_items.order("item_category.name", "item_subcategory.name")
+      inventory_items.order("item_category.name", "item_subcategory.name")
     when "status"
-      inventory_items = inventory_items.order(:status)
+      inventory_items.order(:status)
     when nil
-      inventory_items = inventory_items.order(created_at: :desc)
+      if context == :picking
+        inventory_items.order(picked_at: :desc)
+      else
+        inventory_items.order(created_at: :desc)
+      end
     end
-
-    inventory_items
   end
 
   def grouped_item_category_options

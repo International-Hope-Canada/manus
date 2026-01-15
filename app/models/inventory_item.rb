@@ -61,13 +61,13 @@ class InventoryItem < ApplicationRecord
   def add_to_container!(container_to_add_to)
     raise "Container cannot receive items" unless container_to_add_to.can_receive_items?
     raise "Item already in a container" unless can_be_added_to_container?
-    update!(container: container_to_add_to, status: :in_container)
+    update!(container: container_to_add_to, status: :in_container, picked_at: DateTime.now)
   end
 
   def remove_from_container!
     raise "Item not in a container" unless container
     raise "Items cannot be removed from container" unless container.can_receive_items?
-    update!(container: nil, status: :in_inventory)
+    update!(container: nil, status: :in_inventory, picked_at: nil)
   end
 
   def expiry_date_options
