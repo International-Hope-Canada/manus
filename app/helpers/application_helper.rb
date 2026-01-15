@@ -27,6 +27,8 @@ module ApplicationHelper
   end
 
   def render_user(user)
-    user&.name
+    return '' unless user
+
+    tag.span(title: user.name) { user.initials }
   end
 end

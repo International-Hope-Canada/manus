@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_15_192311) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_15_193516) do
   create_table "containers", force: :cascade do |t|
     t.string "address"
     t.integer "application_number", null: false
@@ -75,11 +75,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_15_192311) do
     t.boolean "admin", default: false, null: false
     t.datetime "created_at", null: false
     t.string "first_name", null: false
+    t.string "initials", limit: 3, null: false
     t.string "last_name", null: false
     t.boolean "packer", default: false, null: false
     t.boolean "picker", default: false, null: false
     t.datetime "updated_at", null: false
     t.index ["first_name", "last_name"], name: "index_users_on_first_name_and_last_name", unique: true
+    t.index ["initials"], name: "index_users_on_initials", unique: true
   end
 
   add_foreign_key "inventory_items", "containers"
