@@ -4,6 +4,12 @@
 </head>
 <body id="container-printable">
 
+<% unless @container.shipped? %>
+  <div id="container-printable-draft-notice">
+    DRAFT
+  </div>
+<% end %>
+
 <div id="container-printable-header">
   <%= image_tag('ihc-logo.jpg') %>
   <%= simple_format(Setting.fetch(:ihc_address)) %>
@@ -17,7 +23,7 @@
 
 <div id="container-printable-application-number">IHC container shipment #<%= @container.application_number %></div>
 
-<div id="container-printable-date">Date: XXXX</div>
+<div id="container-printable-date">Date: <%= render_full_date(@container.shipped_at || DateTime.now) %></div>
 
 <div id="container-printable-preamble">
   <p>To Whom It May Concern:</p>

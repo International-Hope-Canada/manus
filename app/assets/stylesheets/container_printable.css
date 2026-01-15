@@ -16,3 +16,12 @@
 #container-printable-charity-number {
   text-align: center;
 }
+#container-printable-draft-notice {
+  font-size: 140px;
+  color: red;
+  opacity: 0.1;
+  position: absolute;
+  top: 4in;
+  width: 8.5in;
+  text-align: center;
+}

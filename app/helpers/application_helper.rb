@@ -18,6 +18,10 @@ module ApplicationHelper
     datetime.strftime("%b %-d, %Y")
   end
 
+  def render_full_date(datetime)
+    datetime.strftime("%B %-d, %Y")
+  end
+
   def render_pagy
     @pagy.series_nav.html_safe if @pagy.pages > 1
   end

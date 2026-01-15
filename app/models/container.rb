@@ -12,15 +12,15 @@ class Container < ApplicationRecord
   end
 
   def can_be_marked_as_shipped?
-    !shipped_at
+    !shipped?
   end
 
   def editable?
-    !shipped_at
+    !shipped?
   end
 
   def destroyable?
-    !shipped_at && inventory_items.empty?
+    !shipped? && inventory_items.empty?
   end
 
   def display_text
@@ -28,6 +28,10 @@ class Container < ApplicationRecord
   end
 
   def can_receive_items?
-    !shipped_at
+    !shipped?
+  end
+
+  def shipped?
+    shipped_at.present?
   end
 end
