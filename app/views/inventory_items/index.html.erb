@@ -10,6 +10,7 @@
         <th>Barcode <%= list_sort_link(param_name: :inventory_item_sort, param_value: :barcode) %></th>
         <th>Category <%= list_sort_link(param_name: :inventory_item_sort, param_value: :category) %></th>
         <th>Status <%= list_sort_link(param_name: :inventory_item_sort, param_value: :status) %></th>
+        <th>Picked at <%= list_sort_link(param_name: :inventory_item_sort, param_value: :picked_at) %></th>
         <th></th>
       </tr>
     </thead>
@@ -22,6 +23,7 @@
           <td>
             <%= inventory_item.status_display %><% if inventory_item.container %>: <%= link_to(inventory_item.container.application_number, inventory_item.container) %><% end %>
           </td>
+          <td><%= render_datetime(inventory_item.picked_at) %></td>
           <td>
             <%= link_to 'View', inventory_item_path(inventory_item) %>
             <%= link_to 'Edit', edit_inventory_item_path(inventory_item) if inventory_item.editable? %>

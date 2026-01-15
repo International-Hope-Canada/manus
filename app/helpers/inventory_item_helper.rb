@@ -8,6 +8,8 @@ module InventoryItemHelper
       inventory_items.order("item_category.name", "item_subcategory.name")
     when "status"
       inventory_items.order(:status)
+    when "picked_at"
+      inventory_items.order(picked_at: :desc, created_at: :desc)
     when nil
       if context == :picking
         inventory_items.order(picked_at: :desc)
