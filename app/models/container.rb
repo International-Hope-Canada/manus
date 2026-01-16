@@ -34,4 +34,8 @@ class Container < ApplicationRecord
   def shipped?
     shipped_at.present?
   end
+
+  def city_region_country
+    [city, region, country].select(&:present?).join(', ')
+  end
 end

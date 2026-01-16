@@ -10,16 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_15_193516) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_16_003234) do
   create_table "containers", force: :cascade do |t|
     t.string "address"
     t.integer "application_number", null: false
+    t.string "city"
     t.string "contact"
     t.string "country"
     t.datetime "created_at", null: false
     t.string "email"
     t.string "name"
     t.string "phone"
+    t.string "postal_code"
+    t.string "region"
     t.date "shipped_at"
     t.datetime "updated_at", null: false
   end
