@@ -36,6 +36,6 @@ class Container < ApplicationRecord
   end
 
   def city_region_country
-    [city, region, country].select(&:present?).join(', ')
+    [ city, region, country ].select(&:present?).join(", ")
   end
 end

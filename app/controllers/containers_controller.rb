@@ -3,7 +3,7 @@ class ContainersController < ApplicationController
   before_action :authorize_admin!, only: %i[new create edit update index show destroy]
   before_action :set_container, only: %i[show edit update destroy mark_as_shipped items summary manifest]
 
-  layout 'container_printable', only: %i[manifest]
+  layout "container_printable", only: %i[manifest]
 
   def new
     @breadcrumbs = [ [ "Containers", containers_path ], "New Container" ]
@@ -143,7 +143,7 @@ class ContainersController < ApplicationController
   end
 
   def manifest
-    @printable_title = 'Manifest'
+    @printable_title = "Manifest"
   end
 
   private
