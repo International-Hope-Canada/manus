@@ -27,6 +27,10 @@ class Container < ApplicationRecord
     "##{application_number} - #{name} #{country}"
   end
 
+  def short_display_text
+    "##{application_number}"
+  end
+
   def can_receive_items?
     !shipped?
   end

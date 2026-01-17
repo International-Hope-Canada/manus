@@ -19,10 +19,10 @@ class InventoryItem < ApplicationRecord
   validates :container_id, presence: true, if: :in_container?
 
   STATUS_DISPLAYS = {
-    in_inventory: "In inventory",
-    in_container: "In container",
-    discarded_stale_dated: "Discarded - stale dated",
-    discarded_damaged: "Discarded - damaged",
+    in_inventory: "Inventory",
+    in_container: "Container",
+    discarded_stale_dated: "Stale dated",
+    discarded_damaged: "Damaged",
     lost: "Lost",
     given_away: "Given away"
   }

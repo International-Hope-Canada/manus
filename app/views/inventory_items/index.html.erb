@@ -7,9 +7,12 @@
     <thead>
       <tr>
         <th>Created <%= list_sort_link(param_name: :inventory_item_sort, param_value: nil) %></th>
-        <th>Barcode <%= list_sort_link(param_name: :inventory_item_sort, param_value: :barcode) %></th>
+        <th class="numeric">Barcode <%= list_sort_link(param_name: :inventory_item_sort, param_value: :barcode) %></th>
         <th>Category <%= list_sort_link(param_name: :inventory_item_sort, param_value: :category) %></th>
+        <th>Packed by <%= list_sort_link(param_name: :inventory_item_sort, param_value: :packed_by) %></th>
         <th>Status <%= list_sort_link(param_name: :inventory_item_sort, param_value: :status) %></th>
+        <th>Container <%= list_sort_link(param_name: :inventory_item_sort, param_value: :container) %></th>
+        <th>Expiry <%= list_sort_link(param_name: :inventory_item_sort, param_value: :oldest_expiry_year) %></th>
         <th>Picked at <%= list_sort_link(param_name: :inventory_item_sort, param_value: :picked_at) %></th>
         <th>Picked by <%= list_sort_link(param_name: :inventory_item_sort, param_value: :picked_by) %></th>
         <th></th>
@@ -19,11 +22,14 @@
       <% @inventory_items.each do |inventory_item| %>
         <tr>
           <td><%= render_datetime(inventory_item.created_at) %></td>
-          <td><%= inventory_item.barcode %></td>
+          <td class="numeric"><%= inventory_item.barcode %></td>
           <td><%= link_to(inventory_item.item_subcategory.display_name, inventory_item.item_subcategory) %></td>
+          <td><%= render_user(inventory_item.inventoried_by) %></td>
+          <td><%= inventory_item.status_display %></td>
           <td>
-            <%= inventory_item.status_display %><% if inventory_item.container %>: <%= link_to(inventory_item.container.application_number, inventory_item.container) %><% end %>
+            <%= link_to(inventory_item.container.short_display_text, inventory_item.container, title: inventory_item.container.display_text) if inventory_item.container %>
           </td>
+          <td><%= inventory_item.oldest_expiry_year %>
           <td><%= render_datetime(inventory_item.picked_at) %></td>
           <td><%= render_user(inventory_item.picked_by) %></td>
           <td>

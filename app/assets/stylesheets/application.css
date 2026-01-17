@@ -40,3 +40,7 @@ h2 {
   height: 29px;
   vertical-align: bottom;
 }
+
+[title] {
+  text-decoration: underline dotted gray;
+}

@@ -68,7 +68,7 @@
         <thead>
           <tr>
             <th>Created</th>
-            <th>Barcode</th>
+            <th class="numeric">Barcode</th>
             <th>Category</th>
             <th>Status</th>
             <th></th>
@@ -78,7 +78,7 @@
           <% inventory_items.each do |inventory_item| %>
             <tr class="<%= 'highlight highlight-active' if inventory_item.id == flash[:highlight_inventory_item_id].to_i %>">
               <td><%= render_datetime(inventory_item.created_at) %>
-              <td><%= link_to(inventory_item.barcode, inventory_item) %> </td>
+              <td class="numeric"><%= inventory_item.barcode %> </td>
               <td><%= link_to(inventory_item.item_subcategory.display_name, inventory_item.item_subcategory) %></td>
               <td>
                 <%= inventory_item.status_display %><% if inventory_item.container %>: <%= link_to(inventory_item.container.application_number, inventory_item.container) %><% end %>

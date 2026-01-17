@@ -13,9 +13,16 @@ module ApplicationHelper
 
   def render_datetime(datetime)
     return nil unless datetime
-    return datetime.strftime("%-I:%M%p") if datetime.today?
-    return datetime.strftime("%b %-d") if datetime.year == Date.today.year
-    datetime.strftime("%b %-d, %Y")
+
+    display_text = if datetime.today?
+      datetime.strftime("%H:%M")
+    elsif datetime.year == Date.today.year
+      datetime.strftime("%b %-d")
+    else
+      datetime.strftime("%b %-d '%y")
+    end
+
+    tag.span(title: datetime.strftime("%B %-d, %Y %-I:%M%p")) { display_text }
   end
 
   def render_full_date(datetime)
@@ -23,7 +30,9 @@ module ApplicationHelper
   end
 
   def render_pagy
-    @pagy.series_nav.html_safe if @pagy.pages > 1
+    rv = @pagy.info_tag
+    rv += @pagy.series_nav if @pagy.pages > 1
+    rv.html_safe
   end
 
   def render_boolean(b)
