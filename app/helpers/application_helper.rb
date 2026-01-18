@@ -79,11 +79,11 @@ module ApplicationHelper
       rv = @pagy.info_tag
       if @pagy.pages > 1
         rv += ' | '
-        rv += link_to('View all', view_all: 1)
+        rv += link_to('View all', request.query_parameters.merge(view_all: 1, page: nil))
         rv += @pagy.series_nav
       elsif params[:view_all] == '1'
         rv += ' | '
-        rv += link_to('View paged', view_all: nil)
+        rv += link_to('View paged', request.query_parameters.merge(view_all: nil))
       end
       rv.html_safe
     end
