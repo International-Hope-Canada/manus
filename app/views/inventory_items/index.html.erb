@@ -4,15 +4,36 @@
 
 <%= turbo_frame_tag 'inventory_items_list', target: '_top' do %>
   <table class="data-table">
+    <% if params[:inventory_item_filter] %>
+      <caption>
+        Filters applied. <%= link_to 'Clear.', request.path %>
+      </caption>
+    <% end %>
+    </caption>
     <thead>
       <tr>
         <th>Created <%= list_sort_link(param_name: :inventory_item_sort, param_value: nil) %></th>
         <th class="numeric">Barcode <%= list_sort_link(param_name: :inventory_item_sort, param_value: :barcode) %></th>
-        <th>Category <%= list_sort_link(param_name: :inventory_item_sort, param_value: :category) %></th>
+        <th>
+          Category <%= list_sort_link(param_name: :inventory_item_sort, param_value: :category) %>
+          <%= list_filter_control(scope: :inventory_item_filter, column: :category, control_type: :grouped_select, options: category_select_options) %>
+        </th>
         <th>Packed by <%= list_sort_link(param_name: :inventory_item_sort, param_value: :packed_by) %></th>
-        <th>Status <%= list_sort_link(param_name: :inventory_item_sort, param_value: :status) %></th>
-        <th>Container <%= list_sort_link(param_name: :inventory_item_sort, param_value: :container) %></th>
-        <th>Expiry <%= list_sort_link(param_name: :inventory_item_sort, param_value: :oldest_expiry_year) %></th>
+        <th>
+          Status 
+          <%= list_sort_link(param_name: :inventory_item_sort, param_value: :status) %>
+          <%= list_filter_control(scope: :inventory_item_filter, column: :status, control_type: :select, options: [['']] + InventoryItem.statuses.keys.map { |c| [InventoryItem::STATUS_DISPLAYS[c.to_sym], c] }) %>
+        </th>
+        <th>
+          Container
+          <%= list_sort_link(param_name: :inventory_item_sort, param_value: :container) %>
+          <%= list_filter_control(scope: :inventory_item_filter, column: :container, control_type: :select, options: [['']] + Container.order(application_number: :desc).map { |c| [c.display_text, c.id] }) %>
+        </th>
+        <th>
+          Expiry
+          <%= list_sort_link(param_name: :inventory_item_sort, param_value: :oldest_expiry_year) %>
+          <%= list_filter_control(scope: :inventory_item_filter, column: :oldest_expiry_year, control_type: :year) %>
+          </th>
         <th>Picked at <%= list_sort_link(param_name: :inventory_item_sort, param_value: :picked_at) %></th>
         <th>Picked by <%= list_sort_link(param_name: :inventory_item_sort, param_value: :picked_by) %></th>
         <th></th>

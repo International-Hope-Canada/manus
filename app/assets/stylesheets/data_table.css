@@ -1,6 +1,15 @@
 .data-table {
   /* Spacing messes up hover on trs */
   border-spacing: 0;
+
+  caption {
+    text-align: left;
+    font-weight: bold;
+    padding: 0.75em 0.5em;
+    margin-left: -0.5em;
+    margin-right: -0.5em;
+    background-color:rgb(255, 255, 189)
+  }
 }
 .data-table th, .data-table td {
   padding: 1px 8px;
