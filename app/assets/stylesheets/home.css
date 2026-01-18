@@ -4,11 +4,11 @@
   border-radius: 5px;
   margin: 10px;
   vertical-align: top;
-  padding: 0 5px 5px 5px;
+  padding: 0 20px 5px 20px;
 }
 .home-panel h2 {
   background-color: green;
   color: white;
-  margin: 0 -5px auto -5px;
-  padding: 0 5px 0 5px;
+  margin: 0 -20px auto -20px;
+  padding: 0 20px 0 20px;
 }

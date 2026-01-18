@@ -28,7 +28,7 @@
 <div id="container-printable-preamble">
   <p>To Whom It May Concern:</p>
 
-  <p>The items described below are unsolicited free donations from the people of Canada to the people of <%= @container.city_region_country %>.</p>
+  <p>The items described below are unsolicited free donations from the people of Canada to the people of <%= @container.consignee_city_region_country %>.</p>
 
   <p>The items are for humanitarian purposes only and not for sale, barter or rent.</p>
 </div>
@@ -37,13 +37,13 @@
 
 <div id="container-printable-consignee">
   Consignee:<br>
-  <%= @container.name %><br>
-  <%= @container.address %><br>
-  <%= @container.city_region_country %><br>
-  <%= @container.postal_code %><br>
-  Contact: <%= @container.contact %><br>
-  <%= @container.phone %><br>
-  <%= @container.email %>
+  <%= @container.consignee_name %><br>
+  <%= @container.consignee_address %><br>
+  <%= @container.consignee_city_region_country %><br>
+  <%= @container.consignee_postal_code %><br>
+  Contact: <%= @container.consignee_contact_name %><br>
+  <%= @container.consignee_contact_phone %><br>
+  <%= @container.consignee_contact_email %>
 </div>
 
 <div id="container-printable-donor">

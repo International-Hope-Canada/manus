@@ -24,7 +24,7 @@ class Container < ApplicationRecord
   end
 
   def display_text
-    "##{application_number} - #{name} #{country}"
+    "##{application_number} - #{consignee_name} #{consignee_country}"
   end
 
   def short_display_text
@@ -39,7 +39,7 @@ class Container < ApplicationRecord
     shipped_at.present?
   end
 
-  def city_region_country
-    [ city, region, country ].select(&:present?).join(", ")
+  def consignee_city_region_country
+    [ consignee_city, consignee_region, consignee_country ].select(&:present?).join(", ")
   end
 end

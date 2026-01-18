@@ -149,7 +149,7 @@ class ContainersController < ApplicationController
   private
 
   def container_params
-    params.require(:container).permit(:application_number, :name, :address, :city, :region, :country, :postal_code, :contact, :phone, :email)
+    params.require(:container).permit(:application_number, :consignee_name, :consignee_address, :consignee_city, :consignee_region, :consignee_country, :consignee_postal_code, :consignee_contact_name, :consignee_contact_phone, :consignee_contact_email)
   end
 
   def set_container

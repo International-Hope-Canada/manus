@@ -8,8 +8,8 @@
   <thead>
     <tr>
       <th>Application number</th>
-      <th>Name</th>
-      <th>Country</th>
+      <th>Consignee Name</th>
+      <th>Consignee Country</th>
       <th>Shipped at</th>
     </tr>
   </thead>
@@ -17,8 +17,8 @@
     <% @containers.each do |container| %>
       <tr>
         <td><%= link_to(container.application_number, container) %></td>
-        <td><%= container.name %></td>
-        <td><%= container.country %></td>
+        <td><%= container.consignee_name %></td>
+        <td><%= container.consignee_country %></td>
         <td><%= container.shipped_at %></td>
         <td class="action-column">
           <%= link_to('🔎', container, title: 'View') %>
