@@ -22,16 +22,17 @@
   <% if current_user&.admin? %>
     <div class="home-panel">
       <h2>Admin</h2>
+
+      <p>
+        <%= link_to 'Categories', item_categories_path, class: "btn btn-primary" %>
+      </p>
+
       <p>
         <%= link_to 'Containers', containers_path, class: "btn btn-primary" %>
       </p>
 
       <p>
         <%= link_to 'Inventory', inventory_items_path, class: "btn btn-primary" %>
-      </p>
-
-      <p>
-        <%= link_to 'Item categories', item_categories_path, class: "btn btn-primary" %>
       </p>
 
       <p>
