@@ -6,7 +6,7 @@
 
 <%= turbo_frame_tag 'inventory_items_list', target: '_top' do %>
   <table class="data-table">
-    <% if params[:inventory_item_filter] %>
+    <% if params[:inventory_item_filter]&.to_unsafe_h&.any?{|k, v| v.present?} %>
       <caption>
         Filters applied. <%= link_to 'Clear.', request.path %>
       </caption>

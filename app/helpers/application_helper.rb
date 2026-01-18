@@ -28,7 +28,7 @@ module ApplicationHelper
         when :select
                        select_tag(param_name, options_for_select(options, param_value))
         when :grouped_select
-                       select_tag(param_name, grouped_options_for_select(options, param_value))
+                       select_tag(param_name, grouped_options_for_select(options, param_value, prompt: ''))
         when :year
                        text_field_tag(param_name, param_value, inputmode: :numeric, placeholder: "YYYY", size: 4, autocomplete: :off)
         else
