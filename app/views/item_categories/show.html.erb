@@ -1,8 +1,10 @@
 <% if current_user.admin? %>
-  <p>
-    <%= link_to 'Edit', edit_item_category_path(@item_category), class: "btn btn-primary" %>
-    <%= link_to("Delete", @item_category, data: { turbo_method: :delete, turbo_confirm: "Delete this category and all its subcategories?" }) if @item_category.destroyable? %>
-  </p>
+  <div class="page-actions">
+    <p>
+      <%= link_to 'Edit', edit_item_category_path(@item_category), class: "btn btn-primary" %>
+      <%= link_to("Delete", @item_category, data: { turbo_method: :delete, turbo_confirm: "Delete this category and all its subcategories?" }) if @item_category.destroyable? %>
+    </p>
+  </div>
 <% end %>
 
 <table class="data-table">
@@ -55,13 +57,17 @@
               <span class="saved-data-error">Missing weight</span>
             <% end %>
           </td>
-          <td>
-            <%= link_to('View', subcategory) %>
-            <% if current_user.admin? %>
-              <%= link_to('Edit', edit_item_subcategory_path(subcategory)) %>
-              <%= link_to("Delete", subcategory, data: { turbo_method: :delete, turbo_confirm: "Delete this subcategory?" }) if subcategory.destroyable? %>
-            <% end %>
+          <td class="action-column">
+            <%= link_to('🔎', subcategory, title: 'View') %>
           </td>
+          <% if current_user.admin? %>
+            <td class="action-column">
+              <%= link_to('✎', edit_item_subcategory_path(subcategory), title: 'Edit') %>
+            </td>
+            <td class="action-column">
+              <%= link_to("🗑", subcategory, title: 'Delete', data: { turbo_method: :delete, turbo_confirm: "Delete this subcategory?" }) if subcategory.destroyable? %>
+            </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>

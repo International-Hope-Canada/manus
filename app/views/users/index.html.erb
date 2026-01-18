@@ -1,6 +1,8 @@
-<p>
-  <%= link_to 'New user', new_user_path, class: "btn btn-primary" %>
-</p>
+<div class="page-actions">
+  <p>
+    <%= link_to 'New user', new_user_path, class: "btn btn-primary" %>
+  </p>
+</div>
 
 <table class="data-table">
   <thead>
@@ -9,7 +11,6 @@
       <th>Initials</th>
       <th>Roles</th>
       <th>Active</th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -19,9 +20,11 @@
         <td><%= user.initials %></td>
         <td><%= user.roles.join(', ') %></td>
         <td><%= render_boolean(user.active?) %></td>
-        <td>
-          <%= link_to 'View', user_path(user) %>
-          <%= link_to 'Edit', edit_user_path(user) %>
+        <td class="action-column">
+          <%= link_to '🔎', user_path(user), title: 'View' %>
+        </td>
+        <td class="action-column">
+          <%= link_to '✎', edit_user_path(user), title: 'Edit' %>
         </td>
       </tr>
     <% end %>

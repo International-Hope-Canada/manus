@@ -53,3 +53,9 @@
   vertical-align: bottom;
   font-weight: bold;
 }
+
+@media print {
+  .filter-control {
+    display: none !important;
+  }
+}

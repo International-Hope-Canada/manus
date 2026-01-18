@@ -1,0 +1,12 @@
+@media print {
+  a {
+    text-decoration: none !important;
+    color: black !important;
+  }
+  [title] {
+    text-decoration: none !important;
+  }
+  .header, .page-actions, .pagination {
+    display: none;
+  }
+}

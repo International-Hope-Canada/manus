@@ -11,7 +11,6 @@
           <th>Category <%= list_sort_link(param_name: :inventory_item_sort, param_value: :category) %></th>
           <th>Picked by <%= list_sort_link(param_name: :inventory_item_sort, param_value: :picked_by) %></th>
           <th>Picked at <%= list_sort_link(param_name: :inventory_item_sort, param_value: nil) %></th>
-          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -21,10 +20,12 @@
             <td><%= link_to(inventory_item.item_subcategory.display_name, inventory_item.item_subcategory) %></td>
             <td><%= render_user(inventory_item.picked_by) %></td>
             <td><%= render_datetime(inventory_item.picked_at) %></td>
-            <td>
-              <%= link_to 'View', inventory_item %>
+            <td class="action-column">
+              <%= link_to '🔎', inventory_item, title: 'View' %>
+            </td>
+            <td class="action-column">
               <% if container.can_receive_items? %>
-                <%= link_to 'Remove', remove_item_container_path(container, inventory_item_id: inventory_item.id, inventory_item_sort: params[:inventory_item_sort]), data: { turbo_method: :delete, turbo_confirm: "Return #{inventory_item.item_subcategory.display_name} to inventory?", turbo_frame: '_self' } %>
+                <%= link_to '✖', remove_item_container_path(container, inventory_item_id: inventory_item.id, inventory_item_sort: params[:inventory_item_sort]), title: 'Remove from container', data: { turbo_method: :delete, turbo_confirm: "Return #{inventory_item.item_subcategory.display_name} to inventory?", turbo_frame: '_self' } %>
               <% end %>
             </td>
           </tr>

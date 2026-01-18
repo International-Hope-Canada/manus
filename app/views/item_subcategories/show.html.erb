@@ -1,8 +1,10 @@
 <% if current_user.admin? %>
-  <p>
-    <%= link_to 'Edit', edit_item_subcategory_path(@item_subcategory), class: "btn btn-primary" %>
-    <%= link_to("Delete", @item_subcategory, data: { turbo_method: :delete, turbo_confirm: "Delete this subcategory?" }) if @item_subcategory.destroyable? %>
-  </p>
+  <div class="page-actions">
+    <p>
+      <%= link_to 'Edit', edit_item_subcategory_path(@item_subcategory), class: "btn btn-primary" %>
+      <%= link_to("Delete", @item_subcategory, data: { turbo_method: :delete, turbo_confirm: "Delete this subcategory?" }) if @item_subcategory.destroyable? %>
+    </p>
+  </div>
 <% end %>
 
 <table class="data-table">

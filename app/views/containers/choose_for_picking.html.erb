@@ -2,7 +2,7 @@
   <p>Choose a container to add inventory to.</p>
 
   <% @containers.each do |container| %>
-    <%= link_to container.display_text, pick_container_path(container) %>
+    <%= link_to container.display_text, pick_container_path(container) %><br>
   <% end %>
 <% else %>
   <p>No containers available.</p>

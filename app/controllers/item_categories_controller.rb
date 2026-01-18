@@ -4,7 +4,7 @@ class ItemCategoriesController < ApplicationController
 
   # GET /item_categories or /item_categories.json
   def index
-    @pagy, @item_categories = pagy(:offset, ItemCategory.order(:classification, :name))
+    @item_categories = apply_pagy(ItemCategory.order(:classification, :name))
     @breadcrumbs = [ "Categories" ]
   end
 

@@ -10,6 +10,15 @@
     margin-right: -0.5em;
     background-color:rgb(255, 255, 189)
   }
+
+  .action-column {
+    padding: 0 0 0 4px;
+
+    a {
+      text-decoration: none;
+      color: black;
+    }
+  }
 }
 .data-table th, .data-table td {
   padding: 1px 8px;
@@ -44,4 +53,20 @@
 }
 .data-table tbody tr:hover {
   background-color: rgb(255, 255, 99);
+}
+.pagy.info {
+  display: inline;
+  font-size: medium;
+}
+.pagination {
+  margin-top: 1em;
+}
+
+@media print {
+  .data-table {
+    font-size: smaller;
+  }
+  .action-column {
+    display: none;
+  }
 }

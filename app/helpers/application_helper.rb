@@ -75,9 +75,18 @@ module ApplicationHelper
   end
 
   def render_pagy
-    rv = @pagy.info_tag
-    rv += @pagy.series_nav if @pagy.pages > 1
-    rv.html_safe
+    tag.div(class: :pagination) do
+      rv = @pagy.info_tag
+      if @pagy.pages > 1
+        rv += ' | '
+        rv += link_to('View all', view_all: 1)
+        rv += @pagy.series_nav
+      elsif params[:view_all] == '1'
+        rv += ' | '
+        rv += link_to('View paged', view_all: nil)
+      end
+      rv.html_safe
+    end
   end
 
   def render_boolean(b)

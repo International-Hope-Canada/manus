@@ -1,6 +1,8 @@
-<p>
-  <%= link_to('New', new_inventory_item_path, class: "btn btn-primary") %>
-<p>
+<div class="page-actions">
+  <p>
+    <%= link_to('New', new_inventory_item_path, class: "btn btn-primary") %>
+  <p>
+</div>
 
 <%= turbo_frame_tag 'inventory_items_list', target: '_top' do %>
   <table class="data-table">
@@ -36,7 +38,6 @@
           </th>
         <th>Picked at <%= list_sort_link(param_name: :inventory_item_sort, param_value: :picked_at) %></th>
         <th>Picked by <%= list_sort_link(param_name: :inventory_item_sort, param_value: :picked_by) %></th>
-        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -53,11 +54,15 @@
           <td><%= inventory_item.oldest_expiry_year %>
           <td><%= render_datetime(inventory_item.picked_at) %></td>
           <td><%= render_user(inventory_item.picked_by) %></td>
-          <td>
-            <%= link_to 'View', inventory_item_path(inventory_item) %>
+          <td class="action-column"><%= link_to '🔎', inventory_item_path(inventory_item), title: 'View' %></td>
+          <td class="action-column">
             <% if current_user.packer_access? %>
-              <%= link_to 'Edit', edit_inventory_item_path(inventory_item) if inventory_item.editable? %>
-              <%= link_to("Delete", inventory_item, data: { turbo_method: :delete, turbo_confirm: "Deleting should only be done if this item never existed. Consider instead changing this item's status. Are you sure you want to delete?" }) if inventory_item.destroyable? %>
+              <%= link_to('✎', edit_inventory_item_path(inventory_item), title: 'Edit') if inventory_item.editable? %>
+            <% end %>
+          </td>
+          <td class="action-column">
+            <% if current_user.packer_access? %>
+              <%= link_to("🗑", inventory_item, title: 'Delete', data: { turbo_method: :delete, turbo_confirm: "Deleting should only be done if this item never existed. Consider instead changing this item's status. Are you sure you want to delete?" }) if inventory_item.destroyable? %>
             <% end %>
           </td>
         </tr>

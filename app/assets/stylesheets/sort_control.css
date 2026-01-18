@@ -20,3 +20,9 @@ a.sort-control-inactive {
 .sort-control-unremovable {
  cursor: default; 
 }
+
+@media print {
+  .sort-control {
+    display: none !important;
+  }
+}
