@@ -19,7 +19,7 @@
         <td><%= link_to(container.application_number, container) %></td>
         <td><%= container.consignee_name %></td>
         <td><%= container.consignee_country %></td>
-        <td><%= container.shipped_at %></td>
+        <td><%= render_datetime(container.shipped_at) %></td>
         <td class="action-column">
           <%= link_to('🔎', container, title: 'View') %>
         </td>

@@ -59,6 +59,11 @@ module ApplicationHelper
   def render_datetime(datetime)
     return nil unless datetime
 
+    if datetime.is_a?(Date)
+      return datetime.strftime("%b %-d") if datetime.year == Date.today.year
+      return datetime.strftime("%b %-d '%y")
+    end
+
     display_text = if datetime.today?
       datetime.strftime("%H:%M")
     elsif datetime.year == Date.today.year
