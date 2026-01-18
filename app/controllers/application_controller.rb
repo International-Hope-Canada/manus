@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def apply_pagy(scope)
-    @pagy, new_scope = pagy(:offset, scope, limit: params[:view_all] == '1' ? 1_000_000 : Pagy.options[:limit])
+    @pagy, new_scope = pagy(:offset, scope, limit: params[:view_all] == "1" ? 1_000_000 : Pagy.options[:limit])
     new_scope
   end
 end

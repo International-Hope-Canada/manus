@@ -8,6 +8,11 @@ class ItemCategoriesController < ApplicationController
     @breadcrumbs = [ "Categories" ]
   end
 
+  def hierarchy
+    @item_categories = apply_pagy(ItemCategory.includes(:item_subcategories).order(:classification, :name))
+    @breadcrumbs = [ [ "Categories", item_categories_path ], "Hierarchy" ]
+  end
+
   # GET /item_categories/1 or /item_categories/1.json
   def show
     @breadcrumbs = [ [ "Categories", item_categories_path ], @item_category.name ]

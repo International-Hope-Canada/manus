@@ -1,0 +1,78 @@
+<% if current_user.admin? %>
+  <div class="page-actions">
+    <p>
+      <%= link_to 'Overview', item_categories_path, class: "btn btn-primary" %>
+      <%= link_to 'New category', new_item_category_path, class: "btn btn-primary" %>
+    </p>
+  </div>
+<% end %>
+
+<table class="data-table">
+  <thead>
+    <tr>
+      <th>Classification</th>
+      <th>Category</th>
+      <th>Subcategory</th>
+      <th class="numeric">Value</th>
+      <th class="numeric">Weight (kg)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% current_classification = nil %>
+    <% @item_categories.each do |category| %>
+      <% if current_classification != category.classification %>
+        <% current_classification = category.classification %>
+        <tr>
+          <td colspan="5"><%= category.classification.capitalize %></td>
+        </tr>
+      <% end %>
+      <tr>
+        <td>
+        </td>
+        <td colspan="2"><%= category.name %></td>
+        <td class="numeric">
+          <%= number_to_currency(category.value) %>
+        </td>
+        <td class="numeric">
+          <%= category.weight_kg %>
+        </td>
+        <td class="action-column">
+          <%= link_to('🔎', category, title: 'View') %>
+        </td>
+        <% if current_user.admin? %>
+          <td class="action-column">
+            <%= link_to('✎', edit_item_category_path(category), title: 'Edit') %>
+          </td>
+          <td class="action-column">
+            <%= link_to("🗑", category, title: 'Delete', data: { turbo_method: :delete, turbo_confirm: "Delete this category and all its subcategories?" }) if category.destroyable? %>
+          </td>
+        <% end %>
+      </tr>
+      <% category.item_subcategories.order(:name).each do |subcategory| %>
+        <tr>
+          <td></td>
+          <td></td>
+          <td><%= subcategory.name %></td>
+          <td class="numeric">
+            <%= number_to_currency(subcategory.value) %>
+          </td>
+          <td class="numeric">
+            <%= subcategory.weight_kg %>
+          </td>
+          <td class="action-column">
+            <%= link_to('🔎', subcategory, title: 'View') %>
+          </td>
+          <% if current_user.admin? %>
+            <td class="action-column">
+              <%= link_to('✎', edit_item_subcategory_path(subcategory), title: 'Edit') %>
+            </td>
+            <td class="action-column">
+              <%= link_to("🗑", subcategory, title: 'Delete', data: { turbo_method: :delete, turbo_confirm: "Delete this subcategory?" }) if subcategory.destroyable? %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+<%= render_pagy %>

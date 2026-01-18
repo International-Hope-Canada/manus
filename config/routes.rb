@@ -32,7 +32,11 @@ Rails.application.routes.draw do
       get "picker"
     end
   end
-  resources :item_categories
+  resources :item_categories do
+    collection do
+      get :hierarchy
+  end
+  end
   resources :settings, only: [ :index, :edit, :update ]
   resources :users, except: :destroy, constraints: { id: /[0-9]+/ } do
     collection do
