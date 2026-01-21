@@ -1,7 +1,7 @@
-<table>
+<table class="container-printable-table">
   <thead>
     <tr>
-      <th>Item No.</th>
+      <th class="numeric">Item No.</th>
       <th>Category</th>
       <th>Item</th>
       <th class="numeric">Value CDN</th>
@@ -9,15 +9,15 @@
     </tr>
   </thead>
   <tbody>
-    <% items = @container.inventory_items.includes(item_subcategory: :item_category).order(item_category: { name: :asc}, item_subcategory: { name: :asc}, barcode: :asc) %>
-    <% categorized_items = [['Equipment', items.where(item_category: { classification: ItemCategory.classifications[:equipment] })], ['Supplies', items.where(item_category: { classification: ItemCategory.classifications[:supply] })]] %>
+    <% all_items = container_items_for_printable(@container) %>
+    <% categorized_items = [['Equipment', all_items.where(item_category: { classification: ItemCategory.classifications[:equipment] })], ['Supplies', all_items.where(item_category: { classification: ItemCategory.classifications[:supply] })]] %>
     <% categorized_items.each do |heading, items| %>
-      <tr>
-        <td colspan="4"><%= heading %></td>
+      <tr class="container-printable-table-heading">
+        <td colspan="6"><%= heading %></td>
       </tr>
       <% items.each do |item| %>
         <tr>
-          <td><%= item.barcode %></td>
+          <td class="numeric"><%= item.barcode %></td>
           <td><%= item.item_category.name %></td>
           <td><%= item.item_subcategory.name %></td>
           <td class="numeric"><%= number_to_currency(item.value) %></td>
@@ -25,12 +25,12 @@
         </tr>
       <% end %>
     <% end %>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td class="numeric"><%= number_to_currency(items.sum(&:value)) %></td>
-      <td class="numeric"><%= items.sum(&:weight) %></td>
+    <tr class="container-printable-table-total">
+      <td colspan="3">
+        Total
+      </td>
+      <td class="numeric"><%= number_to_currency(all_items.sum(&:value)) %></td>
+      <td class="numeric"><%= all_items.sum(&:weight) %></td>
     </tr>
   </tbody>
 </table>

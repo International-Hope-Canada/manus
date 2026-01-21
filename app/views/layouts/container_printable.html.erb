@@ -1,8 +1,12 @@
 <html>
 <head>
   <%= stylesheet_link_tag :container_printable, "data-turbo-track": "reload" %>
+  <title><%= @printable_page_title %></title>
 </head>
 <body id="container-printable">
+<div id="container-printable-navigation">
+  <%= link_to 'Back to container', @container %>
+</div>
 
 <% unless @container.shipped? %>
   <div id="container-printable-draft-notice">
@@ -21,9 +25,9 @@
 
 <div id="container-printable-title"><%= @printable_title %></div>
 
-<div id="container-printable-application-number">IHC container shipment #<%= @container.application_number %></div>
+<p id="container-printable-application-number">IHC container shipment #<%= @container.application_number %></p>
 
-<div id="container-printable-date">Date: <%= render_full_date(@container.shipped_at || DateTime.now) %></div>
+<p id="container-printable-date">Date: <%= render_full_date(@container.shipped_at || DateTime.now) %></p>
 
 <div id="container-printable-preamble">
   <p>To Whom It May Concern:</p>
@@ -35,18 +39,18 @@
 
 <%= yield %>
 
-<div id="container-printable-consignee">
-  Consignee:<br>
-  <%= @container.consignee_name %><br>
-  <%= @container.consignee_address %><br>
-  <%= @container.consignee_city_region_country %><br>
-  <%= @container.consignee_postal_code %><br>
-  Contact: <%= @container.consignee_contact_name %><br>
-  <%= @container.consignee_contact_phone %><br>
-  <%= @container.consignee_contact_email %>
-</div>
+<p id="container-printable-consignee">
+  <div class="container-printable-name-label">Consignee:</div>
+  <%= safe_join([:consignee_name, :consignee_address, :consignee_city_region_country, :consignee_postal_code].map {|field| @container.public_send(field)}.select(&:present?), '<br>'.html_safe) %><br>
+  <% contact_fields = [:consignee_contact_name, :consignee_contact_phone, :consignee_contact_email].map {|field| @container.public_send(field)}.select(&:present?) %>
+  <% if contact_fields.any? %>
+    Contact:<br>
+    <%= safe_join(contact_fields, '<br>'.html_safe) %>
+  <% end %>
+</p>
 
 <div id="container-printable-donor">
+  <div class="container-printable-name-label">Donor:</div>
 	<%= simple_format(Setting.fetch(:ihc_address)) %>
 </div>
 	
@@ -54,4 +58,4 @@
   Canada Charity Registration Number <%= Setting.fetch(:ihc_charity_number) %>
 </div>
 
-<%= image_tag('seal.png') %>
+<%= image_tag('seal.png', class: 'container-printable-seal') %>

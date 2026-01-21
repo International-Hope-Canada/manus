@@ -1,0 +1,25 @@
+<table class="container-printable-table">
+  <thead>
+    <tr>
+      <th class="numeric">Row No.</th>
+      <th>Description</th>
+      <th class="numeric">Quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% row_number = 0 %>
+    <% items = summarized_container_items_for_printable(@container) %>
+    <% items.each do |subcategory, count, _total_value| %>
+      <tr>
+        <td class="numeric"><%= row_number += 1 %></td>
+        <td><%= subcategory.display_name %></td>
+        <td class="numeric"><%= count %></td>
+      </tr>
+    <% end %>
+    <tr class="container-printable-table-total">
+      <td class="numeric"><%= row_number += 1 %></td>
+      <td>Total</td>
+      <td class="numeric"><%= items.sum(&:second) %></td>
+    </tr>
+  </tbody>
+</table>

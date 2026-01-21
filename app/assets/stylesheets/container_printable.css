@@ -1,5 +1,6 @@
 #container-printable {
   width: 8.5in;
+  position: relative;
 
   .numeric {
     text-align: right;
@@ -13,7 +14,18 @@
     margin-left: 20px;
   }
 }
-#container-printable-charity-number {
+
+#container-printable-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+#container-printable-application-number {
+  font-weight: bold;
+}
+#container-printable-charity-number-header {
   text-align: center;
 }
 #container-printable-draft-notice {
@@ -24,4 +36,35 @@
   top: 4in;
   width: 8.5in;
   text-align: center;
+}
+.container-printable-table {
+  width: 100%;
+  border-collapse: collapse;
+  th, td {
+    border: 1px solid black;
+    padding: 4px;
+  }
+}
+.container-printable-table-heading, .container-printable-table-total {
+  font-weight: bold;
+}
+.container-printable-name-label {
+  font-weight: bold;
+}
+.container-printable-name-label + p {
+  margin-top: 0;
+}
+#container-printable-charity-number-footer {
+  font-weight: bold;
+}
+.container-printable-seal {
+  position: absolute;
+  bottom: 0.5in;
+  right: 0.5in;
+  width: 2in;
+}
+@media print {
+  #container-printable-navigation {
+    display: none;
+  }
 }
