@@ -1,7 +1,7 @@
 class ContainersController < ApplicationController
   before_action :authorize_picker!, only: %i[choose_for_picking pick items summary add_item remove_item manifest certificate_of_delivery packing_list]
-  before_action :authorize_admin!, only: %i[new create edit update index show destroy]
-  before_action :set_container, only: %i[show edit update destroy mark_as_shipped items summary manifest certificate_of_delivery packing_list]
+  before_action :authorize_admin!, only: %i[new create edit update index show destroy mark_as_shipped mark_as_not_shipped]
+  before_action :set_container, only: %i[show edit update destroy mark_as_shipped mark_as_not_shipped items summary manifest certificate_of_delivery packing_list]
 
   layout "container_printable", only: %i[manifest certificate_of_delivery packing_list]
 
@@ -65,6 +65,15 @@ class ContainersController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to @container, notice: "Container marked as shipped." }
+      format.json { render :show, status: :ok, location: @container }
+    end
+  end
+
+  def mark_as_not_shipped
+    @container.mark_as_not_shipped!
+
+    respond_to do |format|
+      format.html { redirect_to @container, notice: "Container marked as not shipped." }
       format.json { render :show, status: :ok, location: @container }
     end
   end

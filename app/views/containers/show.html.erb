@@ -2,6 +2,7 @@
   <p>
     <%= link_to 'Picking', pick_container_path(@container), class: "btn" if @container.can_receive_items? %>
     <%= link_to 'Edit', edit_container_path(@container), class: "btn" if @container.editable? %>
+    <%= link_to("Mark as not shipped", mark_as_not_shipped_container_path(@container), class: "btn", data: { turbo_method: :patch, turbo_confirm: "Marking a container as not shipped allows additions or removals to its contents. Are you sure?" }) if @container.shipped? %>
     <%= link_to("Mark as shipped", mark_as_shipped_container_path(@container), class: "btn", data: { turbo_method: :patch, turbo_confirm: "Marking a container as shipped prevents any further additions or removals. Are you sure?" }) if @container.can_be_marked_as_shipped? %>
     <%= link_to(@container.shipped? ? 'View manifest' : 'View draft manifest', manifest_container_path(@container), class: "btn") %>
     <%= link_to(@container.shipped? ? 'View CD' : 'View draft CD', certificate_of_delivery_container_path(@container), class: "btn") %>

@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :containers do
     member do
       patch :mark_as_shipped
+      patch :mark_as_not_shipped
       get :pick
       post :add_item
       delete :remove_item

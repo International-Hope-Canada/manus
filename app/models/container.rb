@@ -11,6 +11,12 @@ class Container < ApplicationRecord
     update!(shipped_at: Time.now)
   end
 
+  def mark_as_not_shipped!
+    raise "Already not shipped" unless shipped?
+
+    update!(shipped_at: nil)
+  end
+
   def can_be_marked_as_shipped?
     !shipped?
   end
