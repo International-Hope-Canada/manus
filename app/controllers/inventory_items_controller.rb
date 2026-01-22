@@ -1,12 +1,12 @@
 class InventoryItemsController < ApplicationController
   before_action :set_inventory_item, only: [ :show, :edit, :update, :destroy ]
   before_action :authorize_packer!, only: [ :new, :create, :edit, :update, :destroy ]
-  before_action :authorize_admin!, only: [ :index ]
+  before_action :authorize_admin!, only: [ :index, :barcode_lookup ]
 
   def new
     @breadcrumbs = [ index_breadcrumb, "New" ]
     @body_class = "inventory-entry"
-    @inventory_item = InventoryItem.new
+    @inventory_item = InventoryItem.new(barcode: params[:barcode])
 
     preselected_subcategory = current_user.recently_packed_item&.item_subcategory
     if preselected_subcategory
@@ -62,6 +62,22 @@ class InventoryItemsController < ApplicationController
     else
       redirect_to inventory_items_url, notice: "Inventory item was successfully destroyed."
     end
+  end
+
+  def barcode_lookup
+    @breadcrumbs = [ index_breadcrumb, "Barcode lookup" ]
+  end
+
+  def do_barcode_lookup
+    inventory_item = InventoryItem.find_by(barcode: params[:barcode])
+    if inventory_item
+      redirect_to inventory_item
+      return
+    end
+
+    @message = "No item with barcode #{params[:barcode]} found. #{view_context.link_to('Add it?', new_inventory_item_path(barcode: params[:barcode]))}"
+    @breadcrumbs = [ index_breadcrumb, "Barcode lookup" ]
+    render :barcode_lookup, status: :not_found
   end
 
   private

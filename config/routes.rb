@@ -28,7 +28,12 @@ Rails.application.routes.draw do
       get :choose_for_picking
     end
   end
-  resources :inventory_items
+  resources :inventory_items do
+    collection do
+      get :barcode_lookup
+      post :barcode_lookup, to: "inventory_items#do_barcode_lookup"
+    end
+  end
   resources :item_subcategories, except: :index do
     collection do
       get "picker"

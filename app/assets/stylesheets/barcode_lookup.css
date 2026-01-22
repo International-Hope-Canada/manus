@@ -1,0 +1,13 @@
+#barcode-lookup {
+  text-align: center;
+  width: 100%;
+  position: fixed;
+  top: 20vh;
+  font-size: 48px;
+  input {
+    font-size: 48px;
+  }
+  #barcode-lookup-result {
+    font-size: 32px;
+  }
+}

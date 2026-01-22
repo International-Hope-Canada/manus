@@ -1,0 +1,8 @@
+<div id="barcode-lookup">
+  <%= form_with(url: barcode_lookup_inventory_items_path, method: :POST, local: true) do |form| %>
+    <%= render partial: 'barcode_field', locals: { form: } %>
+  <% end %>
+  <% if @message.present? %>
+    <p id="barcode-lookup-result"><%= @message.html_safe %></p>
+  <% end %>
+</div>
