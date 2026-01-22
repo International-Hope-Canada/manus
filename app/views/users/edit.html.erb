@@ -42,13 +42,13 @@
 
   <% if @user.new_record? %>
     <div class="form-actions">
-      <%= form.submit "Create User", class: "btn btn-primary" %>
-      <%= link_to 'Cancel', users_path, class: "btn btn-secondary" %>
+      <%= form.submit "Create User" %>
+      <%= link_to 'Cancel', users_path %>
     </div>
   <% else %>
     <div class="form-actions">
-      <%= form.submit "Update User", class: "btn btn-primary" %>
-      <%= link_to 'Cancel', @user, class: "btn btn-secondary" %>
+      <%= form.submit "Update User" %>
+      <%= link_to 'Cancel', @user %>
     </div>
   <% end %>
 <% end %>

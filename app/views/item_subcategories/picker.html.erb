@@ -2,7 +2,7 @@
   <div class="item-subcategory-picker">
     <div class="classification-picker">
       <% %w(equipment supply).each do |classification| %>
-        <%= link_to classification.capitalize, { classification: }, class: ("active" if params[:classification] == classification), data: { classification:  } %>
+        <%= link_to classification.capitalize, { classification: }, class: "btn #{"active" if params[:classification] == classification}", data: { classification:  } %>
       <% end %>
     </div>
 

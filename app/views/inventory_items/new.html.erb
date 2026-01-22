@@ -46,13 +46,13 @@
 
     <% if @inventory_item.new_record? %>
       <div class="form-actions">
-        <%= form.submit "Add item to inventory", class: "btn btn-primary" %>
-        <%= link_to 'Cancel', '/', class: "btn btn-secondary" %>
+        <%= form.submit "Add item to inventory" %>
+        <%= link_to 'Cancel', '/' %>
       </div>
     <% else %>
       <div class="form-actions">
-        <%= form.submit "Update inventory item", class: "btn btn-primary" %>
-        <%= link_to 'Cancel', inventory_item_path(@inventory_item), class: "btn btn-secondary" %>
+        <%= form.submit "Update inventory item" %>
+        <%= link_to 'Cancel', inventory_item_path(@inventory_item) %>
       </div>
     <% end %>
   <% end %>

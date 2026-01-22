@@ -62,13 +62,13 @@
 
   <% if @container.new_record? %>
     <div class="form-actions">
-      <%= form.submit "Create Container", class: "btn btn-primary" %>
-      <%= link_to 'Cancel', containers_path, class: "btn btn-secondary" %>
+      <%= form.submit "Create Container" %>
+      <%= link_to 'Cancel', containers_path %>
     </div>
   <% else %>
     <div class="form-actions">
-      <%= form.submit "Update Container", class: "btn btn-primary" %>
-      <%= link_to 'Cancel', container_path(@container), class: "btn btn-secondary" %>
+      <%= form.submit "Update Container" %>
+      <%= link_to 'Cancel', container_path(@container) %>
     </div>
   <% end %>
 <% end %>

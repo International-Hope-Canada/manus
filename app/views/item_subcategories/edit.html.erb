@@ -36,13 +36,13 @@
   
   <% if @item_subcategory.new_record? %>
     <div class="form-actions">
-      <%= form.submit "Create subcategory", class: "btn btn-primary" %>
-      <%= link_to 'Cancel', @item_subcategory.item_category || item_categories_path, class: "btn btn-secondary" %>
+      <%= form.submit "Create subcategory" %>
+      <%= link_to 'Cancel', @item_subcategory.item_category || item_categories_path %>
     </div>
   <% else %>
     <div class="form-actions">
-      <%= form.submit "Update subcategory", class: "btn btn-primary" %>
-      <%= link_to 'Cancel', @item_subcategory, class: "btn btn-secondary" %>
+      <%= form.submit "Update subcategory" %>
+      <%= link_to 'Cancel', @item_subcategory %>
     </div>
   <% end %>
 <% end %>

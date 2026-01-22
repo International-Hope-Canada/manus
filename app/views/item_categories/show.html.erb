@@ -1,8 +1,8 @@
 <% if current_user.admin? %>
   <div class="page-actions">
     <p>
-      <%= link_to 'Edit', edit_item_category_path(@item_category), class: "btn btn-primary" %>
-      <%= link_to("Delete", @item_category, data: { turbo_method: :delete, turbo_confirm: "Delete this category and all its subcategories?" }) if @item_category.destroyable? %>
+      <%= link_to 'Edit', edit_item_category_path(@item_category), class: "btn" %>
+      <%= link_to("Delete", @item_category, class: "btn", data: { turbo_method: :delete, turbo_confirm: "Delete this category and all its subcategories?" }) if @item_category.destroyable? %>
     </p>
   </div>
 <% end %>
@@ -27,7 +27,7 @@
 <h2>Subcategories</h2>
 
 <p>
-  <%= link_to 'New', new_item_subcategory_path(item_category_id: @item_category.id), class: "btn btn-primary" %>
+  <%= link_to 'New', new_item_subcategory_path(item_category_id: @item_category.id), class: "btn" %>
 </p>
 
 <% if @item_category.item_subcategories.any? %>

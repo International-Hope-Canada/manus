@@ -44,3 +44,11 @@ h2 {
 [title] {
   text-decoration: underline dotted gray;
 }
+
+a.btn, a.btn:visited {
+  padding: 5px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  text-decoration: none;
+  color: black;
+}
