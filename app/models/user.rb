@@ -32,7 +32,7 @@ class User < ApplicationRecord
   end
 
   def most_recently_packed_items
-    packed_items.order(created_at: :desc).limit(10)
+    packed_items.order(created_at: :desc).limit(50)
   end
 
   def recently_packed_item
