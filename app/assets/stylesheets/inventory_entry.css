@@ -15,3 +15,9 @@ body.inventory-entry .content {
   align-items: flex-end;
   padding-bottom: 8px;
 }
+#inventory-entry-area, #inventory-review-area .data-table {
+  font-size: 20px;
+  select, input {
+    font-size: 20px;
+  }
+}
