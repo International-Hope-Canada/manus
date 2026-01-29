@@ -88,6 +88,7 @@ class ContainersController < ApplicationController
     @breadcrumbs = [ [ "Picking", choose_for_picking_containers_path ], @container.display_text ]
     @success = flash[:success]
     @success_message = flash[:success_message]
+    @body_class = 'add-item-to-container'
   end
 
   def add_item
