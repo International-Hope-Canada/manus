@@ -51,4 +51,8 @@ a.btn, a.btn:visited {
   border-radius: 5px;
   text-decoration: none;
   color: black;
+  &:hover {
+    border-color: black;
+    background-color: #F8F8F8;
+  }
 }
