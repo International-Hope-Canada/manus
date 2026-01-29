@@ -48,7 +48,7 @@
           </td>
         <% end %>
       </tr>
-      <% category.item_subcategories.order(:name).each do |subcategory| %>
+      <% category.item_subcategories.order(:catchall, :name).each do |subcategory| %>
         <tr>
           <td></td>
           <td></td>

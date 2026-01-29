@@ -32,7 +32,7 @@
           <% if category.missing_subcategories? %>
             <span class="saved-data-error">Missing subcategories!</span>
           <% else %>
-            <% active_subcategories = category.item_subcategories.active.order(:name) %>
+            <% active_subcategories = category.item_subcategories.active.order(:catchall, :name) %>
             <% if active_subcategories.count > 3 %>
               <%= active_subcategories.first(2).map {|subcategory| link_to(subcategory.name, subcategory)}.join(', ').html_safe
               %>, and <%= active_subcategories.count - 2 %> more…

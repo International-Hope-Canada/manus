@@ -46,7 +46,7 @@ class ItemSubcategoriesController < ApplicationController
 
   def picker
     @item_categories = ItemCategory.where(classification: params[:classification]).order(:name).select(&:selectable?) if params[:classification].present?
-    @item_subcategories = ItemSubcategory.where(item_category_id: params[:item_category_id]).order(:name).select(&:selectable?) if params[:item_category_id].present?
+    @item_subcategories = ItemSubcategory.where(item_category_id: params[:item_category_id]).order(:catchall, :name).select(&:selectable?) if params[:item_category_id].present?
   end
 
   private
@@ -56,6 +56,6 @@ class ItemSubcategoriesController < ApplicationController
   end
 
   def item_subcategory_params
-    params.require(:item_subcategory).permit(:name, :item_category_id, :value, :weight_kg, :active)
+    params.require(:item_subcategory).permit(:name, :item_category_id, :value, :weight_kg, :active, :catchall)
   end
 end

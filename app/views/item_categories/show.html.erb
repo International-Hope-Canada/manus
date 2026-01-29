@@ -41,7 +41,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @item_category.item_subcategories.order(active: :desc, name: :asc).each do |subcategory| %>
+      <% @item_category.item_subcategories.order(active: :desc, catchall: :asc, name: :asc).each do |subcategory| %>
         <tr>
           <td><%= subcategory.name %></td>
           <td><%= render_boolean(subcategory.active) %></td>

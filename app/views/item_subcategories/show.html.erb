@@ -18,6 +18,10 @@
       <td><%= render_boolean(@item_subcategory.active) %></td>
     </tr>
     <tr>
+      <th>Catch-all</th>
+      <td><%= render_boolean(@item_subcategory.catchall) %></td>
+    </tr>
+    <tr>
       <th>Value</th>
       <td class="numeric"><%= number_to_currency(@item_subcategory.value) if @item_subcategory.value %></td>
     </tr>

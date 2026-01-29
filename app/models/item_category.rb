@@ -29,7 +29,7 @@ class ItemCategory < ApplicationRecord
 
   def ensure_subcategory!
     if item_subcategories.empty?
-      item_subcategories.create!(name: "General")
+      item_subcategories.create!(name: "General", catchall: true)
     end
   end
 
