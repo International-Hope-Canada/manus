@@ -1,0 +1,48 @@
+<div class="report-filters">
+  View results with status:
+  <%= form_with method: :get, class: 'inline-form' do %>
+    <%= select_tag 'status',
+        options_for_select([['(All items)', '']] + InventoryItem::STATUS_DISPLAYS.map { |status, label| [label, status] }, params[:status]),
+        onchange: 'this.form.submit();' %>
+  <% end %>
+</div>
+
+<% inventory_link_params = params[:status].present? ? { 'inventory_item_filter[status]' => params[:status] } : {} %>
+
+<table class="report-table">
+  <tbody>
+    <% current_category = nil %>
+    <% current_category_count = 0 %>
+    <% @subcategories.each do |subcategory| %>
+      <% if current_category != subcategory.item_category %>
+        <% if current_category %>
+          <tr class="total-row">
+            <td colspan="2"></td>
+            <td class="numeric"><%= link_to(current_category_count, inventory_items_path(**inventory_link_params, 'inventory_item_filter[category]' => current_category.id)) %></td>
+          </tr>
+          <% current_category_count = 0 %>
+        <% end %>
+        <% current_category = subcategory.item_category %>
+        <tr>
+          <td colspan="2"><b><%= link_to(current_category.name, current_category) %></b></td>
+        </tr>
+      <% end %>
+      <tr>
+        <td></td>
+        <td><%= link_to(subcategory.name, subcategory) %></td>
+        <td class="numeric"><%= @inventory_items_by_subcategory[subcategory.id] %></td>
+      </tr>
+      <% current_category_count += @inventory_items_by_subcategory[subcategory.id] %>
+    <% end %>
+    <% if current_category %>
+      <tr class="total-row">
+        <td colspan="2"></td>
+        <td class="numeric"><%= link_to(current_category_count, inventory_items_path(**inventory_link_params, 'inventory_item_filter[category]' => current_category.id)) %></td>
+      </tr>
+    <% end %>
+    <tr class="total-row">
+      <td colspan="2">Total items</td>
+      <td class="numeric"><%= @inventory_items_by_subcategory.values.sum %></td>
+    </tr>
+  </tbody>
+</table>

@@ -1,7 +1,7 @@
 class InventoryItemsController < ApplicationController
   before_action :set_inventory_item, only: [ :show, :edit, :update, :destroy ]
   before_action :authorize_packer!, only: [ :new, :create, :edit, :update, :destroy ]
-  before_action :authorize_admin!, only: [ :index, :barcode_lookup ]
+  before_action :authorize_admin!, only: [ :index, :barcode_lookup, :by_category ]
 
   def new
     @breadcrumbs = [ index_breadcrumb, "New" ]
@@ -33,6 +33,14 @@ class InventoryItemsController < ApplicationController
   def index
     @inventory_items = apply_pagy(view_context.apply_inventory_item_sorts_and_filters(InventoryItem))
     @breadcrumbs = [ "Inventory" ]
+  end
+
+  def by_category
+    scope = InventoryItem
+    scope = scope.where(status: params[:status]) if params[:status].present?
+    @inventory_items_by_subcategory = scope.group(:item_subcategory_id).count
+    @subcategories = ItemSubcategory.joins(:item_category).where(id: @inventory_items_by_subcategory.keys).order(item_categories: { name: :asc }, item_subcategories: { catchall: :asc, name: :asc })
+    @breadcrumbs = [ index_breadcrumb, "By category" ]
   end
 
   def show

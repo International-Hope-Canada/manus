@@ -38,3 +38,6 @@
 .report-table .heading-row:not(:first-child) th, .report-table .heading-row:not(:first-child) td {
   padding-top: 1em;
 }
+.report-filters {
+  margin-bottom: 1em;
+}

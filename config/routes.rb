@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     collection do
       get :barcode_lookup
       post :barcode_lookup, to: "inventory_items#do_barcode_lookup"
+      get :by_category
     end
   end
   resources :item_subcategories, except: :index do

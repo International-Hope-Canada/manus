@@ -33,3 +33,7 @@
 .validation-error ul {
   margin-bottom: 0
 }
+
+.inline-form {
+  display: inline;
+}
