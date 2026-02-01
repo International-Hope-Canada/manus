@@ -1,3 +1,5 @@
+require 'csv'
+
 class Container < ApplicationRecord
   has_many :inventory_items, dependent: :nullify
 
@@ -47,5 +49,19 @@ class Container < ApplicationRecord
 
   def consignee_city_region_country
     [ consignee_city, consignee_region, consignee_country ].select(&:present?).join(", ")
+  end
+
+  def self.to_csv
+    CSV.generate(headers: true) do |csv|
+      csv << ["Application number", "Created at", "Shipped at", "Consignee name", "Consignee address", "Consignee city", "Consignee region", "Consignee country", "Consignee postal code", "Consignee contact name", "Consignee contact email", "Consignee contact phone", "Item count" ]
+
+      find_each do |container|
+        csv << container.csv_values
+      end
+    end
+  end
+
+  def csv_values
+    [ application_number, created_at, shipped_at, consignee_name, consignee_address, consignee_city, consignee_region, consignee_country, consignee_postal_code, consignee_contact_name, consignee_contact_email, consignee_contact_phone, inventory_items.count ]
   end
 end

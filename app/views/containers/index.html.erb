@@ -34,3 +34,6 @@
   </tbody>
 </table>
 <%= render_pagy %>
+<p>
+  <%= link_to 'Download CSV', containers_path(format: :csv, params: request.query_parameters), class: "btn" %>
+</p>

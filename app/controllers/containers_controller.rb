@@ -21,8 +21,16 @@ class ContainersController < ApplicationController
   end
 
   def index
-    @containers = apply_pagy(Container.order(application_number: :desc))
-    @breadcrumbs = [ "Containers" ]
+    scope = Container.order(application_number: :desc)
+    respond_to do |format|
+      format.html do
+        @containers = apply_pagy(scope)
+        @breadcrumbs = [ "Containers" ]
+      end
+      format.csv do
+        send_data scope.to_csv, filename: "containers-#{Time.current.strftime('%Y%m%d-%H%M%S')}.csv"
+      end
+    end
   end
 
   def show

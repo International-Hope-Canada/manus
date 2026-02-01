@@ -31,8 +31,16 @@ class InventoryItemsController < ApplicationController
   end
 
   def index
-    @inventory_items = apply_pagy(view_context.apply_inventory_item_sorts_and_filters(InventoryItem))
-    @breadcrumbs = [ "Inventory" ]
+    items = view_context.apply_inventory_item_sorts_and_filters(InventoryItem)
+    respond_to do |format|
+      format.html do
+        @inventory_items = apply_pagy(items)
+        @breadcrumbs = [ "Inventory" ]
+      end
+      format.csv do
+        send_data items.to_csv, filename: "inventory-items-#{Time.current.strftime('%Y%m%d-%H%M%S')}.csv"
+      end
+    end
   end
 
   def by_category
