@@ -11,10 +11,10 @@
   <tbody>
     <% row_number = 0 %>
     <% items = summarized_container_items_for_printable(@container) %>
-    <% items.each do |subcategory, count, _total_value| %>
+    <% items.each do |category_name, count, _total_value| %>
       <tr>
         <td class="numeric"><%= row_number += 1 %></td>
-        <td><%= subcategory.display_name %></td>
+        <td><%= category_name == :supply ? 'Boxes of medical supplies' : category_name %></td>
         <td class="numeric"><%= count %></td>
       </tr>
     <% end %>
