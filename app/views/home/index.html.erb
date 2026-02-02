@@ -1,5 +1,11 @@
 <% if current_user.nil? %>
-  <p>Please log in to continue.</p>
+  <p>Please enter your initials to log in.</p>
+  <%= form_with url: login_users_path, method: :post, local: true do |form| %>
+    <%= form.label :initials, "Initials:" %>
+    <%= form.text_field :initials, required: true, size: 3, maxlength: 3, autofocus: true, autocomplete: :off %>
+    <%= form.submit "Log in" %>
+  <% end %>
+
 <% else %>
   <% if current_user&.packer_access? %>
     <div class="home-panel">

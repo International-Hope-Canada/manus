@@ -56,3 +56,11 @@ a.btn, a.btn:visited {
     background-color: #F8F8F8;
   }
 }
+
+.flash.alert {
+  background-color: #ffdddd;
+  border: 2px solid red;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}

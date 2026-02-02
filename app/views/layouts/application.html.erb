@@ -28,12 +28,6 @@
         <% if current_user %>
           Logged in as <strong><%= current_user.initials %></strong> |
           <%= link_to "Log out", logout_users_path, data: { turbo_method: :delete } %>
-        <% else %>
-          <%= form_with url: login_users_path, method: :post, local: true do |form| %>
-            <%= form.label :user_id, "Log in as:" %>
-            <%= form.select :user_id, User.active.order(:initials).collect { |u| [u.initials, u.id] }, prompt: '(Choose user)', required: true %>
-            <%= form.submit "Log in" %>
-          <% end %>
         <% end %>
       </div>
 

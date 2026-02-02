@@ -50,7 +50,13 @@ class UsersController < ApplicationController
   end
 
   def login
-    session[:user_id] = params[:user_id]
+    user = User.active.find_by(initials: params[:initials])
+    if user
+      session[:user_id] = user.id
+    else
+      flash[:alert] = "No user found with initials '#{params[:initials]}'"
+    end
+
     redirect_to root_path
   end
 
