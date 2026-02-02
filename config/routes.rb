@@ -22,7 +22,7 @@ Rails.application.routes.draw do
       get :items
       get :summary
       get :manifest
-      get :certificate_of_delivery
+      get :certificate_of_donation
       get :packing_list
     end
     collection do

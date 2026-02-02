@@ -1,3 +1,5 @@
+<%= render partial: 'printable_preamble', locals: { container: @container } %>
+
 <table class="container-printable-table">
   <thead>
     <tr>
@@ -29,3 +31,9 @@
     </tr>
   </tbody>
 </table>
+
+<%= render partial: 'printable_consignee', locals: { container: @container } %>
+
+<%= render partial: 'printable_donor' %>
+
+<%= render partial: 'printable_charity_number_footer' %>

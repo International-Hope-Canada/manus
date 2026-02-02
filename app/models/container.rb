@@ -1,4 +1,4 @@
-require 'csv'
+require "csv"
 
 class Container < ApplicationRecord
   has_many :inventory_items, dependent: :nullify
@@ -53,7 +53,7 @@ class Container < ApplicationRecord
 
   def self.to_csv
     CSV.generate(headers: true) do |csv|
-      csv << ["Application number", "Created at", "Shipped at", "Consignee name", "Consignee address", "Consignee city", "Consignee region", "Consignee country", "Consignee postal code", "Consignee contact name", "Consignee contact email", "Consignee contact phone", "Item count" ]
+      csv << [ "Application number", "Created at", "Shipped at", "Consignee name", "Consignee address", "Consignee city", "Consignee region", "Consignee country", "Consignee postal code", "Consignee contact name", "Consignee contact email", "Consignee contact phone", "Item count" ]
 
       find_each do |container|
         csv << container.csv_values

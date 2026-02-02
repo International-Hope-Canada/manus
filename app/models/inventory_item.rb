@@ -1,4 +1,4 @@
-require 'csv'
+require "csv"
 
 class InventoryItem < ApplicationRecord
   belongs_to :item_subcategory
@@ -90,7 +90,7 @@ class InventoryItem < ApplicationRecord
 
   def self.to_csv
     CSV.generate(headers: true) do |csv|
-      csv << ['Barcode', 'Packed at', 'Packed by', 'Classification', 'Category', 'Subcategory', 'Description', 'Manual type', 'Oldest expiry year', 'Status', 'Container', 'Picked at', 'Picked by' ]
+      csv << [ "Barcode", "Packed at", "Packed by", "Classification", "Category", "Subcategory", "Description", "Manual type", "Oldest expiry year", "Status", "Container", "Picked at", "Picked by" ]
 
       find_each do |item|
         csv << item.csv_values
@@ -99,6 +99,6 @@ class InventoryItem < ApplicationRecord
   end
 
   def csv_values
-    [barcode, created_at, inventoried_by&.initials, classification, item_category&.name, item_subcategory&.name, description, manual_type_display, oldest_expiry_year, status_display, container&.application_number, picked_by&.initials, picked_at ]
+    [ barcode, created_at, inventoried_by&.initials, classification, item_category&.name, item_subcategory&.name, description, manual_type_display, oldest_expiry_year, status_display, container&.application_number, picked_by&.initials, picked_at ]
   end
 end

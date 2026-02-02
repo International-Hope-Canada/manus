@@ -1,6 +1,11 @@
+<%= render partial: 'printable_consignee', locals: { container: @container } %>
+
+<%= render partial: 'printable_preamble', locals: { container: @container } %>
+
 <table class="container-printable-table">
   <thead>
     <tr>
+      <th class="numeric">Row No.</th>
       <th class="numeric">Item No.</th>
       <th>Category</th>
       <th>Item</th>
@@ -11,12 +16,14 @@
   <tbody>
     <% all_items = container_items_for_printable(@container) %>
     <% categorized_items = [['Equipment', all_items.where(item_category: { classification: ItemCategory.classifications[:equipment] })], ['Supplies', all_items.where(item_category: { classification: ItemCategory.classifications[:supply] })]] %>
+    <% row_number = 0 %>
     <% categorized_items.each do |heading, items| %>
       <tr class="container-printable-table-heading">
-        <td colspan="6"><%= heading %></td>
+        <td colspan="7"><%= heading %></td>
       </tr>
       <% items.each do |item| %>
         <tr>
+          <td class="numeric"><%= row_number += 1 %></td>
           <td class="numeric"><%= item.barcode %></td>
           <td><%= item.item_category.name %></td>
           <td><%= item.item_subcategory.name %></td>
@@ -26,7 +33,7 @@
       <% end %>
     <% end %>
     <tr class="container-printable-table-total">
-      <td colspan="3">
+      <td colspan="4">
         Total
       </td>
       <td class="numeric"><%= number_to_currency(all_items.sum(&:value)) %></td>

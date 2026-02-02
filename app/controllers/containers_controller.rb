@@ -1,9 +1,9 @@
 class ContainersController < ApplicationController
-  before_action :authorize_picker!, only: %i[choose_for_picking pick items summary add_item remove_item manifest certificate_of_delivery packing_list]
+  before_action :authorize_picker!, only: %i[choose_for_picking pick items summary add_item remove_item manifest certificate_of_donation packing_list]
   before_action :authorize_admin!, only: %i[new create edit update index show destroy mark_as_shipped mark_as_not_shipped]
-  before_action :set_container, only: %i[show edit update destroy mark_as_shipped mark_as_not_shipped items summary manifest certificate_of_delivery packing_list]
+  before_action :set_container, only: %i[show edit update destroy mark_as_shipped mark_as_not_shipped items summary manifest certificate_of_donation packing_list]
 
-  layout "container_printable", only: %i[manifest certificate_of_delivery packing_list]
+  layout "container_printable", only: %i[manifest certificate_of_donation packing_list]
 
   def new
     @breadcrumbs = [ [ "Containers", containers_path ], "New Container" ]
@@ -165,9 +165,9 @@ class ContainersController < ApplicationController
     @printable_page_title = "Container ##{@container.application_number} Manifest"
   end
 
-  def certificate_of_delivery
-    @printable_title = "Certificate of Delivery"
-    @printable_page_title = "Container ##{@container.application_number} Certificate of Delivery"
+  def certificate_of_donation
+    @printable_title = "Certificate of Donation"
+    @printable_page_title = "Container ##{@container.application_number} Certificate of Donation"
   end
 
   def packing_list
