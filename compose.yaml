@@ -1,0 +1,12 @@
+services:
+  web:
+    build: .
+    environment:
+      - RAILS_MASTER_KEY
+    ports:
+      - "80:3000"
+    volumes:
+      - db:/rails/storage
+
+volumes:
+  db:

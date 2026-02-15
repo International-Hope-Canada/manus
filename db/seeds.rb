@@ -7,3 +7,6 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+User.reset_column_information
+User.create!(first_name: 'Jason', last_name: 'Barnabe', admin: true, initials: 'JLB') unless User.exists?(first_name: 'Jason', last_name: 'Barnabe')

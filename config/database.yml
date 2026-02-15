@@ -28,6 +28,21 @@ pg_default: &pg_default
 
 production:
   primary:
+    <<: *default
+    database: storage/production.sqlite3
+  cache:
+    <<: *default
+    database: storage/production_cache.sqlite3
+  queue:
+    <<: *default
+    database: storage/production_queue.sqlite3
+  cable:
+    <<: *default
+    database: storage/production_cable.sqlite3
+
+# Heroku doesn't support SQLite, so if we need to deploy there, make this the production config.
+production_heroku:
+  primary:
     <<: *pg_default
     url: <%= ENV["DATABASE_URL"] %> # Needed by heroku? https://stackoverflow.com/questions/79424099/heroku-not-running-database-migrations-for-rails-app
     #database: manus_demo
