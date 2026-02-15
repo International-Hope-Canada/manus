@@ -5,10 +5,20 @@
   margin: 10px;
   vertical-align: top;
   padding: 0 20px 5px 20px;
+  font-size: 20px;
 }
 .home-panel h2 {
   background-color: green;
   color: white;
   margin: 0 -20px auto -20px;
   padding: 0 20px 0 20px;
+}
+.home-login {
+  font-size: 20px;
+  input {
+    font-size: 20px;
+  }
+  #initials {
+    margin-right: 2em;
+  }
 }
