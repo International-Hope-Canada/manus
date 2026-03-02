@@ -12,12 +12,34 @@ manus is a Ruby on Rails app. The installation for development is typical of Rub
 
 ## Production build
 
-To build and run: `RAILS_MASTER_KEY=(values from config/master.key) docker compose up --build`
+To build and run the production image locally: `docker compose up --build`
 
-To build only: `RAILS_MASTER_KEY=(values from config/master.key) docker compose build`
+To do a manual transfer:
 
-To do a manual transfer, create a TAR with `docker save -o manus.tar manus`. This can be loaded with `docker load -i manus.tar`. This file is ~200MB.
+```
+export TAG=0.1
+docker compose build
+docker save -o images/manus-${TAG}.tar manus-web-production
+```
+
+This TAR is ~200MB. Transfer it to the server, as well as the `compose.yaml` file. Then on the server:
+
+```
+docker load -i manus-(TAG).tar
+TAG=(build number) docker compose up
+```
+
+This can be turned off with:
+```
+TAG=(build number) docker compose down
+```
 
 ## Backup
 
-The database is stored in a volume called manus_db. The database file to back up is `production.sqlite`.
+The database is stored in a volume called manus_db. The database file to back up is `production.sqlite3`.
+
+To copy from a running container, run `docker ps` to get the container ID, then run:
+
+```
+docker cp (container ID):/rails/storage/production.sqlite3 ./manus-production.sqlite
+```
