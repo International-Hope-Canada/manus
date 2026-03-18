@@ -17,6 +17,10 @@
       <td><%= link_to(@inventory_item.item_subcategory.display_name, @inventory_item.item_subcategory) %></td>
     </tr>
     <tr>
+      <th>Description</th>
+      <td class="multiline-text"><%= @inventory_item.description %></td>
+    </tr>
+    <tr>
       <th>Status</th>
       <td><%= @inventory_item.status_display %></td>
     <tr>
