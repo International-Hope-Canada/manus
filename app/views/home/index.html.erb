@@ -1,5 +1,6 @@
 <% if current_user.nil? %>
   <div class="home-login">
+    <h1>International Hope Canada - Manifest Inventory Management System (MIMS)</h1>
     <p>Please enter your initials to log in.</p>
     <%= form_with url: login_users_path, method: :post, local: true do |form| %>
       <%= form.text_field :initials, required: true, size: 3, maxlength: 3, autofocus: true, autocomplete: :off %>
