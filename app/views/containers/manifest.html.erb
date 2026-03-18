@@ -5,12 +5,13 @@
 <table class="container-printable-table">
   <thead>
     <tr>
-      <th class="numeric">Row No.</th>
-      <th class="numeric">Item No.</th>
+      <th class="numeric">Row #</th>
+      <th class="numeric">Item #</th>
       <th>Category</th>
-      <th>Item</th>
+      <th>Subcategory</th>
+      <th>Description</th>
       <th class="numeric">Value CDN</th>
-      <th class="numeric">Approx Weight kg</th>
+      <th class="numeric">Est. kg</th>
     </tr>
   </thead>
   <tbody>
@@ -27,6 +28,7 @@
           <td class="numeric"><%= item.barcode %></td>
           <td><%= item.item_category.name %></td>
           <td><%= item.item_subcategory.name %></td>
+          <td class="multiline-text"><%= item.description&.truncate(20) %></td>
           <td class="numeric"><%= number_to_currency(item.value) %></td>
           <td class="numeric"><%= item.weight %></td>
         </tr>
