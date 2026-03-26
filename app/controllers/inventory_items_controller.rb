@@ -62,6 +62,7 @@ class InventoryItemsController < ApplicationController
   end
 
   def update
+    @inventory_item.item_subcategory_id = params[:item_subcategory_id]
     if @inventory_item.update(inventory_item_params)
       redirect_to @inventory_item, notice: "Inventory item was successfully updated."
     else

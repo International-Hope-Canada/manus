@@ -1,0 +1,5 @@
+admin:
+  initials: 'ADM'
+  first_name: 'Addy'
+  last_name: 'Minto'
+  admin: true
