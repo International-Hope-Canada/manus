@@ -5,8 +5,8 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   def login(user: User.first)
     visit root_path
-    fill_in 'initials', with: user.initials
-    click_on 'Log in'
+    fill_in "initials", with: user.initials
+    click_on "Log in"
     assert_content "Logged in as #{user.initials}"
   end
 end
