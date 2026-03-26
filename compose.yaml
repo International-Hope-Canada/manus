@@ -1,3 +1,5 @@
+name: manus
+
 services:
   web:
     build: .
