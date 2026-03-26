@@ -1,1 +1,1 @@
-Pagy.options[:limit] = 50
+Pagy::OPTIONS[:limit] = 50
