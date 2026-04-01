@@ -11,7 +11,7 @@ class InventoryItem < ApplicationRecord
 
   delegate :equipment?, :supply?, :item_category, :item_category_id, :classification, to: :item_subcategory, allow_nil: true
 
-  validates :barcode, presence: true, uniqueness: true, format: { with: /[0-9]{1,8}/ }
+  validates :barcode, presence: true, uniqueness: true, format: { with: /\A[0-9]{1,8}\z/ }
   validates :oldest_expiry_year, numericality: { in: 1900..2100 }, allow_blank: true
   validates :manual_type, presence: true, if: :equipment?
   validates :status, inclusion: { in: [ "in_container" ] }, if: :container

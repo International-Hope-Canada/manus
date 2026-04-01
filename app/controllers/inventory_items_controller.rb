@@ -92,7 +92,7 @@ class InventoryItemsController < ApplicationController
       return
     end
 
-    @message = "No item with barcode #{params[:barcode]} found. #{view_context.link_to('Add it?', new_inventory_item_path(barcode: params[:barcode]))}"
+    @message = "No item with barcode #{CGI.escapeHTML(params[:barcode])} found. #{view_context.link_to('Add it?', new_inventory_item_path(barcode: params[:barcode]))}"
     @breadcrumbs = [ index_breadcrumb, "Barcode lookup" ]
     render :barcode_lookup, status: :not_found
   end
