@@ -8,11 +8,16 @@ class InventoryItemsController < ApplicationController
     @body_class = "inventory-entry"
     @inventory_item = InventoryItem.new(barcode: params[:barcode])
 
-    preselected_subcategory = current_user.recently_packed_item&.item_subcategory
-    if preselected_subcategory
-      @classification = preselected_subcategory.classification
-      @item_category_id = preselected_subcategory.item_category_id
-      @item_subcategory_id = preselected_subcategory.id
+    previous_item = current_user.recently_packed_item
+    if previous_item
+      preselected_subcategory = previous_item.item_subcategory
+      if preselected_subcategory
+        @classification = preselected_subcategory.classification
+        @item_category_id = preselected_subcategory.item_category_id
+        @item_subcategory_id = preselected_subcategory.id
+      end
+
+      @prefilled_description = previous_item.description
     end
   end
 

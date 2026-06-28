@@ -20,7 +20,7 @@ class InventoryItemTest < ApplicationSystemTestCase
   end
 
   test "creating an inventory item" do
-    subcategory = ItemSubcategory.first
+    subcategory = item_subcategories(:floss)
 
     visit new_inventory_item_path
     fill_in "Barcode", with: "123456"
@@ -28,6 +28,7 @@ class InventoryItemTest < ApplicationSystemTestCase
     sleep 1
     select subcategory.item_category.name
     choose subcategory.name
+    fill_in "Description", with: "So long dental plan"
     click_on "Add item to inventory"
 
     within "#inventory-review-area" do
@@ -37,5 +38,10 @@ class InventoryItemTest < ApplicationSystemTestCase
     item = InventoryItem.last
     assert_equal "123456", item.barcode
     assert_equal subcategory, item.item_subcategory
+
+    # Description gets auto-filled unless the subcategory changes
+    assert_field("Description", with: "So long dental plan")
+    choose "Toothpaste"
+    assert_field("Description", with: "")
   end
 end

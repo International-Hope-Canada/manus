@@ -18,6 +18,37 @@ const interceptEnter = (event) => {
   }
 }
 
-document.addEventListener('turbo:frame-load', preventFormSubmitOnEnter)
-document.addEventListener('turbo:render', preventFormSubmitOnEnter)
-document.addEventListener('DOMContentLoaded', preventFormSubmitOnEnter)
+const onSubcategoryChange = (event) => {
+  console.log('subcategory change')
+  let description = document.querySelector('#inventory_item_description')
+  if (description.dataset.autoFill === '1') {
+    description.value = ''
+    description.dataset.autoFill = null
+  }
+}
+
+const initSubcategoryChangeListener = () => {
+  document.querySelectorAll('.item-subcategory-picker input, .item-subcategory-picker select').forEach((radio) => radio.addEventListener('change', onSubcategoryChange))
+  document.querySelectorAll('.classification-picker a').forEach((link) => link.addEventListener('click', onSubcategoryChange))
+}
+
+const onDescriptionChange = (event) => {
+  let input = event.target
+  if (input.dataset.autoFill === '1') {
+    input.dataset.autoFill = null
+  }
+}
+
+const initDescriptionChangeListener = () => {
+  document.querySelector('#inventory_item_description')?.addEventListener('input', onDescriptionChange)
+}
+
+const init = () => {
+  preventFormSubmitOnEnter()
+  initSubcategoryChangeListener()
+  initDescriptionChangeListener()
+}
+
+document.addEventListener('turbo:frame-load', init)
+document.addEventListener('turbo:render', init)
+document.addEventListener('DOMContentLoaded', init)
