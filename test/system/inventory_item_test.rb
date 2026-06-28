@@ -18,4 +18,24 @@ class InventoryItemTest < ApplicationSystemTestCase
     item.reload
     assert_equal new_subcategory, item.item_subcategory
   end
+
+  test "creating an inventory item" do
+    subcategory = ItemSubcategory.first
+
+    visit new_inventory_item_path
+    fill_in "Barcode", with: "123456"
+    click_link subcategory.classification.to_s.capitalize
+    sleep 1
+    select subcategory.item_category.name
+    choose subcategory.name
+    click_on "Add item to inventory"
+
+    within "#inventory-review-area" do
+      assert_content "123456 Dental: Floss Inventory"
+    end
+
+    item = InventoryItem.last
+    assert_equal "123456", item.barcode
+    assert_equal subcategory, item.item_subcategory
+  end
 end

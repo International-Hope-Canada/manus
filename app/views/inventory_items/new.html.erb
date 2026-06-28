@@ -1,7 +1,7 @@
 <div id="inventory-entry-area">
   <%= form_with(model: @inventory_item, local: true) do |form| %>
     <div class="form-group">
-      <label>Barcode</label>
+      <label for="inventory_item_barcode">Barcode</label>
       <%= render partial: 'barcode_field', locals: { form: } %>
     </div>
 
