@@ -21,10 +21,10 @@ body.add-item-to-container {
   height: 60px;
 }
 #add-item-to-container-scanner .results-area-failure {
-  background-color: red;
+  background-color: rgb(255, 128, 128)
 }
 #add-item-to-container-scanner .results-area-success {
-  background-color: green;
+  background-color: rgb(64, 255, 64);
 }
 
 #add-item-to-container-contents {

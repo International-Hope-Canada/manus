@@ -3,10 +3,10 @@
   font-weight: bold;
 }
 .barcode-ready, .barcode-entered-not-ready {
-    color: green;
+  color: green;
 }
 .barcode-not-ready {
-    color: red;
+  color: red;
 }
 input:focus ~ .barcode-ready {
   display: block;
@@ -15,5 +15,5 @@ input:invalid:not(:focus) ~ .barcode-not-ready {
   display: block;
 }
 input:valid:not(:focus) ~ .barcode-entered-not-ready {
- display: block; 
+  display: block;
 }
