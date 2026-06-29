@@ -22,8 +22,7 @@ const onSubcategoryChange = (event) => {
   console.log('subcategory change')
   let description = document.querySelector('#inventory_item_description')
   if (description.dataset.autoFill === '1') {
-    description.value = ''
-    description.dataset.autoFill = null
+    clearDescription()
   }
 }
 
@@ -43,10 +42,22 @@ const initDescriptionChangeListener = () => {
   document.querySelector('#inventory_item_description')?.addEventListener('input', onDescriptionChange)
 }
 
+const clearDescription = (event) => {
+  let description = document.getElementById('inventory_item_description')
+  description.value = ''
+  description.dataset.autoFill = null
+  event?.preventDefault()
+}
+
+const initDescriptionClearListener = () => {
+  document.querySelector('.description-clear')?.addEventListener('click', clearDescription)
+}
+
 const init = () => {
   preventFormSubmitOnEnter()
   initSubcategoryChangeListener()
   initDescriptionChangeListener()
+  initDescriptionClearListener()
 }
 
 document.addEventListener('turbo:frame-load', init)

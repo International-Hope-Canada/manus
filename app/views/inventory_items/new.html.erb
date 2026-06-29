@@ -37,6 +37,7 @@
       <% else %>
         <%= form.text_area :description, class: "form-control" %>
       <% end %>
+      <button class="description-clear">Clear</button>
     </div>
 
     <% if !@inventory_item.in_container? && !@inventory_item.new_record? %>

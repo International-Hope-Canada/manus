@@ -44,4 +44,11 @@ class InventoryItemTest < ApplicationSystemTestCase
     choose "Toothpaste"
     assert_field("Description", with: "")
   end
+
+  test "clearing description" do
+    visit new_inventory_item_path
+    fill_in "Description", with: "So long dental plan"
+    click_button "Clear"
+    assert_field("Description", with: "")
+  end
 end
