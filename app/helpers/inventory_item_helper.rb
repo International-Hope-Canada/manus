@@ -1,4 +1,6 @@
 module InventoryItemHelper
+  MAX_DESCRIPTION_DISPLAY_LENGTH = 30
+
   def apply_inventory_item_sorts_and_filters(inventory_items, context: nil)
     inventory_items = inventory_items.includes(item_subcategory: :item_category, picked_by: {}, inventoried_by: {}, container: {})
 
@@ -66,5 +68,17 @@ module InventoryItemHelper
         [ [ "(All supplies)", "supply" ] ] + ItemCategory.where(classification: :supply).order(:name).map { |c| [ c.name, c.id ] }
       ]
     ]
+  end
+
+  def render_description(inventory_item)
+    return "" unless inventory_item.description.present?
+
+    if inventory_item.description.length > MAX_DESCRIPTION_DISPLAY_LENGTH
+      return content_tag :span, class: "text-muted", title: inventory_item.description do
+        inventory_item.description.truncate(MAX_DESCRIPTION_DISPLAY_LENGTH)
+      end
+    end
+
+    inventory_item.description
   end
 end

@@ -75,6 +75,7 @@
             <th>Created</th>
             <th class="numeric">Barcode</th>
             <th>Category</th>
+            <th>Description</th>
             <th>Status</th>
           </tr>
         </thead>
@@ -84,6 +85,7 @@
               <td><%= render_datetime(inventory_item.created_at) %>
               <td class="numeric"><%= inventory_item.barcode %> </td>
               <td><%= link_to(inventory_item.item_subcategory.display_name, inventory_item.item_subcategory) %></td>
+              <td><%= render_description(inventory_item) %></td>
               <td>
                 <%= inventory_item.status_display %><% if inventory_item.container %>: <%= link_to(inventory_item.container.application_number, inventory_item.container) %><% end %>
               </td>

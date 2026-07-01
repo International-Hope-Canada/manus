@@ -32,7 +32,7 @@ class InventoryItemTest < ApplicationSystemTestCase
     click_on "Add item to inventory"
 
     within "#inventory-review-area" do
-      assert_content "123456 Dental: Floss Inventory"
+      assert_content "123456 Dental: Floss So long dental plan Inventory"
     end
 
     item = InventoryItem.last

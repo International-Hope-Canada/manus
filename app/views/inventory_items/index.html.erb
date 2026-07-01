@@ -22,6 +22,7 @@
           Category <%= list_sort_link(param_name: :inventory_item_sort, param_value: :category) %>
           <%= list_filter_control(scope: :inventory_item_filter, column: :category, control_type: :grouped_select, options: category_select_options) %>
         </th>
+        <th>Description</th>
         <th>Packed by <%= list_sort_link(param_name: :inventory_item_sort, param_value: :packed_by) %></th>
         <th>
           Status 
@@ -48,6 +49,7 @@
           <td><%= render_datetime(inventory_item.created_at) %></td>
           <td class="numeric"><%= inventory_item.barcode %></td>
           <td><%= link_to(inventory_item.item_subcategory.display_name, inventory_item.item_subcategory) %></td>
+          <td><%= render_description(inventory_item) %></td>
           <td><%= render_user(inventory_item.inventoried_by) %></td>
           <td><%= inventory_item.status_display %></td>
           <td>
