@@ -1,6 +1,9 @@
 require "csv"
 
 class InventoryItem < ApplicationRecord
+  EXPIRY_ENTRY_PAST_YEARS = 2
+  EXPIRY_ENTRY_FUTURE_YEARS = 5
+
   belongs_to :item_subcategory
   belongs_to :inventoried_by, class_name: "User", inverse_of: :packed_items
   belongs_to :container, optional: true
@@ -74,10 +77,10 @@ class InventoryItem < ApplicationRecord
   end
 
   def expiry_date_options
-    default_options = (Date.current.year - 2)..(Date.current.year + 2)
+    default_options = (Date.current.year - EXPIRY_ENTRY_PAST_YEARS)..(Date.current.year + EXPIRY_ENTRY_FUTURE_YEARS)
     return default_options if oldest_expiry_year.nil? || default_options.include?(oldest_expiry_year)
 
-    oldest_expiry_year..(Date.current.year + 2)
+    oldest_expiry_year..(Date.current.year + EXPIRY_ENTRY_FUTURE_YEARS)
   end
 
   def weight
